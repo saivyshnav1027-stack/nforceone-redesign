@@ -1,32 +1,32 @@
 {
   "app.js": {
-    "mtime": 1788962971.8100762,
-    "seen": 1788972061.725766,
-    "ast_hash": "23b59ca753d8322a2a9c8091dc621cf6",
-    "semantic_hash": "23b59ca753d8322a2a9c8091dc621cf6"
+    "mtime": 1788972682.3325772,
+    "seen": 1788973097.1263642,
+    "ast_hash": "de4e9164c016a146023b36ef574786b6",
+    "semantic_hash": "de4e9164c016a146023b36ef574786b6"
   },
   "extract_brand.js": {
     "mtime": 1787741156.173631,
-    "seen": 1788972061.725766,
+    "seen": 1788973097.1263642,
     "ast_hash": "29e5781d304c84c194467c8de2e98dd1",
     "semantic_hash": "29e5781d304c84c194467c8de2e98dd1"
   },
   "package.json": {
     "mtime": 1788955030.311496,
-    "seen": 1788972061.725766,
+    "seen": 1788973097.1263642,
     "ast_hash": "46c6ea28825c4f773627fc4493ac277f",
     "semantic_hash": "46c6ea28825c4f773627fc4493ac277f"
   },
   "playwright.config.js": {
     "mtime": 1788956126.6886165,
-    "seen": 1788972061.725766,
+    "seen": 1788973097.1263642,
     "ast_hash": "35cbfe90fb4bba868366e33ee53eddce",
     "semantic_hash": "35cbfe90fb4bba868366e33ee53eddce"
   },
   "tests/ui.spec.js": {
-    "mtime": 1788964181.3032432,
-    "seen": 1788972061.725766,
-    "ast_hash": "962e4a50ba7b8f2d84d85cfcbb8b2a02",
-    "semantic_hash": "962e4a50ba7b8f2d84d85cfcbb8b2a02"
+    "mtime": 1788972805.8657317,
+    "seen": 1788973097.1263642,
+    "ast_hash": "6d7b9895d488b3a62bf870b0a273a30d",
+    "semantic_hash": "6d7b9895d488b3a62bf870b0a273a30d"
   }
 }

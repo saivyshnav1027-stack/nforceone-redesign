@@ -257,5 +257,52 @@ test.describe('NForceOne B2B Executive Website UI & Interactivity Tests', () => 
     await expect(naviDrawer).not.toHaveClass(/active/);
   });
 
+  test('13. Enterprise Client Case Studies Display & Tab Switching (US-602 & US-603)', async ({ page }) => {
+    await page.goto(fileUrl);
+
+    const caseSection = page.locator('#case-studies');
+    await expect(caseSection).toBeVisible();
+
+    // Verify Default Telecom Carrier panel
+    await expect(page.locator('#case-telecom')).toBeVisible();
+    await expect(page.locator('#case-telecom')).toContainText('99.99%');
+    await expect(page.locator('#case-telecom')).toContainText('Senior Director of Network Systems & QA');
+
+    // Switch to FinTech tab
+    await page.locator('.case-study-tab[data-case="fintech"]').click();
+    await expect(page.locator('#case-fintech')).toBeVisible();
+    await expect(page.locator('#case-fintech')).toContainText('50,000');
+    await expect(page.locator('#case-fintech')).toContainText('VP of Cloud Engineering');
+
+    // Switch to HealthTech tab
+    await page.locator('.case-study-tab[data-case="healthtech"]').click();
+    await expect(page.locator('#case-healthtech')).toBeVisible();
+    await expect(page.locator('#case-healthtech')).toContainText('60%');
+    await expect(page.locator('#case-healthtech')).toContainText('Chief Information Officer');
+  });
+
+  test('14. Appendix A Technical Blueprint Modal & Employee Experience Culture Strip (US-602 & US-604)', async ({ page }) => {
+    await page.goto(fileUrl);
+
+    // Open Telecom Appendix A Blueprint modal
+    const blueprintBtn = page.locator('#case-telecom .open-case-modal');
+    await blueprintBtn.click();
+
+    const caseModal = page.locator('#caseStudyModal');
+    await expect(caseModal).toHaveClass(/active/);
+    await expect(page.locator('#caseModalTitle')).toContainText('Billing Modernization');
+    await expect(page.locator('#caseModalMetric')).toContainText('99.99%');
+
+    // Close modal
+    await page.locator('#caseModalCloseBtn').click();
+    await expect(caseModal).not.toHaveClass(/active/);
+
+    // Verify Cross-Border Employee Culture Strip (US-604)
+    await expect(page.locator('#case-studies')).toContainText('Rajesh V.');
+    await expect(page.locator('#case-studies')).toContainText('Dallas, TX');
+    await expect(page.locator('#case-studies')).toContainText('Ananya S.');
+    await expect(page.locator('#case-studies')).toContainText('Bengaluru, India');
+  });
+
 });
 

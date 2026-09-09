@@ -402,6 +402,104 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Case Studies & Appendix A Blueprint Logic (US-602, US-603)
+  const caseStudyTabs = document.querySelectorAll('.case-study-tab');
+  const caseStudyPanels = document.querySelectorAll('.case-study-panel');
+  const caseStudyModal = document.getElementById('caseStudyModal');
+  const caseModalCloseBtn = document.getElementById('caseModalCloseBtn');
+
+  const caseData = {
+    telecom: {
+      badge: 'Tier-1 US Telecom Operator',
+      category: 'Appendix A Architecture Specification',
+      title: 'Zero-Downtime Billing Modernization & Automated SIT Protocol Testing',
+      delivery: 'Hybrid Follow-the-Sun',
+      squad: '24 Engineers (US + IN)',
+      timeline: '6 Months Cutover',
+      metric: '99.99% Uptime',
+      solution: 'Re-architected billing mediation into containerized microservices orchestrated on AWS EKS with Apache Kafka for real-time CDR stream ingestion. Deployed QForce AI to generate 8,500+ automated SIT scenarios, validating subscriber rating engines with zero billing leakage.',
+      qa: 'Integrated automated nightly regression suites spanning 5G interface protocols, rating mediation edge cases, and CRM subscriber sync. System integration testing turnaround reduced from 28 days to under 48 hours.',
+      value: 'Prevented an estimated $4.8M in annual revenue leakage, achieved zero customer-impacting outages during migration, and cut recurring QA overhead by 68%.'
+    },
+    fintech: {
+      badge: 'Global FinTech Processor',
+      category: 'Appendix A Architecture Specification',
+      title: 'PCI-DSS Level 1 Cloud Migration & 50,000 TPS Load Architecture',
+      delivery: 'Onshore + Dedicated Offshore CoE',
+      squad: '18 Engineers (US + IN)',
+      timeline: '4 Months Migration',
+      metric: '50,000 Peak TPS',
+      solution: 'Architected an event-driven serverless payment authorization engine utilizing Apache Kafka and multi-region AWS Aurora. Encrypted all transactions with hardware security module (HSM) tokenization adhering to PCI-DSS Level 1 protocols.',
+      qa: 'Engineered distributed Gatling and JMeter performance suites simulating 100,000 concurrent payment flows. Implemented FlightOps automated security compliance gates in CI/CD pipeline.',
+      value: 'Sustained 50,000 peak TPS during holiday peak volume with zero transaction drops. Cut release deployment cycle times by 45% and passed independent PCI audits with zero findings.'
+    },
+    healthtech: {
+      badge: 'Enterprise HealthTech Enterprise',
+      category: 'Appendix A Architecture Specification',
+      title: 'HIPAA-Compliant Patient Portal & Automated AI Diagnostic Testing',
+      delivery: 'Managed Engineering Capacity',
+      squad: '14 Engineers (US + IN)',
+      timeline: '5 Months Hardening',
+      metric: '60% Maintenance Saved',
+      solution: 'Modernized EHR patient workflows into scalable Azure Health Data microservices. Configured synthetic FHIR/HL7 test data generators to guarantee zero protected health information (PHI) exposure during automated staging tests.',
+      qa: 'Deployed QForce AI self-healing QA engines that adaptively update broken UI selectors during continuous clinical portal updates, eliminating fragile test failures.',
+      value: 'Saved 60% of recurring QA maintenance hours, increased sprint deployment velocity by 3.5x, and passed rigorous HIPAA and SOC2 Type II audits flawlessly.'
+    }
+  };
+
+  caseStudyTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const targetCase = tab.getAttribute('data-case');
+
+      caseStudyTabs.forEach(t => {
+        t.classList.remove('active', 'border-primary', 'text-primary');
+        t.classList.add('border-transparent', 'text-muted-charcoal');
+      });
+      tab.classList.add('active', 'border-primary', 'text-primary');
+      tab.classList.remove('border-transparent', 'text-muted-charcoal');
+
+      caseStudyPanels.forEach(panel => {
+        if (panel.id === `case-${targetCase}`) {
+          panel.classList.remove('hidden');
+        } else {
+          panel.classList.add('hidden');
+        }
+      });
+    });
+  });
+
+  document.querySelectorAll('.open-case-modal').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const caseKey = btn.getAttribute('data-case');
+      const data = caseData[caseKey];
+      if (data && caseStudyModal) {
+        document.getElementById('caseModalBadge').textContent = data.badge;
+        document.getElementById('caseModalCategory').textContent = data.category;
+        document.getElementById('caseModalTitle').textContent = data.title;
+        document.getElementById('caseModalDelivery').textContent = data.delivery;
+        document.getElementById('caseModalSquad').textContent = data.squad;
+        document.getElementById('caseModalTimeline').textContent = data.timeline;
+        document.getElementById('caseModalMetric').textContent = data.metric;
+        document.getElementById('caseModalSolutionText').textContent = data.solution;
+        document.getElementById('caseModalQAText').textContent = data.qa;
+        document.getElementById('caseModalValueText').textContent = data.value;
+
+        caseStudyModal.classList.add('active');
+      }
+    });
+  });
+
+  if (caseModalCloseBtn && caseStudyModal) {
+    caseModalCloseBtn.addEventListener('click', () => {
+      caseStudyModal.classList.remove('active');
+    });
+    caseStudyModal.addEventListener('click', (e) => {
+      if (e.target === caseStudyModal) {
+        caseStudyModal.classList.remove('active');
+      }
+    });
+  }
+
   // Handle Quick Discovery Chips
   document.querySelectorAll('.navi-chip').forEach(chip => {
     chip.addEventListener('click', function() {

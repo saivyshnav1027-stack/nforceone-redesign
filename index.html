@@ -58,6 +58,7 @@
         <a class="font-label-md text-sm font-semibold text-on-background hover:text-primary transition-colors duration-200" href="#capabilities">Capabilities</a>
         <a class="font-label-md text-sm font-semibold text-on-background hover:text-primary transition-colors duration-200" href="#telecom">Telecom</a>
         <a class="font-label-md text-sm font-semibold text-on-background hover:text-primary transition-colors duration-200" href="#products">Products</a>
+        <a class="font-label-md text-sm font-semibold text-on-background hover:text-primary transition-colors duration-200" href="#case-studies">Case Studies</a>
         <a class="font-label-md text-sm font-semibold text-on-background hover:text-primary transition-colors duration-200" href="#engagement">Engagement Models</a>
         <a class="font-label-md text-sm font-semibold text-on-background hover:text-primary transition-colors duration-200" href="#matrix">Tech Matrix</a>
         <a class="font-label-md text-sm font-semibold text-on-background hover:text-primary transition-colors duration-200" href="#process">Process</a>
@@ -723,6 +724,365 @@
       </div>
     </section>
 
+    <!-- ==========================================================================
+         Client Case Studies Library & Verified Proof (US-602, US-603, US-604)
+         PRD v1.3 Appendix A Delivery Standard & Executive Testimonials
+         ========================================================================== -->
+    <section class="py-24 px-6 md:px-16 bg-surface border-b border-border-light" id="case-studies">
+      <div class="max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+          <div class="max-w-3xl">
+            <span class="text-xs font-bold uppercase tracking-wider text-primary">Proven Outcomes & Appendix A Delivery Standard</span>
+            <h2 class="font-headline-lg text-4xl font-bold text-on-background mt-2">Enterprise Client Case Studies</h2>
+            <p class="font-body-lg text-lg text-muted-charcoal mt-3">
+              Real architectural transformations, verified SLA improvements, and executive testimonials. Every engagement is benchmarked against rigorous engineering metrics.
+            </p>
+          </div>
+          
+          <!-- Case Study Tabs -->
+          <div class="flex flex-wrap gap-2 mt-6 md:mt-0 border-b border-border-light">
+            <button class="case-study-tab active font-label-md text-sm font-semibold px-5 py-3 border-b-2 border-primary text-primary transition-all cursor-pointer" data-case="telecom">
+              Telecom Carrier
+            </button>
+            <button class="case-study-tab font-label-md text-sm font-semibold px-5 py-3 border-b-2 border-transparent text-muted-charcoal hover:text-on-background transition-all cursor-pointer" data-case="fintech">
+              Global FinTech
+            </button>
+            <button class="case-study-tab font-label-md text-sm font-semibold px-5 py-3 border-b-2 border-transparent text-muted-charcoal hover:text-on-background transition-all cursor-pointer" data-case="healthtech">
+              HealthTech Cloud
+            </button>
+          </div>
+        </div>
+
+        <!-- Dynamic Case Studies Display Container -->
+        <div id="caseStudyContainer">
+          <!-- Case Study 1: Telecom Carrier (Active Default) -->
+          <div class="case-study-panel" id="case-telecom">
+            <div class="border border-border-light bg-surface shadow-sm">
+              <!-- Top Metadata & Telemetry Strip -->
+              <div class="bg-slate-900 text-white p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-slate-800">
+                <div>
+                  <div class="flex items-center gap-2 mb-2">
+                    <span class="px-2.5 py-0.5 text-[11px] font-mono font-bold bg-primary text-white uppercase rounded">Tier-1 US Telecom Operator</span>
+                    <span class="text-xs text-slate-400">OSS/BSS & Network QA Transformation</span>
+                  </div>
+                  <h3 class="font-headline-sm text-2xl md:text-3xl font-bold text-white">
+                    Zero-Downtime Billing Modernization & Automated SIT Protocol Testing
+                  </h3>
+                </div>
+                <div class="flex items-center gap-4 flex-wrap">
+                  <div class="px-4 py-2 bg-slate-800 border border-slate-700 rounded text-center">
+                    <div class="text-xl font-extrabold text-primary">99.99%</div>
+                    <div class="text-[10px] text-slate-300 uppercase tracking-wider">Uptime Maintained</div>
+                  </div>
+                  <div class="px-4 py-2 bg-slate-800 border border-slate-700 rounded text-center">
+                    <div class="text-xl font-extrabold text-primary">68%</div>
+                    <div class="text-[10px] text-slate-300 uppercase tracking-wider">Faster SIT Cycles</div>
+                  </div>
+                  <div class="px-4 py-2 bg-slate-800 border border-slate-700 rounded text-center">
+                    <div class="text-xl font-extrabold text-primary">$4.8M</div>
+                    <div class="text-[10px] text-slate-300 uppercase tracking-wider">Leakage Prevented</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 3-Column Appendix A Breakdown -->
+              <div class="p-8 grid grid-cols-1 md:grid-cols-3 gap-8 border-b border-border-light">
+                <div>
+                  <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-primary mb-3">
+                    <span class="material-symbols-outlined text-base">warning</span> 1. Client Challenge
+                  </div>
+                  <p class="text-sm text-muted-charcoal leading-relaxed mb-4">
+                    Legacy 15-year-old monolithic billing and subscriber provisioning platform was experiencing intermittent rating errors and revenue leakage during high-concurrency peak cycles. Manual regression took 4 weeks per release, severely stalling 5G rollouts.
+                  </p>
+                  <ul class="text-xs text-muted-charcoal space-y-1.5 list-disc list-inside">
+                    <li>Multi-week manual SIT testing bottlenecks</li>
+                    <li>Sub-optimal mediator rating engines</li>
+                    <li>Strict zero-outage regulatory compliance SLA</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-primary mb-3">
+                    <span class="material-symbols-outlined text-base">psychology</span> 2. NForce Solution
+                  </div>
+                  <p class="text-sm text-muted-charcoal leading-relaxed mb-4">
+                    Deployed a 24-person Follow-the-Sun hybrid engineering squad (US Enterprise Architects + India Telecom CoE). Re-architected billing mediation into cloud-native microservices and deployed QForce AI to generate 8,500+ automated SIT scenarios.
+                  </p>
+                  <ul class="text-xs text-muted-charcoal space-y-1.5 list-disc list-inside">
+                    <li>Automated synthetic billing validation engine</li>
+                    <li>Hybrid US + Bengaluru engineering delivery</li>
+                    <li>Self-healing test locator automation via QForce AI</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-primary mb-3">
+                    <span class="material-symbols-outlined text-base">verified</span> 3. Validated Outcomes
+                  </div>
+                  <p class="text-sm text-muted-charcoal leading-relaxed mb-4">
+                    Cut regression turnaround time from 28 days to under 48 hours with continuous nightly test runs. Migrated 14 million subscriber accounts to modern containerized microservices without a single billing interruption.
+                  </p>
+                  <div class="p-3 bg-background-alt border border-border-light rounded text-xs space-y-1">
+                    <div class="font-bold text-on-background">Tech Stack:</div>
+                    <div class="text-muted-charcoal">AWS EKS, Kafka, QForce AI, Playwright, Pega, Oracle CDR</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Executive Testimonial (US-603) & Action Row -->
+              <div class="p-8 bg-background-alt flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+                <div class="flex items-start gap-4 max-w-3xl">
+                  <div class="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center flex-shrink-0 mt-1">
+                    <span class="material-symbols-outlined text-2xl">format_quote</span>
+                  </div>
+                  <div>
+                    <blockquote class="text-sm italic font-medium text-on-background mb-2">
+                      "NForce One provided both the battle-tested telecom domain expertise and the scalable engineering muscle we needed. Their hybrid US-India delivery model felt like an organic extension of our core architecture squad."
+                    </blockquote>
+                    <div class="text-xs font-bold text-on-background">Senior Director of Network Systems & QA</div>
+                    <div class="text-[11px] text-muted-charcoal">Tier-1 US Telecommunications Carrier</div>
+                  </div>
+                </div>
+
+                <div class="flex items-center gap-3 flex-shrink-0">
+                  <button class="open-case-modal bg-on-background text-white hover:bg-primary transition-colors text-xs font-semibold px-5 py-3 flex items-center gap-2 cursor-pointer" data-case="telecom">
+                    Read Appendix A Blueprint <span class="material-symbols-outlined text-sm">open_in_new</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Case Study 2: FinTech Platform -->
+          <div class="case-study-panel hidden" id="case-fintech">
+            <div class="border border-border-light bg-surface shadow-sm">
+              <div class="bg-slate-900 text-white p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-slate-800">
+                <div>
+                  <div class="flex items-center gap-2 mb-2">
+                    <span class="px-2.5 py-0.5 text-[11px] font-mono font-bold bg-primary text-white uppercase rounded">Global FinTech Processor</span>
+                    <span class="text-xs text-slate-400">High-Throughput Payment Modernization</span>
+                  </div>
+                  <h3 class="font-headline-sm text-2xl md:text-3xl font-bold text-white">
+                    PCI-DSS Level 1 Cloud Migration & 50,000 TPS Load Architecture
+                  </h3>
+                </div>
+                <div class="flex items-center gap-4 flex-wrap">
+                  <div class="px-4 py-2 bg-slate-800 border border-slate-700 rounded text-center">
+                    <div class="text-xl font-extrabold text-primary">50,000</div>
+                    <div class="text-[10px] text-slate-300 uppercase tracking-wider">Peak TPS Sustained</div>
+                  </div>
+                  <div class="px-4 py-2 bg-slate-800 border border-slate-700 rounded text-center">
+                    <div class="text-xl font-extrabold text-primary">45%</div>
+                    <div class="text-[10px] text-slate-300 uppercase tracking-wider">Faster Deployments</div>
+                  </div>
+                  <div class="px-4 py-2 bg-slate-800 border border-slate-700 rounded text-center">
+                    <div class="text-xl font-extrabold text-primary">100%</div>
+                    <div class="text-[10px] text-slate-300 uppercase tracking-wider">PCI Compliance</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-8 grid grid-cols-1 md:grid-cols-3 gap-8 border-b border-border-light">
+                <div>
+                  <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-primary mb-3">
+                    <span class="material-symbols-outlined text-base">warning</span> 1. Client Challenge
+                  </div>
+                  <p class="text-sm text-muted-charcoal leading-relaxed mb-4">
+                    Global digital payments platform handling $12B annually faced severe database locking during Black Friday volumes. Release velocity was paralyzed by fear of breaking transaction authorization pipelines.
+                  </p>
+                  <ul class="text-xs text-muted-charcoal space-y-1.5 list-disc list-inside">
+                    <li>Database locking under 25k+ transaction bursts</li>
+                    <li>Rigid PCI-DSS audit compliance requirements</li>
+                    <li>Absence of end-to-end load testing automation</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-primary mb-3">
+                    <span class="material-symbols-outlined text-base">psychology</span> 2. NForce Solution
+                  </div>
+                  <p class="text-sm text-muted-charcoal leading-relaxed mb-4">
+                    Architected an event-driven serverless payment gateway using Kafka and AWS Aurora Multi-Region. Engineered automated Gatling & JMeter distributed stress frameworks simulating up to 100,000 synthetic transaction flows.
+                  </p>
+                  <ul class="text-xs text-muted-charcoal space-y-1.5 list-disc list-inside">
+                    <li>Distributed stress testing with sub-50ms p99 latency</li>
+                    <li>Zero-Trust cryptographic transaction tokenization</li>
+                    <li>FlightOps automated compliance gates in CI/CD</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-primary mb-3">
+                    <span class="material-symbols-outlined text-base">verified</span> 3. Validated Outcomes
+                  </div>
+                  <p class="text-sm text-muted-charcoal leading-relaxed mb-4">
+                    Sustained 50,000 peak TPS during holiday sales with zero dropped transactions. Achieved clean PCI-DSS Level 1 recertification and reduced release deployment cycle times by 45%.
+                  </p>
+                  <div class="p-3 bg-background-alt border border-border-light rounded text-xs space-y-1">
+                    <div class="font-bold text-on-background">Tech Stack:</div>
+                    <div class="text-muted-charcoal">AWS Lambda, Apache Kafka, Aurora Serverless, FlightOps, Gatling</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-8 bg-background-alt flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+                <div class="flex items-start gap-4 max-w-3xl">
+                  <div class="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center flex-shrink-0 mt-1">
+                    <span class="material-symbols-outlined text-2xl">format_quote</span>
+                  </div>
+                  <div>
+                    <blockquote class="text-sm italic font-medium text-on-background mb-2">
+                      "The technical rigor NForce One brought to our high-concurrency payment systems was outstanding. They don't just supply engineers; they take full accountability for architecture, performance, and uptime."
+                    </blockquote>
+                    <div class="text-xs font-bold text-on-background">VP of Cloud Engineering</div>
+                    <div class="text-[11px] text-muted-charcoal">International Payment Processing Platform</div>
+                  </div>
+                </div>
+
+                <div class="flex items-center gap-3 flex-shrink-0">
+                  <button class="open-case-modal bg-on-background text-white hover:bg-primary transition-colors text-xs font-semibold px-5 py-3 flex items-center gap-2 cursor-pointer" data-case="fintech">
+                    Read Appendix A Blueprint <span class="material-symbols-outlined text-sm">open_in_new</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Case Study 3: HealthTech Cloud -->
+          <div class="case-study-panel hidden" id="case-healthtech">
+            <div class="border border-border-light bg-surface shadow-sm">
+              <div class="bg-slate-900 text-white p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-slate-800">
+                <div>
+                  <div class="flex items-center gap-2 mb-2">
+                    <span class="px-2.5 py-0.5 text-[11px] font-mono font-bold bg-primary text-white uppercase rounded">Enterprise HealthTech Enterprise</span>
+                    <span class="text-xs text-slate-400">HIPAA Cloud & AI Diagnostic Validation</span>
+                  </div>
+                  <h3 class="font-headline-sm text-2xl md:text-3xl font-bold text-white">
+                    HIPAA-Compliant Patient Portal & Automated AI Diagnostic Testing
+                  </h3>
+                </div>
+                <div class="flex items-center gap-4 flex-wrap">
+                  <div class="px-4 py-2 bg-slate-800 border border-slate-700 rounded text-center">
+                    <div class="text-xl font-extrabold text-primary">60%</div>
+                    <div class="text-[10px] text-slate-300 uppercase tracking-wider">Test Maintenance Saved</div>
+                  </div>
+                  <div class="px-4 py-2 bg-slate-800 border border-slate-700 rounded text-center">
+                    <div class="text-xl font-extrabold text-primary">100%</div>
+                    <div class="text-[10px] text-slate-300 uppercase tracking-wider">PHI Compliance Audit</div>
+                  </div>
+                  <div class="px-4 py-2 bg-slate-800 border border-slate-700 rounded text-center">
+                    <div class="text-xl font-extrabold text-primary">3.5x</div>
+                    <div class="text-[10px] text-slate-300 uppercase tracking-wider">Release Velocity</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-8 grid grid-cols-1 md:grid-cols-3 gap-8 border-b border-border-light">
+                <div>
+                  <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-primary mb-3">
+                    <span class="material-symbols-outlined text-base">warning</span> 1. Client Challenge
+                  </div>
+                  <p class="text-sm text-muted-charcoal leading-relaxed mb-4">
+                    A major healthcare SaaS provider needed to scale their EHR patient portal to 6 million active users while strictly safeguarding Protected Health Information (PHI). Frequent UI changes broke legacy Selenium test suites on every sprint.
+                  </p>
+                  <ul class="text-xs text-muted-charcoal space-y-1.5 list-disc list-inside">
+                    <li>Fragile UI tests breaking during weekly updates</li>
+                    <li>Strict HIPAA PHI encryption & audit trails</li>
+                    <li>Lack of synthetic anonymized test data generation</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-primary mb-3">
+                    <span class="material-symbols-outlined text-base">psychology</span> 2. NForce Solution
+                  </div>
+                  <p class="text-sm text-muted-charcoal leading-relaxed mb-4">
+                    Implemented QForce AI self-healing test automation to eliminate test maintenance overhead. Configured automated synthetic data sanitization ensuring zero real patient data was ever exposed during staging testing.
+                  </p>
+                  <ul class="text-xs text-muted-charcoal space-y-1.5 list-disc list-inside">
+                    <li>Self-healing locators dynamically adapting to DOM updates</li>
+                    <li>AI-driven synthetic FHIR / HL7 data generation</li>
+                    <li>HIPAA cloud architecture audit with automated SOC2 checks</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-primary mb-3">
+                    <span class="material-symbols-outlined text-base">verified</span> 3. Validated Outcomes
+                  </div>
+                  <p class="text-sm text-muted-charcoal leading-relaxed mb-4">
+                    Saved 60% of test maintenance engineering hours. Release velocity increased 3.5x while achieving 100% adherence to HIPAA security and SOC2 Type II compliance controls.
+                  </p>
+                  <div class="p-3 bg-background-alt border border-border-light rounded text-xs space-y-1">
+                    <div class="font-bold text-on-background">Tech Stack:</div>
+                    <div class="text-muted-charcoal">Azure Health Data Services, QForce AI, Cypress, FHIR APIs, Docker</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-8 bg-background-alt flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+                <div class="flex items-start gap-4 max-w-3xl">
+                  <div class="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center flex-shrink-0 mt-1">
+                    <span class="material-symbols-outlined text-2xl">format_quote</span>
+                  </div>
+                  <div>
+                    <blockquote class="text-sm italic font-medium text-on-background mb-2">
+                      "QForce AI solved our biggest testing bottleneck overnight. NForce One gave our engineering team the confidence to deploy healthcare features rapidly without fearing compliance failures or regressions."
+                    </blockquote>
+                    <div class="text-xs font-bold text-on-background">Chief Information Officer</div>
+                    <div class="text-[11px] text-muted-charcoal">Enterprise HealthTech Solutions Group</div>
+                  </div>
+                </div>
+
+                <div class="flex items-center gap-3 flex-shrink-0">
+                  <button class="open-case-modal bg-on-background text-white hover:bg-primary transition-colors text-xs font-semibold px-5 py-3 flex items-center gap-2 cursor-pointer" data-case="healthtech">
+                    Read Appendix A Blueprint <span class="material-symbols-outlined text-sm">open_in_new</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Authentic Employee Experience & Delivery Culture Strip (US-604) -->
+        <div class="mt-12 p-8 bg-background-alt border border-border-light rounded grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+          <div class="md:col-span-1">
+            <span class="text-xs font-bold uppercase tracking-wider text-primary">Cross-Border Culture</span>
+            <h4 class="font-headline-sm text-xl font-bold text-on-background mt-1">Built by Engineers, Led by Veterans</h4>
+            <p class="text-xs text-muted-charcoal mt-2 leading-relaxed">
+              Our 20+ year delivery heritage thrives on mutual engineering respect. US Solution Architects and India Centers of Excellence collaborate as one unified, high-velocity squad.
+            </p>
+          </div>
+          
+          <div class="p-4 bg-surface border border-border-light rounded">
+            <div class="flex items-center gap-3 mb-2">
+              <div class="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center text-xs font-bold">US</div>
+              <div>
+                <div class="text-xs font-bold text-on-background">Rajesh V.</div>
+                <div class="text-[10px] text-muted-charcoal">Principal Cloud Architect (Dallas, TX)</div>
+              </div>
+            </div>
+            <p class="text-[11px] text-muted-charcoal italic">
+              "We don't do handoffs; we do continuous follow-the-sun pairing. When our client's US day ends, our India team advances the automated test execution seamlessly."
+            </p>
+          </div>
+
+          <div class="p-4 bg-surface border border-border-light rounded">
+            <div class="flex items-center gap-3 mb-2">
+              <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold">IN</div>
+              <div>
+                <div class="text-xs font-bold text-on-background">Ananya S.</div>
+                <div class="text-[10px] text-muted-charcoal">Lead QA Automation Engineer (Bengaluru, India)</div>
+              </div>
+            </div>
+            <p class="text-[11px] text-muted-charcoal italic">
+              "Working on proprietary products like QForce AI and carrier-grade telecom platforms gives us true technical pride. We build systems that touch millions daily."
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
 
     <!-- Interactive Technology & Testing Architecture Matrix (A3) -->
     <section class="py-24 px-6 md:px-16 bg-surface border-t border-b border-border-light" id="matrix">
@@ -1260,6 +1620,71 @@
           Submit Project Blueprint Request <span class="material-symbols-outlined text-[18px]">send</span>
         </button>
       </form>
+    </div>
+  </div>
+
+  <!-- Appendix A Case Study Deep Technical Blueprint Modal (US-602) -->
+  <div id="caseStudyModal" class="modal-overlay fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4">
+    <div class="modal-card bg-surface w-full max-w-3xl border border-border-light p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+      <button id="caseModalCloseBtn" class="absolute top-4 right-4 text-muted-charcoal hover:text-primary cursor-pointer">
+        <span class="material-symbols-outlined text-2xl">close</span>
+      </button>
+
+      <div class="flex items-center gap-2 mb-2">
+        <span class="px-2.5 py-0.5 text-[11px] font-mono font-bold bg-primary text-white uppercase rounded" id="caseModalBadge">Tier-1 US Telecom Operator</span>
+        <span class="text-xs text-muted-charcoal" id="caseModalCategory">Appendix A Architecture Specification</span>
+      </div>
+
+      <h3 class="font-headline-sm text-2xl font-bold text-on-background mb-4" id="caseModalTitle">
+        Zero-Downtime Billing Modernization & Automated SIT Protocol Testing
+      </h3>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 bg-background-alt border border-border-light rounded mb-6 text-center">
+        <div>
+          <div class="text-[11px] text-muted-charcoal uppercase">Delivery Model</div>
+          <div class="text-xs font-bold text-on-background mt-0.5" id="caseModalDelivery">Hybrid Follow-the-Sun</div>
+        </div>
+        <div>
+          <div class="text-[11px] text-muted-charcoal uppercase">Squad Scale</div>
+          <div class="text-xs font-bold text-on-background mt-0.5" id="caseModalSquad">24 Engineers (US + IN)</div>
+        </div>
+        <div>
+          <div class="text-[11px] text-muted-charcoal uppercase">Timeline</div>
+          <div class="text-xs font-bold text-on-background mt-0.5" id="caseModalTimeline">6 Months Cutover</div>
+        </div>
+        <div>
+          <div class="text-[11px] text-muted-charcoal uppercase">Primary Outcome</div>
+          <div class="text-xs font-bold text-primary mt-0.5" id="caseModalMetric">99.99% Uptime</div>
+        </div>
+      </div>
+
+      <div class="space-y-4 text-xs text-muted-charcoal leading-relaxed mb-6" id="caseModalBody">
+        <div class="border-b border-border-light pb-3">
+          <div class="font-bold text-on-background text-sm mb-1">Architecture & Technical Solution</div>
+          <p id="caseModalSolutionText">
+            Re-architected billing mediation into containerized microservices orchestrated on AWS EKS with Apache Kafka for real-time CDR stream ingestion. Deployed QForce AI to generate 8,500+ automated SIT scenarios, validating subscriber rating engines with zero billing leakage.
+          </p>
+        </div>
+        <div class="border-b border-border-light pb-3">
+          <div class="font-bold text-on-background text-sm mb-1">Quality Engineering & Testing Protocol</div>
+          <p id="caseModalQAText">
+            Integrated automated nightly regression suites spanning 5G interface protocols, rating mediation edge cases, and CRM subscriber sync. System integration testing turnaround reduced from 28 days to under 48 hours.
+          </p>
+        </div>
+        <div>
+          <div class="font-bold text-on-background text-sm mb-1">Verified Business Value</div>
+          <p id="caseModalValueText">
+            Prevented an estimated $4.8M in annual revenue leakage, achieved zero customer-impacting outages during migration, and cut recurring QA overhead by 68%.
+          </p>
+        </div>
+      </div>
+
+      <div class="pt-6 border-t border-border-light flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="text-xs text-muted-charcoal">Need a similar architecture or QA assessment?</div>
+        <button class="open-proposal-modal bg-primary text-white text-xs font-bold px-6 py-3 hover:bg-primary-hover transition-colors flex items-center gap-2 cursor-pointer">
+          Request Proposal for Similar Scope <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </button>
+      </div>
     </div>
   </div>
 

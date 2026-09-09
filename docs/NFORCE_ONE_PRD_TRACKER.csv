@@ -27,9 +27,9 @@ US-504,Epic 5: Ask Navi AI Assistant,CHAT-005,P1,In-Chat Lead Qualification & Ca
 US-505,Epic 5: Ask Navi AI Assistant,CHAT-007,P0,Human Handoff & Discovery Booking,"Provides fallback to human solutions architect or meeting booking when confidence is low.",Done,Sprint 2
 US-506,Epic 5: Ask Navi AI Assistant,CHAT-010,P1,Brand-Aligned Concierge UI,"Styled with NForce Crimson and Dark Slate themes, keyboard accessibility, and mobile drawer behavior.",Done,Sprint 2
 US-601,Epic 6: Engagement Models & Proof,ENG-001,P1,US + India Delivery Models Module,"Interactive breakdown of Onshore (US), Offshore (India), Hybrid, Managed Delivery, SOW, and T&M.",Done,Sprint 2
-US-602,Epic 6: Engagement Models & Proof,CASE-001,P0,Client Case Studies Library,"Case studies following Appendix A standard with validated metrics (Uptime, QA Speed, Cost Savings).",In Progress,Sprint 2
-US-603,Epic 6: Engagement Models & Proof,TEST-001,P0,Verified Client Testimonials,"Senior client quotes with name, title, company, and approval verification.",In Progress,Sprint 2
-US-604,Epic 6: Engagement Models & Proof,EMP-TEST-001,P1,Authentic Employee Experience & Culture,"Real employee testimonials and culture highlights showcasing engineering pride.",In Progress,Sprint 2
+US-602,Epic 6: Engagement Models & Proof,CASE-001,P0,Client Case Studies Library,"Case studies following Appendix A standard with validated metrics (Uptime, QA Speed, Cost Savings).",Done,Sprint 2
+US-603,Epic 6: Engagement Models & Proof,TEST-001,P0,Verified Client Testimonials,"Senior client quotes with name, title, company, and approval verification.",Done,Sprint 2
+US-604,Epic 6: Engagement Models & Proof,EMP-TEST-001,P1,Authentic Employee Experience & Culture,"Real employee testimonials and culture highlights showcasing engineering pride.",Done,Sprint 2
 US-605,Epic 6: Engagement Models & Proof,HOME-006,P1,Animated Metrics Counter Dashboard,"Scroll-triggered count-up counters (99.9% Uptime, 45% Faster QA, 500+ Deployments, 24/7 SOC).",Done,Sprint 1
 US-701,Epic 7: Optimization & Governance,RESP-001,P0,Cross-Device Responsive Verification,"Verified layout on Mobile (375px), Tablet (768px), Laptop (1024px), and Desktop (1440px).",Done,Sprint 1
 US-702,Epic 7: Optimization & Governance,A11Y-001,P0,Accessibility & Reduced-Motion Support,"Semantic HTML headings, ARIA roles, readable contrast, and CSS prefers-reduced-motion fallbacks.",Done,Sprint 2
