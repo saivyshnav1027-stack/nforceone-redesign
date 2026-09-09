@@ -97,6 +97,16 @@ test.describe('NForceOne B2B Executive Website UI & Interactivity Tests', () => 
 
     // Verify key deliverables inside Stage 1
     await expect(firstStage.locator('.timeline-details')).toContainText('Technical Feasibility Report');
+
+    // Test Scrubber pill click: Click Stage 2 Scrubber button
+    const stage2Pill = page.locator('.stage-nav-pill').nth(1);
+    await stage2Pill.click();
+
+    // Verify Stage 2 is expanded and Stage 1 is collapsed
+    const secondStage = page.locator('.timeline-stage-card').nth(1);
+    await expect(secondStage).toHaveClass(/expanded/);
+    await expect(firstStage).not.toHaveClass(/expanded/);
+    await expect(secondStage.locator('.timeline-details')).toContainText('Vulnerability Threat Matrix');
   });
 
   test('6. IT Project Scope Estimator Calculates Timeline & Squad', async ({ page }) => {

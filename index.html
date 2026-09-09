@@ -1204,119 +1204,225 @@
           <p class="font-body-lg text-lg text-muted-charcoal mt-3">Click any stage below to explore our specific deliverables, risk mitigation, and milestone commitments.</p>
         </div>
 
-        <div class="space-y-4 max-w-4xl mx-auto">
-          <!-- Stage 1 -->
-          <div class="timeline-stage-card p-6 border border-border-light bg-surface rounded-none transition-all">
-            <div class="flex items-center justify-between cursor-pointer">
-              <div class="flex items-center gap-4">
-                <div class="w-10 h-10 bg-on-background text-white font-bold flex items-center justify-center text-sm">01</div>
-                <div>
-                  <h3 class="font-headline-sm text-xl font-bold text-on-background">Discovery & Requirement Alignment</h3>
-                  <div class="text-xs text-muted-charcoal">Week 1 / Stakeholder Interviews & Technical Scope Definition</div>
-                </div>
-              </div>
-              <span class="material-symbols-outlined text-primary text-2xl">expand_more</span>
-            </div>
-            <div class="timeline-details pt-4 mt-4 border-t border-border-light text-sm text-muted-charcoal">
-              <p class="mb-2">We analyze existing codebase, infrastructure setup, compliance mandates, and business KPIs to build a granular project vision.</p>
-              <div class="font-bold text-on-background text-xs uppercase tracking-wider">Key Deliverables:</div>
-              <ul class="list-disc list-inside space-y-1 mt-1 text-xs">
-                <li>Technical Feasibility Report & System Architecture Diagram</li>
-                <li>Security & Compliance Baseline Audit</li>
-                <li>Project Scope & SLA Charter Document</li>
-              </ul>
-            </div>
+        <!-- Quick Phase Scrubber Navigation -->
+        <div class="flex items-center justify-center gap-2 mb-12 overflow-x-auto pb-2 scrollbar-none" id="timelineScrubber">
+          <button class="stage-nav-pill active px-4 py-2 text-xs font-bold uppercase tracking-wider border border-primary bg-primary text-white transition-all duration-200 shrink-0" data-stage="0">01 Discovery</button>
+          <button class="stage-nav-pill px-4 py-2 text-xs font-bold uppercase tracking-wider border border-border-light bg-surface text-muted-charcoal hover:border-primary hover:text-primary transition-all duration-200 shrink-0" data-stage="1">02 Assessment</button>
+          <button class="stage-nav-pill px-4 py-2 text-xs font-bold uppercase tracking-wider border border-border-light bg-surface text-muted-charcoal hover:border-primary hover:text-primary transition-all duration-200 shrink-0" data-stage="2">03 Squad Setup</button>
+          <button class="stage-nav-pill px-4 py-2 text-xs font-bold uppercase tracking-wider border border-border-light bg-surface text-muted-charcoal hover:border-primary hover:text-primary transition-all duration-200 shrink-0" data-stage="3">04 Agile Execution</button>
+          <button class="stage-nav-pill px-4 py-2 text-xs font-bold uppercase tracking-wider border border-border-light bg-surface text-muted-charcoal hover:border-primary hover:text-primary transition-all duration-200 shrink-0" data-stage="4">05 SLA Scale</button>
+        </div>
+
+        <div class="relative max-w-4xl mx-auto pl-4 md:pl-8">
+          <!-- Glowing Animated Connecting Spine -->
+          <div class="timeline-spine-track absolute left-[38px] md:left-[54px] top-8 bottom-8 w-[2px] bg-slate-200 z-0">
+            <div id="timelineSpineBeam" class="timeline-spine-beam w-full bg-primary transition-all duration-500 shadow-[0_0_8px_#c40000]" style="height: 15%;"></div>
           </div>
 
-          <!-- Stage 2 -->
-          <div class="timeline-stage-card p-6 border border-border-light bg-surface rounded-none transition-all">
-            <div class="flex items-center justify-between cursor-pointer">
-              <div class="flex items-center gap-4">
-                <div class="w-10 h-10 bg-on-background text-white font-bold flex items-center justify-center text-sm">02</div>
-                <div>
-                  <h3 class="font-headline-sm text-xl font-bold text-on-background">Architecture & Security Assessment</h3>
-                  <div class="text-xs text-muted-charcoal">Week 2 / Threat Surface Review & QA Test Strategy</div>
+          <div class="space-y-5 relative z-10" id="timelineStagesList">
+            <!-- Stage 1 -->
+            <div class="timeline-stage-card p-6 border border-border-light bg-surface rounded-none transition-all" data-stage-idx="0">
+              <div class="flex items-center justify-between cursor-pointer">
+                <div class="flex items-center gap-4">
+                  <div class="stage-num-badge relative w-11 h-11 bg-on-background text-white font-bold flex items-center justify-center text-sm shrink-0 transition-all duration-300">
+                    01
+                  </div>
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <h3 class="font-headline-sm text-xl font-bold text-on-background">Discovery & Requirement Alignment</h3>
+                      <span class="inline-flex items-center px-2 py-0.5 text-[10px] font-bold uppercase bg-slate-100 text-muted-charcoal border border-slate-200">Phase 1</span>
+                    </div>
+                    <div class="text-xs text-muted-charcoal mt-0.5">Week 1 / Stakeholder Interviews & Technical Scope Definition</div>
+                  </div>
+                </div>
+                <span class="material-symbols-outlined text-primary text-2xl expand-icon transition-transform duration-300">expand_more</span>
+              </div>
+              <div class="timeline-details pt-4 mt-4 border-t border-border-light text-sm text-muted-charcoal">
+                <p class="mb-3">We analyze existing codebase, infrastructure setup, compliance mandates, and business KPIs to build a granular project vision.</p>
+                <div class="font-bold text-on-background text-xs uppercase tracking-wider mb-2">Key Deliverables:</div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-2 text-xs">
+                  <div class="deliverable-chip p-3 bg-slate-50 border border-slate-200 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-base shrink-0">check_circle</span>
+                    <span>Technical Feasibility Report & System Architecture Diagram</span>
+                  </div>
+                  <div class="deliverable-chip p-3 bg-slate-50 border border-slate-200 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-base shrink-0">check_circle</span>
+                    <span>Security & Compliance Baseline Audit</span>
+                  </div>
+                  <div class="deliverable-chip p-3 bg-slate-50 border border-slate-200 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-base shrink-0">check_circle</span>
+                    <span>Project Scope & SLA Charter Document</span>
+                  </div>
+                </div>
+                <div class="mt-3 p-3 bg-primary/5 border-l-2 border-primary text-xs text-muted-charcoal flex items-center gap-2">
+                  <span class="material-symbols-outlined text-primary text-base shrink-0">shield</span>
+                  <div><strong class="text-on-background">Risk Mitigation:</strong> Pre-emptive compliance baseline audit prevents downstream architectural rework.</div>
                 </div>
               </div>
-              <span class="material-symbols-outlined text-primary text-2xl">expand_more</span>
             </div>
-            <div class="timeline-details pt-4 mt-4 border-t border-border-light text-sm text-muted-charcoal">
-              <p class="mb-2">Deep-dive technical assessment identifying system bottlenecks, vulnerability surfaces, and automated test coverage gaps.</p>
-              <div class="font-bold text-on-background text-xs uppercase tracking-wider">Key Deliverables:</div>
-              <ul class="list-disc list-inside space-y-1 mt-1 text-xs">
-                <li>Vulnerability Threat Matrix & Penetration Test Report</li>
-                <li>Test Automation Framework Design (Selenium / Playwright)</li>
-                <li>Cloud Infrastructure Modernization Roadmap</li>
-              </ul>
-            </div>
-          </div>
 
-          <!-- Stage 3 -->
-          <div class="timeline-stage-card p-6 border border-border-light bg-surface rounded-none transition-all">
-            <div class="flex items-center justify-between cursor-pointer">
-              <div class="flex items-center gap-4">
-                <div class="w-10 h-10 bg-on-background text-white font-bold flex items-center justify-center text-sm">03</div>
-                <div>
-                  <h3 class="font-headline-sm text-xl font-bold text-on-background">Tailored Proposal & Squad Allocation</h3>
-                  <div class="text-xs text-muted-charcoal">Week 2-3 / Dedicated Engineering Squad Setup</div>
+            <!-- Stage 2 -->
+            <div class="timeline-stage-card p-6 border border-border-light bg-surface rounded-none transition-all" data-stage-idx="1">
+              <div class="flex items-center justify-between cursor-pointer">
+                <div class="flex items-center gap-4">
+                  <div class="stage-num-badge relative w-11 h-11 bg-on-background text-white font-bold flex items-center justify-center text-sm shrink-0 transition-all duration-300">
+                    02
+                  </div>
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <h3 class="font-headline-sm text-xl font-bold text-on-background">Architecture & Security Assessment</h3>
+                      <span class="inline-flex items-center px-2 py-0.5 text-[10px] font-bold uppercase bg-slate-100 text-muted-charcoal border border-slate-200">Phase 2</span>
+                    </div>
+                    <div class="text-xs text-muted-charcoal mt-0.5">Week 2 / Threat Surface Review & QA Test Strategy</div>
+                  </div>
+                </div>
+                <span class="material-symbols-outlined text-primary text-2xl expand-icon transition-transform duration-300">expand_more</span>
+              </div>
+              <div class="timeline-details pt-4 mt-4 border-t border-border-light text-sm text-muted-charcoal">
+                <p class="mb-3">Deep-dive technical assessment identifying system bottlenecks, vulnerability surfaces, and automated test coverage gaps.</p>
+                <div class="font-bold text-on-background text-xs uppercase tracking-wider mb-2">Key Deliverables:</div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-2 text-xs">
+                  <div class="deliverable-chip p-3 bg-slate-50 border border-slate-200 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-base shrink-0">check_circle</span>
+                    <span>Vulnerability Threat Matrix & Penetration Report</span>
+                  </div>
+                  <div class="deliverable-chip p-3 bg-slate-50 border border-slate-200 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-base shrink-0">check_circle</span>
+                    <span>Test Automation Framework (Selenium / Playwright)</span>
+                  </div>
+                  <div class="deliverable-chip p-3 bg-slate-50 border border-slate-200 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-base shrink-0">check_circle</span>
+                    <span>Cloud Modernization Roadmap</span>
+                  </div>
+                </div>
+                <div class="mt-3 p-3 bg-primary/5 border-l-2 border-primary text-xs text-muted-charcoal flex items-center gap-2">
+                  <span class="material-symbols-outlined text-primary text-base shrink-0">verified_user</span>
+                  <div><strong class="text-on-background">Risk Mitigation:</strong> Early penetration testing closes zero-day security gaps prior to sprint planning.</div>
                 </div>
               </div>
-              <span class="material-symbols-outlined text-primary text-2xl">expand_more</span>
             </div>
-            <div class="timeline-details pt-4 mt-4 border-t border-border-light text-sm text-muted-charcoal">
-              <p class="mb-2">We staff your dedicated engineering squad with vetted cloud architects, QA automation engineers, and Pega specialists.</p>
-              <div class="font-bold text-on-background text-xs uppercase tracking-wider">Key Deliverables:</div>
-              <ul class="list-disc list-inside space-y-1 mt-1 text-xs">
-                <li>Squad Matrix & Resume Credentials</li>
-                <li>Sprint Delivery Schedule & Milestones</li>
-                <li>Fixed-Budget or Squad-Rate Proposal Blueprint</li>
-              </ul>
-            </div>
-          </div>
 
-          <!-- Stage 4 -->
-          <div class="timeline-stage-card p-6 border border-border-light bg-surface rounded-none transition-all">
-            <div class="flex items-center justify-between cursor-pointer">
-              <div class="flex items-center gap-4">
-                <div class="w-10 h-10 bg-on-background text-white font-bold flex items-center justify-center text-sm">04</div>
-                <div>
-                  <h3 class="font-headline-sm text-xl font-bold text-on-background">Agile Execution & Automated QA</h3>
-                  <div class="text-xs text-muted-charcoal">Sprints 1 - N / CI/CD Deployment & Continuous Testing</div>
+            <!-- Stage 3 -->
+            <div class="timeline-stage-card p-6 border border-border-light bg-surface rounded-none transition-all" data-stage-idx="2">
+              <div class="flex items-center justify-between cursor-pointer">
+                <div class="flex items-center gap-4">
+                  <div class="stage-num-badge relative w-11 h-11 bg-on-background text-white font-bold flex items-center justify-center text-sm shrink-0 transition-all duration-300">
+                    03
+                  </div>
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <h3 class="font-headline-sm text-xl font-bold text-on-background">Tailored Proposal & Squad Allocation</h3>
+                      <span class="inline-flex items-center px-2 py-0.5 text-[10px] font-bold uppercase bg-slate-100 text-muted-charcoal border border-slate-200">Phase 3</span>
+                    </div>
+                    <div class="text-xs text-muted-charcoal mt-0.5">Week 2-3 / Dedicated Engineering Squad Setup</div>
+                  </div>
+                </div>
+                <span class="material-symbols-outlined text-primary text-2xl expand-icon transition-transform duration-300">expand_more</span>
+              </div>
+              <div class="timeline-details pt-4 mt-4 border-t border-border-light text-sm text-muted-charcoal">
+                <p class="mb-3">We staff your dedicated engineering squad with vetted cloud architects, QA automation engineers, and Pega specialists.</p>
+                <div class="font-bold text-on-background text-xs uppercase tracking-wider mb-2">Key Deliverables:</div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-2 text-xs">
+                  <div class="deliverable-chip p-3 bg-slate-50 border border-slate-200 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-base shrink-0">check_circle</span>
+                    <span>Squad Matrix & Engineer Resume Credentials</span>
+                  </div>
+                  <div class="deliverable-chip p-3 bg-slate-50 border border-slate-200 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-base shrink-0">check_circle</span>
+                    <span>Sprint Delivery Schedule & Velocity Milestones</span>
+                  </div>
+                  <div class="deliverable-chip p-3 bg-slate-50 border border-slate-200 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-base shrink-0">check_circle</span>
+                    <span>Fixed-Budget or SOW Delivery Blueprint</span>
+                  </div>
+                </div>
+                <div class="mt-3 p-3 bg-primary/5 border-l-2 border-primary text-xs text-muted-charcoal flex items-center gap-2">
+                  <span class="material-symbols-outlined text-primary text-base shrink-0">groups</span>
+                  <div><strong class="text-on-background">Risk Mitigation:</strong> Pre-screened senior architects ensure Day-1 productivity without training drag.</div>
                 </div>
               </div>
-              <span class="material-symbols-outlined text-primary text-2xl">expand_more</span>
             </div>
-            <div class="timeline-details pt-4 mt-4 border-t border-border-light text-sm text-muted-charcoal">
-              <p class="mb-2">Bi-weekly agile execution with transparent Jira/GitHub reporting, continuous integration, and automated regression testing.</p>
-              <div class="font-bold text-on-background text-xs uppercase tracking-wider">Key Deliverables:</div>
-              <ul class="list-disc list-inside space-y-1 mt-1 text-xs">
-                <li>Bi-weekly Production Release Builds</li>
-                <li>Automated QA Test Execution Telemetry</li>
-                <li>Sprint Demo Presentations & Retrospectives</li>
-              </ul>
-            </div>
-          </div>
 
-          <!-- Stage 5 -->
-          <div class="timeline-stage-card p-6 border border-border-light bg-surface rounded-none transition-all">
-            <div class="flex items-center justify-between cursor-pointer">
-              <div class="flex items-center gap-4">
-                <div class="w-10 h-10 bg-on-background text-white font-bold flex items-center justify-center text-sm">05</div>
-                <div>
-                  <h3 class="font-headline-sm text-xl font-bold text-on-background">Continuous Optimization & SLA Scale</h3>
-                  <div class="text-xs text-muted-charcoal">Ongoing / 24/7 Monitoring & DevOps Maintenance</div>
+            <!-- Stage 4 -->
+            <div class="timeline-stage-card p-6 border border-border-light bg-surface rounded-none transition-all" data-stage-idx="3">
+              <div class="flex items-center justify-between cursor-pointer">
+                <div class="flex items-center gap-4">
+                  <div class="stage-num-badge relative w-11 h-11 bg-on-background text-white font-bold flex items-center justify-center text-sm shrink-0 transition-all duration-300">
+                    04
+                  </div>
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <h3 class="font-headline-sm text-xl font-bold text-on-background">Agile Execution & Automated QA</h3>
+                      <span class="inline-flex items-center px-2 py-0.5 text-[10px] font-bold uppercase bg-slate-100 text-muted-charcoal border border-slate-200">Phase 4</span>
+                    </div>
+                    <div class="text-xs text-muted-charcoal mt-0.5">Sprints 1 - N / CI/CD Deployment & Continuous Testing</div>
+                  </div>
+                </div>
+                <span class="material-symbols-outlined text-primary text-2xl expand-icon transition-transform duration-300">expand_more</span>
+              </div>
+              <div class="timeline-details pt-4 mt-4 border-t border-border-light text-sm text-muted-charcoal">
+                <p class="mb-3">Bi-weekly agile execution with transparent Jira/GitHub reporting, continuous integration, and automated regression testing.</p>
+                <div class="font-bold text-on-background text-xs uppercase tracking-wider mb-2">Key Deliverables:</div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-2 text-xs">
+                  <div class="deliverable-chip p-3 bg-slate-50 border border-slate-200 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-base shrink-0">check_circle</span>
+                    <span>Bi-weekly Production Release Builds</span>
+                  </div>
+                  <div class="deliverable-chip p-3 bg-slate-50 border border-slate-200 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-base shrink-0">check_circle</span>
+                    <span>Automated QA Test Execution Telemetry</span>
+                  </div>
+                  <div class="deliverable-chip p-3 bg-slate-50 border border-slate-200 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-base shrink-0">check_circle</span>
+                    <span>Sprint Demo Presentations & Retrospectives</span>
+                  </div>
+                </div>
+                <div class="mt-3 p-3 bg-primary/5 border-l-2 border-primary text-xs text-muted-charcoal flex items-center gap-2">
+                  <span class="material-symbols-outlined text-primary text-base shrink-0">speed</span>
+                  <div><strong class="text-on-background">Risk Mitigation:</strong> Automated regression gating prevents production rollbacks and defect leakage.</div>
                 </div>
               </div>
-              <span class="material-symbols-outlined text-primary text-2xl">expand_more</span>
             </div>
-            <div class="timeline-details pt-4 mt-4 border-t border-border-light text-sm text-muted-charcoal">
-              <p class="mb-2">Post-deployment 24/7 infrastructure monitoring, security patch management, and continuous performance tuning.</p>
-              <div class="font-bold text-on-background text-xs uppercase tracking-wider">Key Deliverables:</div>
-              <ul class="list-disc list-inside space-y-1 mt-1 text-xs">
-                <li>24/7 Security Operations Center (SOC) Support</li>
-                <li>Monthly Infrastructure Cost & Performance Audits</li>
-                <li>On-demand Squad Scaling</li>
-              </ul>
+
+            <!-- Stage 5 -->
+            <div class="timeline-stage-card p-6 border border-border-light bg-surface rounded-none transition-all" data-stage-idx="4">
+              <div class="flex items-center justify-between cursor-pointer">
+                <div class="flex items-center gap-4">
+                  <div class="stage-num-badge relative w-11 h-11 bg-on-background text-white font-bold flex items-center justify-center text-sm shrink-0 transition-all duration-300">
+                    05
+                  </div>
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <h3 class="font-headline-sm text-xl font-bold text-on-background">Continuous Optimization & SLA Scale</h3>
+                      <span class="inline-flex items-center px-2 py-0.5 text-[10px] font-bold uppercase bg-slate-100 text-muted-charcoal border border-slate-200">Phase 5</span>
+                    </div>
+                    <div class="text-xs text-muted-charcoal mt-0.5">Ongoing / 24/7 Monitoring & DevOps Maintenance</div>
+                  </div>
+                </div>
+                <span class="material-symbols-outlined text-primary text-2xl expand-icon transition-transform duration-300">expand_more</span>
+              </div>
+              <div class="timeline-details pt-4 mt-4 border-t border-border-light text-sm text-muted-charcoal">
+                <p class="mb-3">Post-deployment 24/7 infrastructure monitoring, security patch management, and continuous performance tuning.</p>
+                <div class="font-bold text-on-background text-xs uppercase tracking-wider mb-2">Key Deliverables:</div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-2 text-xs">
+                  <div class="deliverable-chip p-3 bg-slate-50 border border-slate-200 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-base shrink-0">check_circle</span>
+                    <span>24/7 Security Operations Center (SOC) Support</span>
+                  </div>
+                  <div class="deliverable-chip p-3 bg-slate-50 border border-slate-200 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-base shrink-0">check_circle</span>
+                    <span>Monthly Infrastructure Cost & Performance Audits</span>
+                  </div>
+                  <div class="deliverable-chip p-3 bg-slate-50 border border-slate-200 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-base shrink-0">check_circle</span>
+                    <span>On-demand Flexible Squad Scaling</span>
+                  </div>
+                </div>
+                <div class="mt-3 p-3 bg-primary/5 border-l-2 border-primary text-xs text-muted-charcoal flex items-center gap-2">
+                  <span class="material-symbols-outlined text-primary text-base shrink-0">military_tech</span>
+                  <div><strong class="text-on-background">Risk Mitigation:</strong> 99.99% contractual SLA guarantee backed by 24/7 dedicated support engineers.</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

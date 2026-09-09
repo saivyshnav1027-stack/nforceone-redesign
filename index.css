@@ -288,28 +288,106 @@ img {
   border-radius: 2px;
 }
 
-/* 5-Stage Delivery Process Timeline */
+/* 5-Stage Delivery Process Pipeline & Motion */
 .timeline-stage-card {
+  position: relative;
   border: 1px solid var(--color-border);
   background: var(--color-white);
-  transition: all 0.3s ease;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease, background-color 0.35s ease;
   cursor: pointer;
 }
-.timeline-stage-card:hover {
-  border-color: var(--color-primary);
-  box-shadow: var(--shadow-md);
+
+.timeline-stage-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0px;
+  background: var(--color-primary);
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
+
+.timeline-stage-card:hover {
+  transform: translateX(8px);
+  border-color: rgba(196, 0, 0, 0.4);
+  box-shadow: 0 10px 25px -5px rgba(196, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+}
+
+.timeline-stage-card:hover::before {
+  width: 3px;
+}
+
+.timeline-stage-card:hover .stage-num-badge {
+  background: var(--color-primary);
+  transform: scale(1.06);
+  box-shadow: 0 0 14px rgba(196, 0, 0, 0.4);
+}
+
 .timeline-stage-card.expanded {
   border-color: var(--color-primary);
-  background: #FAF5F5;
+  background: #FCFDFE;
+  box-shadow: 0 14px 28px -6px rgba(196, 0, 0, 0.1);
 }
+
+.timeline-stage-card.expanded::before {
+  width: 4px;
+}
+
+.timeline-stage-card.expanded .stage-num-badge {
+  background: var(--color-primary);
+  box-shadow: 0 0 16px rgba(196, 0, 0, 0.5);
+}
+
+.timeline-stage-card.expanded .expand-icon {
+  transform: rotate(180deg);
+  color: var(--color-primary);
+}
+
 .timeline-details {
   max-height: 0;
+  opacity: 0;
   overflow: hidden;
-  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: max-height 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
 }
+
 .timeline-stage-card.expanded .timeline-details {
-  max-height: 500px;
+  max-height: 600px;
+  opacity: 1;
+}
+
+/* Micro Deliverable Chips */
+.deliverable-chip {
+  transition: transform 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
+}
+
+.deliverable-chip:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-primary);
+  background: #FFF;
+}
+
+/* Scrubber Navigation Pills */
+.stage-nav-pill.active {
+  background: var(--color-primary) !important;
+  color: #fff !important;
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 4px 14px rgba(196, 0, 0, 0.28);
+}
+
+/* Spine track and pulse */
+.timeline-spine-beam {
+  box-shadow: 0 0 10px rgba(196, 0, 0, 0.6);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .timeline-stage-card,
+  .deliverable-chip,
+  .timeline-details,
+  .timeline-spine-beam {
+    transition: none !important;
+    transform: none !important;
+  }
 }
 
 /* IT Project Scope & Estimator Calculator */

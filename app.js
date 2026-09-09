@@ -143,16 +143,70 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 4. 5-Stage Delivery Process Accordion Expanders
-  document.querySelectorAll('.timeline-stage-card').forEach(card => {
+  // 4. 5-Stage Delivery Process Interactive Framework & Scroll Motion
+  const stageCards = document.querySelectorAll('.timeline-stage-card');
+  const stagePills = document.querySelectorAll('.stage-nav-pill');
+  const spineBeam = document.getElementById('timelineSpineBeam');
+
+  function setActiveStage(index, scrollIntoView = false) {
+    stagePills.forEach((pill, idx) => {
+      if (idx === index) {
+        pill.classList.add('active');
+        pill.classList.remove('border-border-light', 'bg-surface', 'text-muted-charcoal');
+        pill.classList.add('border-primary', 'bg-primary', 'text-white');
+      } else {
+        pill.classList.remove('active', 'border-primary', 'bg-primary', 'text-white');
+        pill.classList.add('border-border-light', 'bg-surface', 'text-muted-charcoal');
+      }
+    });
+
+    if (spineBeam) {
+      const heights = ['20%', '40%', '60%', '80%', '100%'];
+      spineBeam.style.height = heights[index] || '20%';
+    }
+
+    if (scrollIntoView && stageCards[index]) {
+      stageCards.forEach(c => c.classList.remove('expanded'));
+      stageCards[index].classList.add('expanded');
+      stageCards[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
+
+  // Accordion toggle on cards
+  stageCards.forEach((card, idx) => {
     card.addEventListener('click', function() {
       const isExpanded = this.classList.contains('expanded');
-      document.querySelectorAll('.timeline-stage-card').forEach(c => c.classList.remove('expanded'));
+      stageCards.forEach(c => c.classList.remove('expanded'));
       if (!isExpanded) {
         this.classList.add('expanded');
+        setActiveStage(idx, false);
       }
     });
   });
+
+  // Quick Scrubber pill clicks
+  stagePills.forEach((pill, idx) => {
+    pill.addEventListener('click', function() {
+      setActiveStage(idx, true);
+    });
+  });
+
+  // Scroll-spy observer for stage cards
+  if ('IntersectionObserver' in window && stageCards.length > 0) {
+    const stageObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const stageIdx = parseInt(entry.target.getAttribute('data-stage-idx') || '0');
+          setActiveStage(stageIdx, false);
+        }
+      });
+    }, {
+      rootMargin: '-20% 0px -40% 0px',
+      threshold: 0.2
+    });
+
+    stageCards.forEach(card => stageObserver.observe(card));
+  }
 
   // 5. IT Project Scope & Estimator Calculator
   const estPillar = document.getElementById('estPillar');
