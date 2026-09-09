@@ -32,12 +32,24 @@
 - [x] **US-605 (P1)**: Animated Metrics Counter Dashboard (99.9% Uptime, 45% Faster QA, 500+ Deployments)
 - [x] **US-704 (P0)**: Automated Playwright End-to-End Test Pack (7/7 Passing)
 
-### Sprint 2: The Deep PRD Expansion (Active Sprint)
+### Sprint 2: The Deep PRD Expansion & Bespoke Motion Engineering (Active Sprint)
 - [ ] **US-201 - US-204 (P0)**: Complete Four Capability Pillars (AI & Agentic, QE & AI Assurance, Digital Engineering, Data & Cloud)
 - [ ] **US-301 - US-305 (P0/P1)**: Dedicated Telecom Domain Showcase (OSS/BSS, Voice AI, Network Ops)
 - [ ] **US-401 - US-405 (P1)**: Innovation & Products Suite (QForce AI, AIKTRA, OneHR, Pulse, FlightOps, AuraFace)
 - [ ] **US-501 - US-506 (P0/P1)**: Persistent "Ask Navi" AI Website Assistant with grounded Q&A & lead capture
 - [ ] **US-601 - US-604 (P1/P2)**: Flexible Engagement Models (Onshore, Offshore, Hybrid) & Client/Employee Proof
+- [ ] **US-107 (P1)**: Bespoke Enterprise Velocity Ticker (GPU-accelerated horizontal brand velocity ticker with crimson glow)
+- [ ] **US-306 (P1)**: Bespoke 3D Perspective Card Tilt & Specular Sheen (Mouse-interactive CSS perspective tilt with cursor-following specular sheen)
+- [ ] **US-406 (P1)**: Bespoke Architecture Telemetry & Signal Flow (GPU-accelerated SVG dash-offset signal pulses for QForce & AIKTRA)
+- [ ] **US-507 (P1)**: Bespoke Ask Navi Floating Radar & Fluid Drawer Motion (Subtle pulsing radar ring indicating "AI Online" with fluid slide-up concierge drawer)
+
+---
+
+## 🛡️ Anti-Copy & Bespoke Identity Enforcement Rules
+1. **Never copy competitor aesthetics**: Zero adoption of generic white rounded bubble cards, purple/blue glow buttons, or generic video loops.
+2. **Proprietary Palette & Typography**: Strictly Deep Crimson (`#C40000`), Dark Slate (`#0B0D11`, `#141820`), crisp technical borders, and clean Google Fonts typography.
+3. **Vanilla GPU Performance**: Zero heavy 3rd-party motion libraries (no Framer Motion or heavy GSAP bundles). Pure CSS `@keyframes` and vanilla JS with `prefers-reduced-motion` compliance.
+
 
 ---
 
