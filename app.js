@@ -35,30 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Industry Filter
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const industryItems = document.querySelectorAll('.industry-item');
 
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => {
-        b.classList.remove('bg-on-background', 'text-white');
-        b.classList.add('bg-surface', 'text-muted-charcoal');
-      });
-      btn.classList.remove('bg-surface', 'text-muted-charcoal');
-      btn.classList.add('bg-on-background', 'text-white');
-
-      const filterValue = btn.getAttribute('data-filter');
-      industryItems.forEach(item => {
-        const category = item.getAttribute('data-category');
-        if (filterValue === 'all' || category === filterValue) {
-          item.style.display = 'block';
-        } else {
-          item.style.display = 'none';
-        }
-      });
-    });
-  });
 
   // 1. Solution Match Wizard Logic
   const openWizardBtn = document.getElementById('openWizardBtn');

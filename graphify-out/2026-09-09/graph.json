@@ -10,10 +10,9 @@
       "source_location": "L394",
       "_callable": true,
       "_origin": "ast",
-      "community": 1,
-      "norm_label": "appendmessage()",
       "id": "app_appendmessage",
-      "community_name": "app.js"
+      "community": 1,
+      "norm_label": "appendmessage()"
     },
     {
       "label": "generateNaviResponse()",
@@ -22,10 +21,9 @@
       "source_location": "L338",
       "_callable": true,
       "_origin": "ast",
-      "community": 1,
-      "norm_label": "generatenaviresponse()",
       "id": "app_generatenaviresponse",
-      "community_name": "app.js"
+      "community": 1,
+      "norm_label": "generatenaviresponse()"
     },
     {
       "label": "goToWizardStep()",
@@ -34,10 +32,9 @@
       "source_location": "L101",
       "_callable": true,
       "_origin": "ast",
-      "community": 1,
-      "norm_label": "gotowizardstep()",
       "id": "app_gotowizardstep",
-      "community_name": "app.js"
+      "community": 1,
+      "norm_label": "gotowizardstep()"
     },
     {
       "label": "openProposalWithSummary()",
@@ -46,10 +43,9 @@
       "source_location": "L219",
       "_callable": true,
       "_origin": "ast",
-      "community": 1,
-      "norm_label": "openproposalwithsummary()",
       "id": "app_openproposalwithsummary",
-      "community_name": "app.js"
+      "community": 1,
+      "norm_label": "openproposalwithsummary()"
     },
     {
       "label": "showWizardResults()",
@@ -58,10 +54,9 @@
       "source_location": "L108",
       "_callable": true,
       "_origin": "ast",
-      "community": 1,
-      "norm_label": "showwizardresults()",
       "id": "app_showwizardresults",
-      "community_name": "app.js"
+      "community": 1,
+      "norm_label": "showwizardresults()"
     },
     {
       "label": "updateEstimator()",
@@ -70,10 +65,9 @@
       "source_location": "L188",
       "_callable": true,
       "_origin": "ast",
-      "community": 1,
-      "norm_label": "updateestimator()",
       "id": "app_updateestimator",
-      "community_name": "app.js"
+      "community": 1,
+      "norm_label": "updateestimator()"
     },
     {
       "label": "package.json",
@@ -180,10 +174,9 @@
       "source_file": "app.js",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 1,
-      "norm_label": "app.js",
       "id": "app",
-      "community_name": "app.js"
+      "community": 1,
+      "norm_label": "app.js"
     },
     {
       "label": "extract_brand.js",
@@ -268,10 +261,9 @@
       "source_file": "tests/ui.spec.js",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 4,
-      "norm_label": "ui.spec.js",
       "id": "tests_ui_spec",
-      "community_name": "ui.spec.js"
+      "community": 4,
+      "norm_label": "ui.spec.js"
     },
     {
       "label": "path",
@@ -279,10 +271,9 @@
       "source_file": "tests/ui.spec.js",
       "source_location": "L2",
       "_origin": "ast",
-      "community": 4,
-      "norm_label": "path",
       "id": "tests_ui_spec_path",
-      "community_name": "ui.spec.js"
+      "community": 4,
+      "norm_label": "path"
     },
     {
       "label": "{ test, expect }",
@@ -290,10 +281,9 @@
       "source_file": "tests/ui.spec.js",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 4,
-      "norm_label": "{ test, expect }",
       "id": "tests_ui_spec_test_expect",
-      "community_name": "ui.spec.js"
+      "community": 4,
+      "norm_label": "{ test, expect }"
     },
     {
       "label": "scripts",
@@ -360,9 +350,9 @@
       "source_location": "L101",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app",
-      "target": "app_gotowizardstep"
+      "target": "app_gotowizardstep",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -371,9 +361,9 @@
       "source_location": "L108",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app",
-      "target": "app_showwizardresults"
+      "target": "app_showwizardresults",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -382,9 +372,9 @@
       "source_location": "L188",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app",
-      "target": "app_updateestimator"
+      "target": "app_updateestimator",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -393,9 +383,9 @@
       "source_location": "L219",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app",
-      "target": "app_openproposalwithsummary"
+      "target": "app_openproposalwithsummary",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -404,9 +394,9 @@
       "source_location": "L338",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app",
-      "target": "app_generatenaviresponse"
+      "target": "app_generatenaviresponse",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -415,9 +405,9 @@
       "source_location": "L394",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app",
-      "target": "app_appendmessage"
+      "target": "app_appendmessage",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -602,9 +592,9 @@
       "source_location": "L1",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "tests_ui_spec",
-      "target": "tests_ui_spec_test_expect"
+      "target": "tests_ui_spec_test_expect",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -613,9 +603,9 @@
       "source_location": "L2",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "tests_ui_spec",
-      "target": "tests_ui_spec_path"
+      "target": "tests_ui_spec_path",
+      "confidence_score": 1.0
     }
   ],
   "hyperedges": [],
