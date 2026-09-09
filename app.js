@@ -272,4 +272,169 @@ document.addEventListener('DOMContentLoaded', () => {
 
     counterElements.forEach(el => counterObserver.observe(el));
   }
+
+  // 7. US-306: Bespoke 3D Perspective Card Tilt & Specular Sheen
+  const tiltCards = document.querySelectorAll('.tilt-card');
+  tiltCards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      
+      const rotateX = ((y - centerY) / centerY) * -6; // subtle max 6deg
+      const rotateY = ((x - centerX) / centerX) * 6;
+      
+      card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.02, 1.02, 1.02)`;
+      card.style.setProperty('--mouse-x', `${x}px`);
+      card.style.setProperty('--mouse-y', `${y}px`);
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+    });
+  });
+
+  // 8. US-405: Product Demo Triggers
+  document.querySelectorAll('.prod-demo-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const prodName = this.getAttribute('data-product') || 'Enterprise Accelerator';
+      openProposalWithSummary(`Requested Platform Demo: ${prodName} Architecture & Live Evaluation`);
+    });
+  });
+
+  // 9. US-501 & US-507: Persistent "Ask Navi" AI Website Assistant
+  const askNaviTrigger = document.getElementById('askNaviTrigger');
+  const askNaviDrawer = document.getElementById('askNaviDrawer');
+  const closeNaviDrawer = document.getElementById('closeNaviDrawer');
+  const naviChatBody = document.getElementById('naviChatBody');
+  const naviChatForm = document.getElementById('naviChatForm');
+  const naviInput = document.getElementById('naviInput');
+
+  if (askNaviTrigger && askNaviDrawer) {
+    askNaviTrigger.addEventListener('click', () => {
+      askNaviDrawer.classList.toggle('active');
+      if (askNaviDrawer.classList.contains('active') && naviInput) {
+        naviInput.focus();
+      }
+    });
+  }
+
+  if (closeNaviDrawer && askNaviDrawer) {
+    closeNaviDrawer.addEventListener('click', () => {
+      askNaviDrawer.classList.remove('active');
+    });
+  }
+
+  // Keyboard shortcut Esc closes Ask Navi
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && askNaviDrawer && askNaviDrawer.classList.contains('active')) {
+      askNaviDrawer.classList.remove('active');
+    }
+  });
+
+  // Grounded PRD v1.3 Knowledge Responses
+  function generateNaviResponse(query) {
+    const q = query.toLowerCase();
+    
+    if (q.includes('telecom') || q.includes('oss') || q.includes('bss')) {
+      return `<strong>Telecom Domain Strength:</strong> NForce One specializes in mission-critical communications engineering. Our key pillars include:
+      <ul class="list-disc list-inside mt-1.5 space-y-1 text-xs">
+        <li><strong>OSS/BSS Modernization:</strong> Order orchestration, rating & billing validation without revenue leakage.</li>
+        <li><strong>End-to-End Telecom QA:</strong> SIT testing, protocol validation, and carrier regression suites.</li>
+        <li><strong>CX Voice AI:</strong> Sub-300ms conversational latency with automated call journey testing.</li>
+        <li><strong>Network Operations:</strong> NOC triage automation and field technician dispatch optimization.</li>
+      </ul>
+      <button class="open-proposal-modal text-primary font-bold text-xs mt-2 underline block">Discuss Telecom Transformation →</button>`;
+    }
+
+    if (q.includes('qforce') || q.includes('demo') || q.includes('product') || q.includes('accelerator')) {
+      return `<strong>NForce One Innovation Suite:</strong> Our flagship platforms include:
+      <ul class="list-disc list-inside mt-1.5 space-y-1 text-xs">
+        <li><strong>QForce AI:</strong> Self-healing test automation engine that cuts test maintenance overhead by 60%.</li>
+        <li><strong>AIKTRA:</strong> Enterprise Agentic AI orchestration framework with RAG workflows.</li>
+        <li><strong>Pulse:</strong> Real-time operational observability & SLA telemetry.</li>
+        <li><strong>FlightOps:</strong> GitOps release governance & automated CI/CD gating.</li>
+      </ul>
+      <button class="open-proposal-modal text-primary font-bold text-xs mt-2 underline block">Request a Live Platform Demo →</button>`;
+    }
+
+    if (q.includes('four') || q.includes('pillar') || q.includes('capability') || q.includes('service')) {
+      return `<strong>Our Four Capability Pillars:</strong>
+      <ol class="list-decimal list-inside mt-1.5 space-y-1 text-xs">
+        <li><strong>AI & Agentic Solutions:</strong> Agentic AI, GenAI, Enterprise RAG, and Voice AI.</li>
+        <li><strong>Quality Engineering & AI Assurance:</strong> Functional E2E, LLM Evaluation, Hallucination QA, and Security Audits.</li>
+        <li><strong>Digital Engineering:</strong> Application Modernization, Cloud-Native APIs, and Microservices.</li>
+        <li><strong>Data Cloud & Platforms:</strong> AWS/Azure/GCP Cloud, Pega PRPC, and automated MLOps.</li>
+      </ol>
+      <a href="#capabilities" class="text-primary font-bold text-xs mt-2 underline block">Explore All Pillars On-Page →</a>`;
+    }
+
+    if (q.includes('delivery') || q.includes('india') || q.includes('onshore') || q.includes('hybrid') || q.includes('model')) {
+      return `<strong>US + India Global Delivery Models:</strong>
+      <ul class="list-disc list-inside mt-1.5 space-y-1 text-xs">
+        <li><strong>Onshore (US):</strong> Strategic architecture leadership, client collaboration, and compliance oversight.</li>
+        <li><strong>Offshore (India Hub):</strong> High-velocity engineering labs in Hyderabad & Bengaluru (up to 40% cost optimization).</li>
+        <li><strong>Hybrid Follow-the-Sun:</strong> 24-hour continuous development & testing cycles.</li>
+      </ul>
+      Contracting options: Dedicated Managed Capacity, SOW Milestones, or Agile T&M.`;
+    }
+
+    if (q.includes('pega')) {
+      return `<strong>Pega Enterprise Platform Expertise:</strong> NForce One engineers have extensive experience in Pega PRPC rule configuration, case management workflows, Pega Infinity upgrades, and automated Pega Unit QA.`;
+    }
+
+    // Default Fallback
+    return `NForce One is an enterprise technology and delivery partner (20+ years leadership). We deliver <strong>AI & Agentic Solutions</strong>, <strong>Quality Engineering</strong>, <strong>Digital Modernization</strong>, and <strong>Carrier Telecom Systems</strong>.
+    <br><br>Would you like to speak directly with a Solutions Architect?
+    <button class="open-proposal-modal text-primary font-bold text-xs mt-2 underline block">Connect with a Human Architect →</button>`;
+  }
+
+  function appendMessage(text, isUser = false) {
+    if (!naviChatBody) return;
+    const msgDiv = document.createElement('div');
+    msgDiv.className = `navi-msg ${isUser ? 'navi-msg-user' : 'navi-msg-bot'}`;
+    msgDiv.innerHTML = text;
+    naviChatBody.appendChild(msgDiv);
+    naviChatBody.scrollTop = naviChatBody.scrollHeight;
+
+    // Attach click listener to any newly added proposal modal buttons inside bot messages
+    msgDiv.querySelectorAll('.open-proposal-modal').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (askNaviDrawer) askNaviDrawer.classList.remove('active');
+        if (proposalModal) proposalModal.classList.add('active');
+      });
+    });
+  }
+
+  if (naviChatForm && naviInput) {
+    naviChatForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const query = naviInput.value.trim();
+      if (!query) return;
+
+      appendMessage(query, true);
+      naviInput.value = '';
+
+      setTimeout(() => {
+        const response = generateNaviResponse(query);
+        appendMessage(response, false);
+      }, 400);
+    });
+  }
+
+  // Handle Quick Discovery Chips
+  document.querySelectorAll('.navi-chip').forEach(chip => {
+    chip.addEventListener('click', function() {
+      const q = this.getAttribute('data-query');
+      appendMessage(q, true);
+      setTimeout(() => {
+        const response = generateNaviResponse(q);
+        appendMessage(response, false);
+      }, 350);
+    });
+  });
 });
+

@@ -11,13 +11,13 @@
 
 | Epic | Scope | Priority | User Stories | Status | Progress |
 |---|---|---|---|---|---|
-| **Epic 1: Brand & Hero Positioning** | 10-sec message, CTAs, Credibility, Palette | P0 | US-101 to US-106 | Complete | 100% |
-| **Epic 2: Four Capability Pillars** | AI & Agentic, QE & AI Assurance, Digital, Cloud | P0 | US-201 to US-205 | In Progress | 60% |
-| **Epic 3: Telecom Domain Differentiator** | OSS/BSS, CX Voice AI, Network Ops, Telecom QA | P0/P1 | US-301 to US-305 | In Progress | 40% |
-| **Epic 4: Innovation & Proprietary Products** | QForce AI, AIKTRA, OneHR, Pulse, FlightOps | P1 | US-401 to US-405 | In Progress | 40% |
-| **Epic 5: Ask Navi AI Website Assistant** | Persistent widget, Q&A, Lead Capture | P0/P1 | US-501 to US-506 | In Progress | 50% |
-| **Epic 6: Engagement Models & Proof** | US+India Models, Case Studies, Testimonials | P1/P2 | US-601 to US-605 | In Progress | 60% |
-| **Epic 7: Optimization & Quality Pack** | Responsive, A11y, SEO, Playwright Tests | P0/P1 | US-701 to US-704 | Complete | 100% |
+| **Epic 1: Brand & Hero Positioning** | 10-sec message, CTAs, Credibility, Velocity Ticker | P0/P1 | US-101 to US-107 | Complete | 100% |
+| **Epic 2: Four Capability Pillars** | AI & Agentic, QE & AI Assurance, Digital, Cloud | P0/P1 | US-201 to US-205 | Complete | 100% |
+| **Epic 3: Telecom Domain Differentiator** | OSS/BSS, CX Voice AI, Network Ops, Telecom QA, 3D Tilt | P0/P1 | US-301 to US-306 | Complete | 100% |
+| **Epic 4: Innovation & Proprietary Products** | QForce AI, AIKTRA, OneHR, Pulse, FlightOps, AuraFace | P0/P1 | US-401 to US-406 | Complete | 100% |
+| **Epic 5: Ask Navi AI Website Assistant** | Persistent widget, Q&A, Lead Capture, Radar Ring | P0/P1 | US-501 to US-507 | Complete | 100% |
+| **Epic 6: Engagement Models & Proof** | US+India Models, Case Studies, Testimonials | P1/P2 | US-601 to US-605 | In Progress | 80% |
+| **Epic 7: Optimization & Quality Pack** | Responsive, A11y, SEO, 12 Playwright Tests | P0/P1 | US-701 to US-704 | Complete | 100% |
 
 ---
 
@@ -32,16 +32,19 @@
 - [x] **US-605 (P1)**: Animated Metrics Counter Dashboard (99.9% Uptime, 45% Faster QA, 500+ Deployments)
 - [x] **US-704 (P0)**: Automated Playwright End-to-End Test Pack (7/7 Passing)
 
-### Sprint 2: The Deep PRD Expansion & Bespoke Motion Engineering (Active Sprint)
-- [ ] **US-201 - US-204 (P0)**: Complete Four Capability Pillars (AI & Agentic, QE & AI Assurance, Digital Engineering, Data & Cloud)
-- [ ] **US-301 - US-305 (P0/P1)**: Dedicated Telecom Domain Showcase (OSS/BSS, Voice AI, Network Ops)
-- [ ] **US-401 - US-405 (P1)**: Innovation & Products Suite (QForce AI, AIKTRA, OneHR, Pulse, FlightOps, AuraFace)
-- [ ] **US-501 - US-506 (P0/P1)**: Persistent "Ask Navi" AI Website Assistant with grounded Q&A & lead capture
-- [ ] **US-601 - US-604 (P1/P2)**: Flexible Engagement Models (Onshore, Offshore, Hybrid) & Client/Employee Proof
-- [ ] **US-107 (P1)**: Bespoke Enterprise Velocity Ticker (GPU-accelerated horizontal brand velocity ticker with crimson glow)
-- [ ] **US-306 (P1)**: Bespoke 3D Perspective Card Tilt & Specular Sheen (Mouse-interactive CSS perspective tilt with cursor-following specular sheen)
-- [ ] **US-406 (P1)**: Bespoke Architecture Telemetry & Signal Flow (GPU-accelerated SVG dash-offset signal pulses for QForce & AIKTRA)
-- [ ] **US-507 (P1)**: Bespoke Ask Navi Floating Radar & Fluid Drawer Motion (Subtle pulsing radar ring indicating "AI Online" with fluid slide-up concierge drawer)
+### Sprint 2: The Deep PRD Expansion & Bespoke Motion Engineering (Completed)
+- [x] **US-201 - US-204 (P0)**: Complete Four Capability Pillars (AI & Agentic, QE & AI Assurance, Digital Engineering, Data & Cloud)
+- [x] **US-301 - US-305 (P0/P1)**: Dedicated Telecom Domain Showcase (OSS/BSS, Voice AI, Network Ops)
+- [x] **US-401 - US-405 (P1)**: Innovation & Products Suite (QForce AI, AIKTRA, OneHR, Pulse, FlightOps, AuraFace)
+- [x] **US-501 - US-506 (P0/P1)**: Persistent "Ask Navi" AI Website Assistant with grounded Q&A & lead capture
+- [x] **US-601 (P1)**: Flexible Engagement Models (Onshore US, Offshore India, Hybrid Follow-the-Sun)
+- [x] **US-107 (P1)**: Bespoke Enterprise Velocity Ticker (GPU-accelerated horizontal brand velocity ticker with crimson glow)
+- [x] **US-306 (P1)**: Bespoke 3D Perspective Card Tilt & Specular Sheen (Mouse-interactive CSS perspective tilt with cursor-following specular sheen)
+- [x] **US-406 (P1)**: Bespoke Architecture Telemetry & Signal Flow (GPU-accelerated SVG dash-offset signal pulses for QForce & AIKTRA)
+- [x] **US-507 (P1)**: Bespoke Ask Navi Floating Radar & Fluid Drawer Motion (Subtle pulsing radar ring indicating "AI Online" with fluid slide-up concierge drawer)
+- [x] **US-702 (P0)**: Accessibility & Reduced-Motion (`prefers-reduced-motion` CSS rules)
+- [x] **US-704 (P0)**: 12/12 Playwright Automated End-to-End Tests Passing (100% Green)
+
 
 ---
 

@@ -19,17 +19,25 @@ test.describe('NForceOne B2B Executive Website UI & Interactivity Tests', () => 
     await expect(planBtn).toBeVisible();
   });
 
-  test('2. Hero Section Displays Heading, CTA & Solution Wizard Trigger', async ({ page }) => {
+  test('2. Hero Section Displays 10-Second Value Prop, Dual CTAs & Credibility Strip', async ({ page }) => {
     await page.goto(fileUrl);
 
     const heading = page.locator('h1');
-    await expect(heading).toContainText('Build, secure, and scale the technology your business depends on.');
+    await expect(heading).toContainText('AI. Quality Engineering. Digital Transformation.');
+    await expect(heading).toContainText('Built to Scale at Speed.');
 
-    const wizardBtn = page.locator('#openWizardBtn');
-    await expect(wizardBtn).toBeVisible();
+    const talkExpertBtn = page.locator('#heroTalkExpertBtn');
+    await expect(talkExpertBtn).toBeVisible();
 
-    const estimatorCta = page.getByRole('link', { name: 'Calculate Project Scope' });
-    await expect(estimatorCta).toBeVisible();
+    const exploreCapBtn = page.locator('#heroExploreCapBtn');
+    await expect(exploreCapBtn).toBeVisible();
+
+    // Verify 4-Part Credibility Strip inside Hero
+    const hero = page.locator('#hero');
+    await expect(hero.getByText('20+ Years Leadership', { exact: true })).toBeVisible();
+    await expect(hero.getByText('US + India Delivery', { exact: true })).toBeVisible();
+    await expect(hero.getByText('Telecom Domain Strength', { exact: true })).toBeVisible();
+    await expect(hero.getByText('AI + QE Heritage', { exact: true })).toBeVisible();
   });
 
   test('3. Compliance Trust Bar Badges Display & Trigger Popover Modal', async ({ page }) => {
@@ -160,6 +168,94 @@ test.describe('NForceOne B2B Executive Website UI & Interactivity Tests', () => 
     const summaryBox = page.locator('#proposalScopeSummary');
     await expect(summaryBox).toBeVisible();
     await expect(summaryBox).toContainText('Recommended Solution Blueprint');
+
+    await page.locator('#modalCloseBtn').click();
+  });
+
+  test('8. Bespoke Enterprise Velocity Ticker Renders Smooth Marquee Items', async ({ page }) => {
+    await page.goto(fileUrl);
+
+    const ticker = page.locator('.velocity-ticker-wrap');
+    await expect(ticker).toBeVisible();
+
+    const tickerItems = page.locator('.velocity-ticker-item');
+    await expect(tickerItems.first()).toContainText('Agentic AI & RAG Orchestration');
+    await expect(tickerItems.nth(1)).toContainText('Telecom OSS/BSS Transformation');
+  });
+
+  test('9. Four Capability Pillars Section Displays All 4 PRD Pillars', async ({ page }) => {
+    await page.goto(fileUrl);
+
+    const capSection = page.locator('#capabilities');
+    await expect(capSection).toBeVisible();
+
+    await expect(page.getByRole('heading', { name: 'AI & Agentic Solutions' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Quality Engineering & AI Assurance' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Digital Engineering' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Data Cloud & Platforms' })).toBeVisible();
+  });
+
+  test('10. Dedicated Telecom Domain Showcase Displays 4 Carrier Pillars & Tilt Cards', async ({ page }) => {
+    await page.goto(fileUrl);
+
+    const telecomSection = page.locator('#telecom');
+    await expect(telecomSection).toBeVisible();
+
+    await expect(telecomSection.getByText('OSS/BSS Transformation')).toBeVisible();
+    await expect(telecomSection.getByText('End-to-End Telecom QA')).toBeVisible();
+    await expect(telecomSection.getByText('Telecom CX & Voice AI')).toBeVisible();
+    await expect(telecomSection.getByText('Network Ops & Field AI')).toBeVisible();
+
+    const tiltCards = telecomSection.locator('.tilt-card');
+    await expect(tiltCards).toHaveCount(4);
+  });
+
+  test('11. Innovation & Products Suite Displays QForce AI and Triggers Demo Flow', async ({ page }) => {
+    await page.goto(fileUrl);
+
+    const prodSection = page.locator('#products');
+    await expect(prodSection).toBeVisible();
+
+    await expect(prodSection.getByRole('heading', { name: 'QForce AI' })).toBeVisible();
+    await expect(prodSection.getByRole('heading', { name: 'AIKTRA' })).toBeVisible();
+
+    // Click Request Demo on QForce AI
+    const qforceDemoBtn = prodSection.locator('button[data-product="QForce AI"]');
+    await qforceDemoBtn.click();
+
+    const proposalModal = page.locator('#proposalModal');
+    await expect(proposalModal).toHaveClass(/active/);
+
+    const summaryBox = page.locator('#proposalScopeSummary');
+    await expect(summaryBox).toContainText('QForce AI');
+
+    await page.locator('#modalCloseBtn').click();
+  });
+
+  test('12. Persistent Ask Navi Assistant Widget Opens Drawer & Responds to Discovery Chips', async ({ page }) => {
+    await page.goto(fileUrl);
+
+    const naviTrigger = page.locator('#askNaviTrigger');
+    await expect(naviTrigger).toBeVisible();
+
+    const naviDrawer = page.locator('#askNaviDrawer');
+    await expect(naviDrawer).not.toHaveClass(/active/);
+
+    // Click trigger to open Ask Navi
+    await naviTrigger.click();
+    await expect(naviDrawer).toHaveClass(/active/);
+
+    // Click "Telecom OSS/BSS" discovery chip
+    const telecomChip = naviDrawer.locator('.navi-chip[data-query="Telecom OSS/BSS"]');
+    await telecomChip.click();
+
+    // Verify Navi response contains grounded Telecom info
+    await expect(naviDrawer.locator('.navi-chat-body')).toContainText('OSS/BSS Modernization');
+
+    // Close drawer
+    await page.locator('#closeNaviDrawer').click();
+    await expect(naviDrawer).not.toHaveClass(/active/);
   });
 
 });
+
