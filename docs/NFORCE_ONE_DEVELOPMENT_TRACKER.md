@@ -38,10 +38,11 @@
 - [x] **US-401 - US-405 (P1)**: Innovation & Products Suite (QForce AI, AIKTRA, OneHR, Pulse, FlightOps, AuraFace)
 - [x] **US-501 - US-506 (P0/P1)**: Persistent "Ask Navi" AI Website Assistant with grounded Q&A & lead capture
 - [x] **US-601 (P1)**: Flexible Engagement Models (Onshore US, Offshore India, Hybrid Follow-the-Sun)
-- [x] **US-107 (P1)**: Bespoke Enterprise Velocity Ticker (GPU-accelerated horizontal brand velocity ticker with crimson glow)
+- [x] **US-107 (P1)**: Integrated Hero Command Center Metrics Dashboard (Replaced middle-page marquee ticker with high-impact integrated hero telemetry and static verified trust bar, eliminating zebra-striping)
 - [x] **US-306 (P1)**: Bespoke 3D Perspective Card Tilt & Specular Sheen (Mouse-interactive CSS perspective tilt with cursor-following specular sheen)
 - [x] **US-406 (P1)**: Bespoke Architecture Telemetry & Signal Flow (GPU-accelerated SVG dash-offset signal pulses for QForce & AIKTRA)
 - [x] **US-507 (P1)**: Bespoke Ask Navi Floating Radar & Fluid Drawer Motion (Subtle pulsing radar ring indicating "AI Online" with fluid slide-up concierge drawer)
+- [x] **US-701 (P0)**: Responsive Mobile Architecture (Mobile swipe-snap card carousel preventing vertical doom-scrolling, global `overflow-x: hidden`)
 - [x] **US-702 (P0)**: Accessibility & Reduced-Motion (`prefers-reduced-motion` CSS rules)
 - [x] **US-704 (P0)**: 12/12 Playwright Automated End-to-End Tests Passing (100% Green)
 

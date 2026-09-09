@@ -172,15 +172,15 @@ test.describe('NForceOne B2B Executive Website UI & Interactivity Tests', () => 
     await page.locator('#modalCloseBtn').click();
   });
 
-  test('8. Bespoke Enterprise Velocity Ticker Renders Smooth Marquee Items', async ({ page }) => {
+  test('8. Integrated Hero Telemetry Metrics Dashboard & Credibility Strip Render Accurately', async ({ page }) => {
     await page.goto(fileUrl);
 
-    const ticker = page.locator('.velocity-ticker-wrap');
-    await expect(ticker).toBeVisible();
-
-    const tickerItems = page.locator('.velocity-ticker-item');
-    await expect(tickerItems.first()).toContainText('Agentic AI & RAG Orchestration');
-    await expect(tickerItems.nth(1)).toContainText('Telecom OSS/BSS Transformation');
+    const metricCounters = page.locator('#hero .metric-count');
+    await expect(metricCounters).toHaveCount(4);
+    await expect(page.locator('#hero')).toContainText('Cloud SLA Uptime');
+    await expect(page.locator('#hero')).toContainText('Faster QA Cycles');
+    await expect(page.locator('#hero')).toContainText('Deployments Completed');
+    await expect(page.locator('#hero')).toContainText('Active Security Operations');
   });
 
   test('9. Four Capability Pillars Section Displays All 4 PRD Pillars', async ({ page }) => {

@@ -42,12 +42,19 @@
   padding: 0;
 }
 
+html {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: var(--font-body);
   color: var(--color-slate-dark);
   background-color: var(--color-white);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -1427,4 +1434,57 @@ img {
     transform: none !important;
   }
 }
+
+/* ==========================================================================
+   Ambient Card Micro-Interactions & Mobile Swipe-Snap Carousel
+   ========================================================================== */
+.ambient-card {
+  position: relative;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
+  overflow: hidden;
+}
+
+.ambient-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.ambient-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px -6px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(196, 0, 0, 0.2);
+  border-color: rgba(196, 0, 0, 0.4) !important;
+}
+
+.ambient-card:hover::after {
+  opacity: 1;
+}
+
+/* Mobile Swipe Carousel - smooth horizontal card snapping on small screens */
+@media (max-width: 768px) {
+  .mobile-swipe-carousel {
+    display: flex !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch;
+    gap: 16px;
+    padding-bottom: 16px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-primary) transparent;
+  }
+  
+  .mobile-swipe-carousel > * {
+    min-width: 82% !important;
+    max-width: 82% !important;
+    flex-shrink: 0 !important;
+    scroll-snap-align: start !important;
+  }
+}
+
 

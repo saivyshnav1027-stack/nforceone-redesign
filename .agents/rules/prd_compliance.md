@@ -26,4 +26,8 @@
   - Aesthetic: Enterprise B2B Mission-Critical Command Center & Digital Engineering Hub. Crisp, authoritative, and telemetry-driven.
   - Motion Architecture: Engineered bespoke using vanilla GPU-accelerated CSS (`transform`, `opacity`) and vanilla JS. Micro-interactions should feel precise, instantaneous, and tactile—not cartoonish or floaty.
   - Dynamic Sheen & Lighting: Utilize mathematical cursor-following specular gradients via CSS custom properties (`--mouse-x`, `--mouse-y`) rather than 3rd-party shader libraries.
-
+## 6. Mandatory PRD Cross-Verification & Zero Information Loss Guarantee
+- **Cross-Verification Before Any Modification**: Before making ANY structural, UX consolidation, or visual change, rigorously cross-verify against PRD v1.3 requirements.
+- **Zero Information Loss**: Under no circumstances can any PRD-mandated section, capability pillar, product accelerator, verified metric, compliance badge, CTA, or engagement model be deleted or omitted.
+- **Architectural Enhancements**: Consolidations (such as unifying tabbed capabilities or mobile swipe carousels) must preserve 100% of the underlying content and requirements while improving ergonomics, page weight, and visual continuity.
+- **Explicit Traceability**: Whenever proposing or executing a change, explicitly verify each PRD section code (HOME-001, CAP-001, TEL-001, INNOV-001, CHAT-001, etc.) against the update.
