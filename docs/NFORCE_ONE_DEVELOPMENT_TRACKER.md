@@ -17,7 +17,7 @@
 | **Epic 4: Innovation & Proprietary Products** | QForce AI, AIKTRA, OneHR, Pulse, FlightOps, AuraFace | P0/P1 | US-401 to US-406 | Complete | 100% |
 | **Epic 5: Ask Navi AI Website Assistant** | Persistent widget, Q&A, Lead Capture, Radar Ring | P0/P1 | US-501 to US-507 | Complete | 100% |
 | **Epic 6: Engagement Models & Proof** | US+India Models, Case Studies, Testimonials | P1/P2 | US-601 to US-605 | Complete | 100% |
-| **Epic 7: Optimization & Quality Pack** | Responsive, A11y, SEO, Bug Fixes, Mobile Nav & Micro-Interactions, 25 Playwright Tests | P0/P1 | US-701 to US-706 | Complete | 100% |
+| **Epic 7: Optimization & Quality Pack** | Responsive, A11y, SEO, Bug Fixes, Mobile Nav, Micro-Interactions & Configurator, 28 Playwright Tests | P0/P1 | US-701 to US-707 | Complete | 100% |
 
 ---
 
@@ -56,6 +56,9 @@
 
 ### Sprint 5: Responsive Navigation & Signature Micro-Interactions (Completed)
 - [x] **US-706 (P0/P1)**: Menu panel for phones, tablets & laptops under 1400px (all sections + 11 industries + CTA, Esc/tap-to-close, `aria-expanded`); single-line desktop nav from 1400px; hero headline word-rise with one-time crimson light sweep; header scroll-progress telemetry bar; active-section nav highlight; tactile button press + magnetic primary CTAs; cursor spotlight on pillar, product & engagement cards; Ask Navi typing indicator & message slide-in. All motion GPU-only (`transform`/`opacity`) with `prefers-reduced-motion` fallbacks. 25/25 Playwright tests.
+
+### Sprint 6: Configurator Redesign, Culture Band & Blueprint Visual (Completed)
+- [x] **US-707 (P1)**: Scope estimator redesigned as a PRD 5B Engagement Configurator — four PRD pillar tiles, squad slider with live US/India squad visual, Onshore / Offshore / Hybrid delivery model, compliance chips, and live blueprint output (sprint track, squad matrix, coverage, governance). Cross-Border Culture strip rebuilt as a dark live band with drifting follow-the-sun backdrop, animated Dallas↔Bengaluru handoff arc, real local clocks with shift status, and photo-topped quote cards. Final CTA workshop photo replaced by an animated Architecture Alignment Session blueprint (scope → stack → budget). 28/28 Playwright tests.
 
 
 ---

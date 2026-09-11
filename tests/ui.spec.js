@@ -513,5 +513,53 @@ test.describe('NForceOne B2B Executive Website UI & Interactivity Tests', () => 
     await expect(headline.locator('.hero-sweep')).toHaveText('Built to Scale at Speed.');
   });
 
+  test('26. Scope Configurator Updates US/India Split, Squad Matrix & Proposal Summary', async ({ page }) => {
+    await page.goto(fileUrl);
+    const section = page.locator('#estimator');
+
+    await section.locator('label.est-seg', { hasText: 'Offshore (India)' }).click();
+    await expect(page.locator('#estOnshoreCount')).toHaveText('1');
+    await expect(page.locator('#estOffshoreCount')).toHaveText('4');
+    await expect(page.locator('#estCoverage')).toContainText('IST');
+
+    await section.locator('label.est-tile', { hasText: 'Quality Engineering' }).click();
+    await expect(page.locator('#estSquadBreakdown')).toContainText('Test Automation Engineer');
+
+    await section.locator('.estimator-toggle-btn[data-compliance="HIPAA PHI"]').click();
+    await expect(page.locator('#estGovernance')).toHaveText('HIPAA PHI');
+    await expect(section.locator('.squad-slot.active')).toHaveCount(5);
+
+    await page.locator('#estReqProposalBtn').click();
+    const summary = page.locator('#proposalScopeSummary');
+    await expect(summary).toContainText('Offshore (India)');
+    await expect(summary).toContainText('HIPAA PHI');
+    await expect(summary).toContainText('5 Engineers');
+  });
+
+  test('27. Cross-Border Culture Band Shows Live Dallas & Bengaluru Clocks', async ({ page }) => {
+    await page.goto(fileUrl);
+    const strip = page.locator('.culture-strip');
+
+    await expect(strip).toContainText('Built by Engineers, Led by Veterans');
+    await expect(strip.locator('.culture-card')).toHaveCount(2);
+
+    const clocks = strip.locator('.culture-clock');
+    await expect(clocks).toHaveCount(2);
+    for (const clock of await clocks.all()) {
+      await expect(clock).toHaveText(/^\d{2}:\d{2}\s?(AM|PM)$/);
+    }
+  });
+
+  test('28. Final CTA Blueprint Visual Replaces Workshop Photo', async ({ page }) => {
+    await page.goto(fileUrl);
+    const contact = page.locator('#contact');
+
+    await expect(contact.locator('img[src*="discovery_workshop_session"]')).toHaveCount(0);
+    const blueprint = contact.locator('.blueprint-card');
+    await expect(blueprint).toContainText('Architecture Alignment Session');
+    await expect(blueprint).toContainText('Granular technical scoping, stack feasibility & budget estimation');
+    await expect(blueprint.locator('.blueprint-step')).toHaveCount(3);
+  });
+
 });
 

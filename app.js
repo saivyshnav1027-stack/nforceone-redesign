@@ -293,50 +293,149 @@ document.addEventListener('DOMContentLoaded', () => {
     stageCards.forEach(card => stageObserver.observe(card));
   }
 
-  // 5. IT Project Scope & Estimator Calculator
-  const estPillar = document.getElementById('estPillar');
+  // 5. Scope & Engagement Configurator (pillar, squad scale, delivery model, compliance)
+  const estimatorSection = document.getElementById('estimator');
   const estTeamSlider = document.getElementById('estTeamSlider');
   const estTeamVal = document.getElementById('estTeamVal');
   const estWeeks = document.getElementById('estWeeks');
   const estSquadBreakdown = document.getElementById('estSquadBreakdown');
   const estReqProposalBtn = document.getElementById('estReqProposalBtn');
+  const estSquadViz = document.getElementById('estSquadViz');
+  const estSprintTrack = document.getElementById('estSprintTrack');
+  const estSprintNote = document.getElementById('estSprintNote');
+  const estOnshoreCount = document.getElementById('estOnshoreCount');
+  const estOffshoreCount = document.getElementById('estOffshoreCount');
+  const estCoverage = document.getElementById('estCoverage');
+  const estGovernance = document.getElementById('estGovernance');
+  const estPillarLabel = document.getElementById('estPillarLabel');
+
+  const EST_MAX_TEAM = 15;
+  const EST_MAX_SPRINTS = 7;
+  const plural = (count, noun) => `${count} ${noun}${count === 1 ? '' : 's'}`;
+
+  const DELIVERY_PROFILES = {
+    'Onshore (US)': { coverage: 'US Business Hours', onshore: team => team, weeksOffset: 0 },
+    'Offshore (India)': { coverage: 'IST + US Overlap', onshore: () => 1, weeksOffset: 0 },
+    'Hybrid Follow-the-Sun': { coverage: '24h Follow-the-Sun', onshore: team => Math.max(1, Math.round(team * 0.3)), weeksOffset: -1 }
+  };
+
+  if (estSquadViz) {
+    for (let i = 0; i < EST_MAX_TEAM; i++) {
+      const slot = document.createElement('span');
+      slot.className = 'squad-slot';
+      slot.innerHTML = '<span class="material-symbols-outlined">person</span>';
+      slot.style.transitionDelay = `${i * 18}ms`;
+      estSquadViz.appendChild(slot);
+    }
+  }
+
+  if (estSprintTrack) {
+    for (let i = 0; i < EST_MAX_SPRINTS; i++) {
+      const sprint = document.createElement('span');
+      sprint.className = 'sprint-segment';
+      sprint.textContent = `S${i + 1}`;
+      sprint.style.transitionDelay = `${i * 40}ms`;
+      estSprintTrack.appendChild(sprint);
+    }
+  }
+
+  function getEstChoice(name, fallback) {
+    const checked = estimatorSection ? estimatorSection.querySelector(`input[name="${name}"]:checked`) : null;
+    return checked ? checked.value : fallback;
+  }
+
+  function buildSquad(pillar, teamSize) {
+    // "Quality Engineering & AI Assurance" also contains "AI", so it must be matched first.
+    if (pillar.includes('Quality')) {
+      return `1 QE Lead, ${plural(teamSize - 1, 'Test Automation Engineer')}`;
+    }
+    if (pillar.includes('Cloud')) {
+      const security = teamSize >= 4 ? 1 : 0;
+      const devops = Math.max(1, Math.floor((teamSize - 1 - security) / 2));
+      const data = teamSize - 1 - security - devops;
+      return ['1 Cloud Architect', plural(devops, 'DevOps Engineer'), data > 0 ? plural(data, 'Data Engineer') : '', security ? '1 Security Specialist' : '']
+        .filter(Boolean).join(', ');
+    }
+    if (pillar.includes('AI')) {
+      const assurance = teamSize >= 4 ? 1 : 0;
+      return ['1 AI Solutions Architect', plural(teamSize - 1 - assurance, 'Agentic AI Engineer'), assurance ? '1 AI Assurance Lead' : '']
+        .filter(Boolean).join(', ');
+    }
+    return `1 Solutions Architect, ${plural(teamSize - 1, 'Full-Stack Engineer')}`;
+  }
 
   function updateEstimator() {
-    if (!estPillar || !estTeamSlider) return;
-    const teamSize = parseInt(estTeamSlider.value);
-    if (estTeamVal) estTeamVal.textContent = `${teamSize} Specialist${teamSize > 1 ? 's' : ''}`;
+    if (!estTeamSlider) return;
+    const teamSize = parseInt(estTeamSlider.value, 10);
+    const pillar = getEstChoice('estPillar', 'Digital Engineering');
+    const model = getEstChoice('estModel', 'Hybrid Follow-the-Sun');
+    const profile = DELIVERY_PROFILES[model] || DELIVERY_PROFILES['Hybrid Follow-the-Sun'];
+    const activeCompliance = document.querySelector('.estimator-toggle-btn.active');
 
-    let weeks = Math.max(3, Math.ceil(12 - teamSize * 0.8));
-    if (estWeeks) estWeeks.textContent = `${weeks} - ${weeks + 2} Weeks`;
+    const min = Number(estTeamSlider.min);
+    const max = Number(estTeamSlider.max);
+    estTeamSlider.style.setProperty('--fill', `${((teamSize - min) / (max - min)) * 100}%`);
+    if (estTeamVal) estTeamVal.textContent = plural(teamSize, 'Specialist');
 
-    const pillar = estPillar.value;
-    let squad = '';
-    if (pillar.includes('Cloud')) squad = `1 Cloud Architect, ${Math.max(1, Math.floor(teamSize/2))} DevOps Engineers, 1 Security Specialist`;
-    else if (pillar.includes('QA')) squad = `1 QA Lead, ${Math.max(1, teamSize - 1)} Test Automation Engineers`;
-    else squad = `1 Solutions Architect, ${Math.max(1, teamSize - 1)} Full-Stack/Pega Engineers`;
+    const weeks = Math.max(3, Math.ceil(12 - teamSize * 0.8) + profile.weeksOffset);
+    const timeline = `${weeks} - ${weeks + 2} Weeks`;
+    if (estWeeks && estWeeks.textContent !== timeline) {
+      estWeeks.textContent = timeline;
+      estWeeks.classList.remove('est-flash');
+      void estWeeks.offsetWidth; // restart flash animation
+      estWeeks.classList.add('est-flash');
+    }
 
-    if (estSquadBreakdown) estSquadBreakdown.textContent = squad;
+    const sprints = Math.min(EST_MAX_SPRINTS, Math.ceil((weeks + 2) / 2));
+    if (estSprintTrack) {
+      estSprintTrack.querySelectorAll('.sprint-segment').forEach((seg, i) => seg.classList.toggle('active', i < sprints));
+    }
+    if (estSprintNote) estSprintNote.textContent = `${sprints} two-week sprints with continuous staging deploys`;
+
+    const onshore = Math.min(teamSize, profile.onshore(teamSize));
+    if (estOnshoreCount) estOnshoreCount.textContent = onshore;
+    if (estOffshoreCount) estOffshoreCount.textContent = teamSize - onshore;
+    if (estSquadViz) {
+      estSquadViz.querySelectorAll('.squad-slot').forEach((slot, i) => {
+        slot.classList.toggle('active', i < teamSize);
+        slot.classList.toggle('onshore', i < onshore);
+      });
+    }
+
+    if (estSquadBreakdown) estSquadBreakdown.textContent = buildSquad(pillar, teamSize);
+    if (estPillarLabel) estPillarLabel.textContent = pillar;
+    if (estCoverage) estCoverage.textContent = profile.coverage;
+    if (estGovernance) estGovernance.textContent = activeCompliance ? activeCompliance.dataset.compliance : 'SOC2 Type II';
   }
 
   if (estTeamSlider) estTeamSlider.addEventListener('input', updateEstimator);
-  if (estPillar) estPillar.addEventListener('change', updateEstimator);
-  updateEstimator();
+  if (estimatorSection) {
+    estimatorSection.querySelectorAll('input[type="radio"]').forEach(input => input.addEventListener('change', updateEstimator));
+  }
 
-  // Estimator Compliance Toggle Buttons
   document.querySelectorAll('.estimator-toggle-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
-      document.querySelectorAll('.estimator-toggle-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.estimator-toggle-btn').forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed', 'false');
+      });
       btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
+      updateEstimator();
     });
   });
 
+  updateEstimator();
+
   if (estReqProposalBtn) {
     estReqProposalBtn.addEventListener('click', () => {
-      const pillar = estPillar ? estPillar.value : 'IT Modernization';
+      const pillar = getEstChoice('estPillar', 'Digital Engineering');
+      const model = getEstChoice('estModel', 'Hybrid Follow-the-Sun');
       const team = estTeamSlider ? estTeamSlider.value : '5';
-      const timeline = estWeeks ? estWeeks.textContent : '4-6 Weeks';
-      openProposalWithSummary(`Estimated Scope: ${pillar} (${team} Engineers, Estimated Delivery: ${timeline})`);
+      const timeline = estWeeks ? estWeeks.textContent : '';
+      const governance = estGovernance ? estGovernance.textContent : '';
+      openProposalWithSummary(`Estimated Scope: ${pillar} (${team} Engineers, ${model}, ${governance}, Estimated Delivery: ${timeline})`);
     });
   }
 
@@ -821,6 +920,35 @@ document.addEventListener('DOMContentLoaded', () => {
       if (e.target === caseStudyModal) {
         caseStudyModal.classList.remove('active');
       }
+    });
+  }
+
+  // Cross-border culture strip: live Dallas & Bengaluru clocks with shift status
+  const cultureClockBlocks = document.querySelectorAll('[data-culture-tz]');
+  if (cultureClockBlocks.length > 0) {
+    const updateCultureClocks = () => {
+      const now = new Date();
+      cultureClockBlocks.forEach(block => {
+        const timeZone = block.getAttribute('data-culture-tz');
+        const clock = block.querySelector('.culture-clock');
+        const shift = block.querySelector('.culture-shift');
+        const time = new Intl.DateTimeFormat('en-US', { timeZone, hour: '2-digit', minute: '2-digit' }).format(now);
+        const hour = Number(new Intl.DateTimeFormat('en-US', { timeZone, hour: 'numeric', hourCycle: 'h23' }).format(now));
+        const onShift = hour >= 9 && hour < 18;
+        if (clock) clock.textContent = time;
+        if (shift) {
+          shift.textContent = onShift ? 'Engineering shift live' : 'Off-shift · handed over';
+          shift.classList.toggle('live', onShift);
+        }
+      });
+    };
+    updateCultureClocks();
+    setInterval(updateCultureClocks, 30000);
+  }
+
+  if (reducedMotion) {
+    document.querySelectorAll('.culture-arc svg').forEach(svg => {
+      if (typeof svg.pauseAnimations === 'function') svg.pauseAnimations();
     });
   }
 
