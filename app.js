@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 3. Technology & Testing Matrix Tab Switcher
+  // 3. Technology & Testing Matrix Tab Switcher & 3D Interactive Motion
   const matrixTabBtns = document.querySelectorAll('.matrix-tab-btn');
   const matrixCards = document.querySelectorAll('.matrix-card');
 
@@ -135,13 +135,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
       matrixCards.forEach(card => {
         if (cat === 'all' || card.getAttribute('data-cat') === cat) {
-          card.style.display = 'block';
+          card.style.display = 'flex';
+          card.classList.remove('matrix-card-fade');
+          void card.offsetWidth; // trigger reflow for smooth animation
+          card.classList.add('matrix-card-fade');
         } else {
           card.style.display = 'none';
         }
       });
     });
   });
+
+  // 3D Perspective Tilt & Cursor Spotlight tracking for Matrix Cards
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    matrixCards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const deltaX = (x - centerX) / centerX;
+        const deltaY = (y - centerY) / centerY;
+
+        const rotateX = -deltaY * 7;
+        const rotateY = deltaX * 7;
+
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+      });
+    });
+  }
 
   // 4. 5-Stage Delivery Process Interactive Framework & Scroll Motion
   const stageCards = document.querySelectorAll('.timeline-stage-card');

@@ -288,6 +288,101 @@ img {
   border-radius: 2px;
 }
 
+/* ==========================================================================
+   Technology & Testing Matrix Cards: 3D Interactive Motion & Ambient Spotlight
+   ========================================================================== */
+.matrix-card {
+  position: relative;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  transition: transform 0.15s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+/* Expanding glowing crimson top-beam */
+.matrix-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--color-primary);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 12px rgba(196, 0, 0, 0.9);
+  z-index: 2;
+}
+
+/* Dynamic radial cursor spotlight sheen */
+.matrix-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle 220px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(196, 0, 0, 0.07), transparent 75%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.matrix-card:hover {
+  border-color: rgba(196, 0, 0, 0.45) !important;
+  box-shadow: 0 20px 35px -10px rgba(196, 0, 0, 0.14), 0 8px 16px -4px rgba(0, 0, 0, 0.06);
+}
+
+.matrix-card:hover::before {
+  transform: scaleX(1);
+}
+
+.matrix-card:hover::after {
+  opacity: 1;
+}
+
+/* Icon Activation & 3D Translation */
+.matrix-card .material-symbols-outlined {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease;
+}
+
+.matrix-card:hover .material-symbols-outlined {
+  transform: translateZ(24px) scale(1.18);
+  filter: drop-shadow(0 0 12px rgba(196, 0, 0, 0.5));
+}
+
+/* Tech tag hover within matrix cards */
+.matrix-card .tech-tag {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.matrix-card .tech-tag:hover {
+  transform: translateY(-3px) scale(1.05);
+  background-color: rgba(196, 0, 0, 0.08);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  box-shadow: 0 4px 10px rgba(196, 0, 0, 0.18);
+}
+
+/* Tab switch fade animation */
+@keyframes matrixCardFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.matrix-card-fade {
+  animation: matrixCardFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
 /* 5-Stage Delivery Process Pipeline & Motion */
 .timeline-stage-card {
   position: relative;
@@ -1059,13 +1154,23 @@ img {
   .engagement-card-hover,
   .trust-badge-item,
   .metric-card-glow,
-  .cta-glow {
+  .cta-glow,
+  .matrix-card,
+  .matrix-card .material-symbols-outlined,
+  .matrix-card .tech-tag {
     transition: none !important;
     transform: none !important;
+    filter: none !important;
   }
 
   .product-card-enhanced::before,
-  .cta-glow::after {
+  .cta-glow::after,
+  .matrix-card::before,
+  .matrix-card::after {
     display: none !important;
+  }
+
+  .matrix-card-fade {
+    animation: none !important;
   }
 }
