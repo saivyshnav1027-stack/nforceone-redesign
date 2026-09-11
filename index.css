@@ -376,12 +376,50 @@ img {
 }
 
 /* Spine track and pulse */
+.timeline-spine-track {
+  background: #E2E8F0;
+}
+
 .timeline-spine-beam {
-  box-shadow: 0 0 10px rgba(196, 0, 0, 0.6);
+  box-shadow: 0 0 12px rgba(196, 0, 0, 0.7);
+}
+
+/* Connector arm from spine rail to card */
+.timeline-stage-card::after {
+  content: '';
+  position: absolute;
+  top: 40px;
+  left: -16px;
+  width: 16px;
+  height: 2px;
+  background: #CBD5E1;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  pointer-events: none;
+}
+
+@media (min-width: 640px) {
+  .timeline-stage-card::after {
+    left: -28px;
+    width: 28px;
+  }
+}
+
+@media (min-width: 768px) {
+  .timeline-stage-card::after {
+    left: -32px;
+    width: 32px;
+  }
+}
+
+.timeline-stage-card:hover::after,
+.timeline-stage-card.expanded::after {
+  background: var(--color-primary);
+  box-shadow: 0 0 8px rgba(196, 0, 0, 0.5);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .timeline-stage-card,
+  .timeline-stage-card::after,
   .deliverable-chip,
   .timeline-details,
   .timeline-spine-beam {

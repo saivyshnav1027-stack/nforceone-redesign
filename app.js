@@ -174,7 +174,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Accordion toggle on cards
   stageCards.forEach((card, idx) => {
-    card.addEventListener('click', function() {
+    card.addEventListener('click', function(e) {
+      if (e.target.closest('.timeline-details')) return;
       const isExpanded = this.classList.contains('expanded');
       stageCards.forEach(c => c.classList.remove('expanded'));
       if (!isExpanded) {
@@ -579,8 +580,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     }, {
-      rootMargin: '0px 0px -12% 0px',
-      threshold: 0.08
+      rootMargin: '0px 0px -4% 0px',
+      threshold: 0.02
     });
 
     // Observe all reveal elements

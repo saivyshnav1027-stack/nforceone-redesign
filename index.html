@@ -1205,7 +1205,7 @@
         </div>
 
         <!-- Quick Phase Scrubber Navigation -->
-        <div class="flex items-center justify-center gap-2 mb-12 overflow-x-auto pb-2 scrollbar-none" id="timelineScrubber">
+        <div class="flex items-center sm:justify-center justify-start gap-2 mb-12 overflow-x-auto pb-2 scrollbar-none px-2" id="timelineScrubber">
           <button class="stage-nav-pill active px-4 py-2 text-xs font-bold uppercase tracking-wider border border-primary bg-primary text-white transition-all duration-200 shrink-0" data-stage="0">01 Discovery</button>
           <button class="stage-nav-pill px-4 py-2 text-xs font-bold uppercase tracking-wider border border-border-light bg-surface text-muted-charcoal hover:border-primary hover:text-primary transition-all duration-200 shrink-0" data-stage="1">02 Assessment</button>
           <button class="stage-nav-pill px-4 py-2 text-xs font-bold uppercase tracking-wider border border-border-light bg-surface text-muted-charcoal hover:border-primary hover:text-primary transition-all duration-200 shrink-0" data-stage="2">03 Squad Setup</button>
@@ -1213,10 +1213,10 @@
           <button class="stage-nav-pill px-4 py-2 text-xs font-bold uppercase tracking-wider border border-border-light bg-surface text-muted-charcoal hover:border-primary hover:text-primary transition-all duration-200 shrink-0" data-stage="4">05 SLA Scale</button>
         </div>
 
-        <div class="relative max-w-4xl mx-auto pl-4 md:pl-8">
+        <div class="relative max-w-4xl mx-auto pl-6 sm:pl-10 md:pl-12">
           <!-- Glowing Animated Connecting Spine -->
-          <div class="timeline-spine-track absolute left-[38px] md:left-[54px] top-8 bottom-8 w-[2px] bg-slate-200 z-0">
-            <div id="timelineSpineBeam" class="timeline-spine-beam w-full bg-primary transition-all duration-500 shadow-[0_0_8px_#c40000]" style="height: 15%;"></div>
+          <div class="timeline-spine-track absolute left-2 sm:left-3 md:left-4 top-8 bottom-8 w-[3px] bg-slate-200 rounded-full z-10 overflow-hidden">
+            <div id="timelineSpineBeam" class="timeline-spine-beam w-full bg-primary transition-all duration-500 shadow-[0_0_12px_#c40000]" style="height: 20%;"></div>
           </div>
 
           <div class="space-y-5 relative z-10" id="timelineStagesList">
