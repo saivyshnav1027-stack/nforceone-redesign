@@ -235,10 +235,7 @@ test.describe('NForce One Website UI & Interactivity Tests', () => {
 
     await expect(prodSection.getByRole('heading', { name: 'QForce AI' })).toBeVisible();
     await expect(prodSection.getByRole('heading', { name: 'AIKTRA' })).toBeVisible();
-    await expect(prodSection.getByRole('heading', { name: 'Sync', exact: true })).toBeVisible();
-    await expect(prodSection.getByRole('heading', { name: 'Tracktion' })).toBeVisible();
-    await expect(prodSection.getByRole('heading', { name: 'NForce RetailOps' })).toBeVisible();
-    await expect(prodSection.locator('.prod-demo-btn')).toHaveCount(9);
+    await expect(prodSection.locator('.prod-demo-btn')).toHaveCount(6);
 
     // Click Request Demo on QForce AI
     const qforceDemoBtn = prodSection.locator('button[data-product="QForce AI"]');

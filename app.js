@@ -752,9 +752,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <li><strong>QForce AI:</strong> Self-healing test automation engine designed to reduce test maintenance effort.</li>
         <li><strong>AIKTRA:</strong> Enterprise Agentic AI orchestration framework with RAG workflows.</li>
         <li><strong>Pulse:</strong> Real-time operational observability & SLA telemetry.</li>
-        <li><strong>FlightOps:</strong> GitOps release governance & automated CI/CD gating.</li>
-        <li><strong>Sync, Tracktion & RetailOps:</strong> Event orchestration, sprint delivery assurance and retail POS validation.</li>
-      </ul>
+        <li><strong>FlightOps:</strong> GitOps release governance & automated CI/CD gating.</li>      </ul>
       <button class="open-proposal-modal text-primary font-bold text-xs mt-2 underline block">Request a Live Platform Demo →</button>`;
     }
 
