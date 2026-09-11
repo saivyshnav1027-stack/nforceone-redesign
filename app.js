@@ -565,5 +565,32 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 350);
     });
   });
-});
 
+  // ==========================================================================
+  // Global Scroll-Reveal Engine (IntersectionObserver)
+  // ==========================================================================
+  if ('IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          // Once revealed, stop observing for perf
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, {
+      rootMargin: '0px 0px -12% 0px',
+      threshold: 0.08
+    });
+
+    // Observe all reveal elements
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .section-heading-reveal').forEach(el => {
+      revealObserver.observe(el);
+    });
+  } else {
+    // Fallback: show everything immediately for browsers without IO support
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .section-heading-reveal').forEach(el => {
+      el.classList.add('visible');
+    });
+  }
+});
