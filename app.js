@@ -1,7 +1,5 @@
-// NForceOne Master Executive Interactive Suite Script
+// NForce One interactive site script
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('NForceOne Master Executive UI Initialized.');
-
   const siteHeader = document.getElementById('main-nav');
   const proposalModal = document.getElementById('proposalModal');
   const modalCloseBtn = document.getElementById('modalCloseBtn');
@@ -177,19 +175,33 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 3. Technology & Testing Matrix Tab Switcher & 3D Interactive Motion
+  // 3. Capabilities view tabs: pillar overview vs. filtered technology & testing matrix
   const matrixTabBtns = document.querySelectorAll('.matrix-tab-btn');
   const matrixCards = document.querySelectorAll('.matrix-card');
+  const capPillarsPanel = document.getElementById('capPillarsPanel');
+  const matrixPanel = document.getElementById('matrix');
 
   matrixTabBtns.forEach(btn => {
     btn.addEventListener('click', function() {
-      matrixTabBtns.forEach(b => b.classList.remove('active'));
+      matrixTabBtns.forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed', 'false');
+      });
       this.classList.add('active');
+      this.setAttribute('aria-pressed', 'true');
       const cat = this.getAttribute('data-category');
+
+      const showPillars = cat === 'pillars';
+      if (capPillarsPanel) capPillarsPanel.classList.toggle('hidden', !showPillars);
+      if (matrixPanel) matrixPanel.classList.toggle('hidden', showPillars);
+      if (showPillars) return;
 
       matrixCards.forEach(card => {
         if (cat === 'all' || card.getAttribute('data-cat') === cat) {
           card.style.display = 'flex';
+          // Cards start hidden inside the collapsed panel, so the scroll-reveal observer
+          // never fires for them; reveal them directly when their tab is opened.
+          card.classList.add('visible');
           card.classList.remove('matrix-card-fade');
           void card.offsetWidth; // trigger reflow for smooth animation
           card.classList.add('matrix-card-fade');
@@ -727,8 +739,9 @@ document.addEventListener('DOMContentLoaded', () => {
       <ul class="list-disc list-inside mt-1.5 space-y-1 text-xs">
         <li><strong>OSS/BSS Modernization:</strong> Order orchestration, rating & billing validation without revenue leakage.</li>
         <li><strong>End-to-End Telecom QA:</strong> SIT testing, protocol validation, and carrier regression suites.</li>
-        <li><strong>CX Voice AI:</strong> Sub-300ms conversational latency with automated call journey testing.</li>
+        <li><strong>CX Voice AI:</strong> Low-latency conversational journeys with automated call journey testing.</li>
         <li><strong>Network Operations:</strong> NOC triage automation and field technician dispatch optimization.</li>
+        <li><strong>Telecom Data & Automation:</strong> Data pipelines, churn prediction, fraud detection and automated provisioning.</li>
       </ul>
       <button class="open-proposal-modal text-primary font-bold text-xs mt-2 underline block">Discuss Telecom Transformation →</button>`;
     }
@@ -736,10 +749,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (q.includes('qforce') || q.includes('demo') || q.includes('product') || q.includes('accelerator')) {
       return `<strong>NForce One Innovation Suite:</strong> Our flagship platforms include:
       <ul class="list-disc list-inside mt-1.5 space-y-1 text-xs">
-        <li><strong>QForce AI:</strong> Self-healing test automation engine that cuts test maintenance overhead by 60%.</li>
+        <li><strong>QForce AI:</strong> Self-healing test automation engine designed to reduce test maintenance effort.</li>
         <li><strong>AIKTRA:</strong> Enterprise Agentic AI orchestration framework with RAG workflows.</li>
         <li><strong>Pulse:</strong> Real-time operational observability & SLA telemetry.</li>
         <li><strong>FlightOps:</strong> GitOps release governance & automated CI/CD gating.</li>
+        <li><strong>Sync, Tracktion & RetailOps:</strong> Event orchestration, sprint delivery assurance and retail POS validation.</li>
       </ul>
       <button class="open-proposal-modal text-primary font-bold text-xs mt-2 underline block">Request a Live Platform Demo →</button>`;
     }
@@ -750,7 +764,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <li><strong>AI & Agentic Solutions:</strong> Agentic AI, GenAI, Enterprise RAG, and Voice AI.</li>
         <li><strong>Quality Engineering & AI Assurance:</strong> Functional E2E, LLM Evaluation, Hallucination QA, and Security Audits.</li>
         <li><strong>Digital Engineering:</strong> Application Modernization, Cloud-Native APIs, and Microservices.</li>
-        <li><strong>Data Cloud & Platforms:</strong> AWS/Azure/GCP Cloud, Pega PRPC, and automated MLOps.</li>
+        <li><strong>Data, Cloud & Platforms:</strong> AWS/Azure/GCP Cloud, Pega PRPC, and automated MLOps.</li>
       </ol>
       <a href="#capabilities" class="text-primary font-bold text-xs mt-2 underline block">Explore All Pillars On-Page →</a>`;
     }
@@ -759,7 +773,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return `<strong>US + India Global Delivery Models:</strong>
       <ul class="list-disc list-inside mt-1.5 space-y-1 text-xs">
         <li><strong>Onshore (US):</strong> Strategic architecture leadership, client collaboration, and compliance oversight.</li>
-        <li><strong>Offshore (India Hub):</strong> High-velocity engineering labs in Hyderabad & Bengaluru (up to 40% cost optimization).</li>
+        <li><strong>Offshore (India Hub):</strong> High-velocity engineering labs in Hyderabad with an optimized cost structure.</li>
         <li><strong>Hybrid Follow-the-Sun:</strong> 24-hour continuous development & testing cycles.</li>
       </ul>
       Contracting options: Dedicated Managed Capacity, SOW Milestones, or Agile T&M.`;
@@ -772,7 +786,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Default Fallback
     return `NForce One is an enterprise technology and delivery partner (20+ years leadership). We deliver <strong>AI & Agentic Solutions</strong>, <strong>Quality Engineering</strong>, <strong>Digital Modernization</strong>, and <strong>Carrier Telecom Systems</strong>.
     <br><br>Would you like to speak directly with a Solutions Architect?
-    <button class="open-proposal-modal text-primary font-bold text-xs mt-2 underline block">Connect with a Human Architect →</button>`;
+    <button type="button" data-navi-lead class="text-primary font-bold text-xs mt-2 underline block">Connect with a Human Architect →</button>`;
   }
 
   function appendMessage(text, isUser = false) {
@@ -795,6 +809,52 @@ document.addEventListener('DOMContentLoaded', () => {
         openProposal();
       });
     });
+    msgDiv.querySelectorAll('[data-navi-lead]').forEach(btn => btn.addEventListener('click', () => showLeadCapture()));
+  }
+
+  // In-chat lead capture with explicit consent (routes visitors to a human architect)
+  const LEAD_INTENT = /architect|human|talk to|contact|meeting|schedule|sales/i;
+
+  function showLeadCapture() {
+    if (!naviChatBody) return;
+    appendMessage('<strong>Talk to a Solutions Architect.</strong> Share a few details and we will set up a discovery session.', false);
+
+    const wrap = document.createElement('div');
+    wrap.className = 'navi-msg navi-msg-bot navi-lead';
+    wrap.innerHTML = `
+      <form class="navi-lead-form">
+        <label>Full name<input name="name" type="text" required autocomplete="name"></label>
+        <label>Company<input name="company" type="text" required autocomplete="organization"></label>
+        <label>Work email<input name="email" type="email" required autocomplete="email"></label>
+        <label>Project interest
+          <select name="interest">
+            <option>AI & Agentic Solutions</option>
+            <option>Quality Engineering & AI Assurance</option>
+            <option>Digital Engineering</option>
+            <option>Data, Cloud & Platforms</option>
+            <option>Telecom Transformation</option>
+          </select>
+        </label>
+        <label class="navi-lead-consent"><input name="consent" type="checkbox" required> I agree to be contacted by NForce One about this request.</label>
+        <button type="submit">Request Discovery Session</button>
+      </form>`;
+    naviChatBody.appendChild(wrap);
+    naviChatBody.scrollTop = naviChatBody.scrollHeight;
+
+    const form = wrap.querySelector('form');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const confirmation = document.createElement('div');
+      confirmation.className = 'navi-msg navi-msg-bot navi-lead-done';
+      const title = document.createElement('strong');
+      title.textContent = `Thanks, ${data.get('name')}!`;
+      const body = document.createElement('p');
+      body.textContent = `A Solutions Architect will contact you at ${data.get('email')} about ${data.get('interest')} for ${data.get('company')} within one business day.`;
+      confirmation.append(title, body);
+      wrap.replaceWith(confirmation);
+      naviChatBody.scrollTop = naviChatBody.scrollHeight;
+    });
   }
 
   function respondTo(query) {
@@ -811,7 +871,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setTimeout(() => {
       typing.remove();
-      appendMessage(generateNaviResponse(query), false);
+      if (LEAD_INTENT.test(query)) {
+        showLeadCapture();
+      } else {
+        appendMessage(generateNaviResponse(query), false);
+      }
     }, 700);
   }
 
@@ -833,40 +897,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const caseData = {
     telecom: {
-      badge: 'Tier-1 US Telecom Operator',
-      category: 'Appendix A Architecture Specification',
+      badge: 'Tier-1 Telecom Carrier Scenario',
+      category: 'Representative Engagement Blueprint',
       title: 'Zero-Downtime Billing Modernization & Automated SIT Protocol Testing',
       delivery: 'Hybrid Follow-the-Sun',
-      squad: '24 Engineers (US + IN)',
-      timeline: '6 Months Cutover',
-      metric: '99.99% Uptime',
-      solution: 'Re-architected billing mediation into containerized microservices orchestrated on AWS EKS with Apache Kafka for real-time CDR stream ingestion. Deployed QForce AI to generate 8,500+ automated SIT scenarios, validating subscriber rating engines with zero billing leakage.',
-      qa: 'Integrated automated nightly regression suites spanning 5G interface protocols, rating mediation edge cases, and CRM subscriber sync. System integration testing turnaround reduced from 28 days to under 48 hours.',
-      value: 'Prevented an estimated $4.8M in annual revenue leakage, achieved zero customer-impacting outages during migration, and cut recurring QA overhead by 68%.'
+      squad: 'Follow-the-Sun Squad (US + IN)',
+      timeline: 'Phased Cutover',
+      metric: 'Zero-Downtime Cutover',
+      solution: 'Re-architect billing mediation into containerized microservices on AWS EKS with Apache Kafka for real-time CDR stream ingestion, using QForce AI to generate automated SIT scenarios that validate subscriber rating engines.',
+      qa: 'Automated nightly regression suites spanning 5G interface protocols, rating mediation edge cases and CRM subscriber sync, replacing multi-week manual SIT cycles.',
+      value: 'Protect billing revenue, avoid customer-impacting outages during migration, and lower recurring QA overhead.'
     },
     fintech: {
-      badge: 'Global FinTech Processor',
-      category: 'Appendix A Architecture Specification',
-      title: 'PCI-DSS Level 1 Cloud Migration & 50,000 TPS Load Architecture',
+      badge: 'Global FinTech Processor Scenario',
+      category: 'Representative Engagement Blueprint',
+      title: 'PCI-DSS Cloud Migration & High-Throughput Load Architecture',
       delivery: 'Onshore + Dedicated Offshore CoE',
-      squad: '18 Engineers (US + IN)',
-      timeline: '4 Months Migration',
-      metric: '50,000 Peak TPS',
-      solution: 'Architected an event-driven serverless payment authorization engine utilizing Apache Kafka and multi-region AWS Aurora. Encrypted all transactions with hardware security module (HSM) tokenization adhering to PCI-DSS Level 1 protocols.',
-      qa: 'Engineered distributed Gatling and JMeter performance suites simulating 100,000 concurrent payment flows. Implemented FlightOps automated security compliance gates in CI/CD pipeline.',
-      value: 'Sustained 50,000 peak TPS during holiday peak volume with zero transaction drops. Cut release deployment cycle times by 45% and passed independent PCI audits with zero findings.'
+      squad: 'Dedicated Squad (US + IN)',
+      timeline: 'Phased Migration',
+      metric: 'Peak-Load Readiness',
+      solution: 'Event-driven payment authorization engine using Apache Kafka and multi-region AWS Aurora, with hardware security module (HSM) tokenization aligned to PCI-DSS requirements.',
+      qa: 'Distributed Gatling and JMeter performance suites simulating large-scale concurrent payment flows, with FlightOps automated security compliance gates in the CI/CD pipeline.',
+      value: 'Handle peak holiday volume without dropped transactions, shorten release cycles, and support PCI-DSS audit readiness.'
     },
     healthtech: {
-      badge: 'Enterprise HealthTech Enterprise',
-      category: 'Appendix A Architecture Specification',
-      title: 'HIPAA-Compliant Patient Portal & Automated AI Diagnostic Testing',
+      badge: 'HealthTech Platform Scenario',
+      category: 'Representative Engagement Blueprint',
+      title: 'HIPAA-Ready Patient Portal & Automated AI Diagnostic Testing',
       delivery: 'Managed Engineering Capacity',
-      squad: '14 Engineers (US + IN)',
-      timeline: '5 Months Hardening',
-      metric: '60% Maintenance Saved',
-      solution: 'Modernized EHR patient workflows into scalable Azure Health Data microservices. Configured synthetic FHIR/HL7 test data generators to guarantee zero protected health information (PHI) exposure during automated staging tests.',
-      qa: 'Deployed QForce AI self-healing QA engines that adaptively update broken UI selectors during continuous clinical portal updates, eliminating fragile test failures.',
-      value: 'Saved 60% of recurring QA maintenance hours, increased sprint deployment velocity by 3.5x, and passed rigorous HIPAA and SOC2 Type II audits flawlessly.'
+      squad: 'Managed Squad (US + IN)',
+      timeline: 'Phased Hardening',
+      metric: 'Lower Test Maintenance',
+      solution: 'Modernize EHR patient workflows into scalable Azure Health Data microservices, with synthetic FHIR/HL7 test data generators so no protected health information (PHI) is exposed in staging.',
+      qa: 'QForce AI self-healing QA engines that adapt broken UI selectors during continuous clinical portal updates, reducing fragile test failures.',
+      value: 'Reduce recurring QA maintenance, speed up release cadence, and keep delivery aligned to HIPAA and SOC2 controls.'
     }
   };
 
@@ -923,7 +987,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Cross-border culture strip: live Dallas & Bengaluru clocks with shift status
+  // Cross-border culture strip: live Dallas & Hyderabad clocks with shift status
   const cultureClockBlocks = document.querySelectorAll('[data-culture-tz]');
   if (cultureClockBlocks.length > 0) {
     const updateCultureClocks = () => {

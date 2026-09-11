@@ -2657,3 +2657,128 @@ div.engagement-card-hover:hover {
     transform: none;
   }
 }
+
+/* ==========================================================================
+   Ask Navi In-Chat Lead Capture
+   ========================================================================== */
+.navi-lead {
+  width: 100%;
+  max-width: 100%;
+}
+
+.navi-lead-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.navi-lead-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-slate-medium);
+}
+
+.navi-lead-form input[type="text"],
+.navi-lead-form input[type="email"],
+.navi-lead-form select {
+  padding: 8px 10px;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--color-slate-dark);
+  background: #FFFFFF;
+  border: 1px solid var(--color-border);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.navi-lead-form input[type="text"]:focus,
+.navi-lead-form input[type="email"]:focus,
+.navi-lead-form select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+.navi-lead-form .navi-lead-consent {
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--color-slate-dark);
+}
+
+.navi-lead-consent input {
+  margin-top: 2px;
+  accent-color: var(--color-primary);
+}
+
+.navi-lead-form button[type="submit"] {
+  padding: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  background: var(--color-primary);
+  transition: background-color 0.2s ease;
+}
+
+.navi-lead-form button[type="submit"]:hover {
+  background: var(--color-primary-hover);
+}
+
+.navi-lead-done {
+  border-left: 3px solid #22C55E;
+}
+
+.navi-lead-done strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--color-dark);
+}
+
+/* ==========================================================================
+   Consolidated Layout Helpers
+   ========================================================================== */
+
+/* Static status marker for non-live indicators (live beacons stay on real-time data only) */
+.status-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  box-shadow: 0 0 6px rgba(196, 0, 0, 0.55);
+}
+
+.matrix-tab-btn {
+  white-space: nowrap;
+}
+
+.delivery-subhead {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+  font-family: var(--font-heading);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--color-dark);
+}
+
+.delivery-subhead::before {
+  content: '';
+  width: 22px;
+  height: 3px;
+  background: var(--color-primary);
+}

@@ -3,16 +3,16 @@ const path = require('path');
 
 const fileUrl = 'file://' + path.resolve(__dirname, '../index.html').replace(/\\/g, '/');
 
-test.describe('NForceOne B2B Executive Website UI & Interactivity Tests', () => {
+test.describe('NForce One Website UI & Interactivity Tests', () => {
 
   test('1. Page Title, Header & Navigation Elements Load Correctly', async ({ page }) => {
     await page.goto(fileUrl);
 
     // Verify Title
-    await expect(page).toHaveTitle(/NForceOne — Scale at Speed/);
+    await expect(page).toHaveTitle(/NForce One — AI, Quality Engineering/);
 
     // Verify Navigation elements
-    const logo = page.locator('header img[alt="NForceOne Logo"]');
+    const logo = page.locator('header img[alt="NForce One Logo"]');
     await expect(logo).toBeVisible();
 
     const planBtn = page.locator('header button.open-proposal-modal');
@@ -46,42 +46,48 @@ test.describe('NForceOne B2B Executive Website UI & Interactivity Tests', () => 
     const trustBadges = page.locator('.trust-badge-item');
     await expect(trustBadges).toHaveCount(4);
 
-    // Click first badge (SOC2 Type II)
+    // Click first badge (SOC2-aligned controls)
     await trustBadges.first().click();
 
     const complianceModal = page.locator('#complianceModal');
     await expect(complianceModal).toHaveClass(/active/);
 
     const compTitle = page.locator('#complianceTitle');
-    await expect(compTitle).toContainText('SOC2 Type II');
+    await expect(compTitle).toContainText('SOC2-Aligned');
 
     // Close compliance modal
     await page.locator('#complianceCloseBtn').click();
     await expect(complianceModal).not.toHaveClass(/active/);
   });
 
-  test('4. Technology & Testing Matrix Filter Tabs Work Seamlessly', async ({ page }) => {
+  test('4. Capability Tabs Switch Between Pillar Overview and Technology & Testing Matrix', async ({ page }) => {
     await page.goto(fileUrl);
 
-    const allTab = page.locator('button[data-category="all"]');
-    const testingTypeTab = page.locator('button[data-category="testing-type"]');
-    const engineeringTab = page.locator('button[data-category="engineering"]');
+    const cap = page.locator('#capabilities');
+    const pillarsTab = cap.locator('button[data-category="pillars"]');
+    const testingTypeTab = cap.locator('button[data-category="testing-type"]');
+    const engineeringTab = cap.locator('button[data-category="engineering"]');
 
-    await expect(allTab).toHaveClass(/active/);
+    await expect(pillarsTab).toHaveClass(/active/);
+    await expect(page.locator('#capPillarsPanel')).toBeVisible();
+    await expect(page.locator('#matrix')).toBeHidden();
 
     // Switch to Testing Types
     await testingTypeTab.click();
     await expect(testingTypeTab).toHaveClass(/active/);
-
-    const visibleTypeCards = page.locator('.matrix-card[data-cat="testing-type"]');
-    await expect(visibleTypeCards.first()).toBeVisible();
+    await expect(page.locator('#capPillarsPanel')).toBeHidden();
+    await expect(cap.locator('.matrix-card[data-cat="testing-type"]').first()).toBeVisible();
+    await expect(cap.locator('.matrix-card[data-cat="engineering"]').first()).toBeHidden();
 
     // Switch to Engineering & AI
     await engineeringTab.click();
     await expect(engineeringTab).toHaveClass(/active/);
+    await expect(cap.locator('.matrix-card[data-cat="engineering"]').first()).toBeVisible();
 
-    const visibleEngCards = page.locator('.matrix-card[data-cat="engineering"]');
-    await expect(visibleEngCards.first()).toBeVisible();
+    // Back to the pillar overview
+    await pillarsTab.click();
+    await expect(page.locator('#capPillarsPanel')).toBeVisible();
+    await expect(page.locator('#matrix')).toBeHidden();
   });
 
   test('5. 5-Stage Delivery Process Timeline Expands Accordion Details', async ({ page }) => {
@@ -187,10 +193,10 @@ test.describe('NForceOne B2B Executive Website UI & Interactivity Tests', () => 
 
     const metricCounters = page.locator('#hero .metric-count');
     await expect(metricCounters).toHaveCount(4);
-    await expect(page.locator('#hero')).toContainText('Cloud SLA Uptime');
-    await expect(page.locator('#hero')).toContainText('Faster QA Cycles');
-    await expect(page.locator('#hero')).toContainText('Deployments Completed');
-    await expect(page.locator('#hero')).toContainText('Active Security Operations');
+    await expect(page.locator('#hero')).toContainText('Capability Pillars');
+    await expect(page.locator('#hero')).toContainText('Telecom Domain Areas');
+    await expect(page.locator('#hero')).toContainText('Proprietary Platforms');
+    await expect(page.locator('#hero')).toContainText('US + India Delivery Models');
   });
 
   test('9. Four Capability Pillars Section Displays All 4 PRD Pillars', async ({ page }) => {
@@ -202,10 +208,10 @@ test.describe('NForceOne B2B Executive Website UI & Interactivity Tests', () => 
     await expect(page.getByRole('heading', { name: 'AI & Agentic Solutions' })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Quality Engineering & AI Assurance' })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Digital Engineering' })).toBeVisible();
-    await expect(page.getByRole('heading', { name: 'Data Cloud & Platforms' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Data, Cloud & Platforms' })).toBeVisible();
   });
 
-  test('10. Dedicated Telecom Domain Showcase Displays 4 Carrier Pillars & Tilt Cards', async ({ page }) => {
+  test('10. Dedicated Telecom Domain Showcase Displays 5 Carrier Pillars & Tilt Cards', async ({ page }) => {
     await page.goto(fileUrl);
 
     const telecomSection = page.locator('#telecom');
@@ -215,9 +221,10 @@ test.describe('NForceOne B2B Executive Website UI & Interactivity Tests', () => 
     await expect(telecomSection.getByText('End-to-End Telecom QA')).toBeVisible();
     await expect(telecomSection.getByText('Telecom CX & Voice AI')).toBeVisible();
     await expect(telecomSection.getByText('Network Ops & Field AI')).toBeVisible();
+    await expect(telecomSection.getByText('Telecom Data & Automation')).toBeVisible();
 
     const tiltCards = telecomSection.locator('.tilt-card');
-    await expect(tiltCards).toHaveCount(4);
+    await expect(tiltCards).toHaveCount(5);
   });
 
   test('11. Innovation & Products Suite Displays QForce AI and Triggers Demo Flow', async ({ page }) => {
@@ -228,6 +235,10 @@ test.describe('NForceOne B2B Executive Website UI & Interactivity Tests', () => 
 
     await expect(prodSection.getByRole('heading', { name: 'QForce AI' })).toBeVisible();
     await expect(prodSection.getByRole('heading', { name: 'AIKTRA' })).toBeVisible();
+    await expect(prodSection.getByRole('heading', { name: 'Sync', exact: true })).toBeVisible();
+    await expect(prodSection.getByRole('heading', { name: 'Tracktion' })).toBeVisible();
+    await expect(prodSection.getByRole('heading', { name: 'NForce RetailOps' })).toBeVisible();
+    await expect(prodSection.locator('.prod-demo-btn')).toHaveCount(9);
 
     // Click Request Demo on QForce AI
     const qforceDemoBtn = prodSection.locator('button[data-product="QForce AI"]');
@@ -267,7 +278,7 @@ test.describe('NForceOne B2B Executive Website UI & Interactivity Tests', () => 
     await expect(naviDrawer).not.toHaveClass(/active/);
   });
 
-  test('13. Enterprise Client Case Studies Display & Tab Switching (US-602 & US-603)', async ({ page }) => {
+  test('13. Case Studies Show Representative Blueprints & Switch Tabs (US-602 & US-603)', async ({ page }) => {
     await page.goto(fileUrl);
 
     const caseSection = page.locator('#case-studies');
@@ -275,54 +286,53 @@ test.describe('NForceOne B2B Executive Website UI & Interactivity Tests', () => 
 
     // Verify Default Telecom Carrier panel
     await expect(page.locator('#case-telecom')).toBeVisible();
-    await expect(page.locator('#case-telecom')).toContainText('99.99%');
-    await expect(page.locator('#case-telecom')).toContainText('Senior Director of Network Systems & QA');
+    await expect(page.locator('#case-telecom')).toContainText('Zero-Downtime');
+    await expect(page.locator('#case-telecom')).toContainText('Client References on Request');
 
     // Switch to FinTech tab
     await page.locator('.case-study-tab[data-case="fintech"]').click();
     await expect(page.locator('#case-fintech')).toBeVisible();
-    await expect(page.locator('#case-fintech')).toContainText('50,000');
-    await expect(page.locator('#case-fintech')).toContainText('VP of Cloud Engineering');
+    await expect(page.locator('#case-fintech')).toContainText('High-Throughput Load Architecture');
 
     // Switch to HealthTech tab
     await page.locator('.case-study-tab[data-case="healthtech"]').click();
     await expect(page.locator('#case-healthtech')).toBeVisible();
-    await expect(page.locator('#case-healthtech')).toContainText('60%');
-    await expect(page.locator('#case-healthtech')).toContainText('Chief Information Officer');
+    await expect(page.locator('#case-healthtech')).toContainText('HIPAA-Ready Patient Portal');
   });
 
-  test('14. Appendix A Technical Blueprint Modal & Employee Experience Culture Strip (US-602 & US-604)', async ({ page }) => {
+  test('14. Technical Blueprint Modal & Cross-Border Culture Strip (US-602 & US-604)', async ({ page }) => {
     await page.goto(fileUrl);
 
-    // Open Telecom Appendix A Blueprint modal
+    // Open the telecom blueprint modal
     const blueprintBtn = page.locator('#case-telecom .open-case-modal');
     await blueprintBtn.click();
 
     const caseModal = page.locator('#caseStudyModal');
     await expect(caseModal).toHaveClass(/active/);
     await expect(page.locator('#caseModalTitle')).toContainText('Billing Modernization');
-    await expect(page.locator('#caseModalMetric')).toContainText('99.99%');
+    await expect(page.locator('#caseModalMetric')).toContainText('Zero-Downtime Cutover');
 
     // Close modal
     await page.locator('#caseModalCloseBtn').click();
     await expect(caseModal).not.toHaveClass(/active/);
 
-    // Verify Cross-Border Employee Culture Strip (US-604)
-    await expect(page.locator('#case-studies')).toContainText('Rajesh V.');
-    await expect(page.locator('#case-studies')).toContainText('Dallas, TX');
-    await expect(page.locator('#case-studies')).toContainText('Ananya S.');
-    await expect(page.locator('#case-studies')).toContainText('Bengaluru, India');
+    // Verify Cross-Border Employee Culture Strip (US-604), now inside How We Deliver
+    await expect(page.locator('#delivery')).toContainText('Rajesh V.');
+    await expect(page.locator('#delivery')).toContainText('Dallas, TX');
+    await expect(page.locator('#delivery')).toContainText('Maddi Sai Vyshnav');
+    await expect(page.locator('#delivery')).toContainText('Hyderabad, India');
+    await expect(page.locator('body')).not.toContainText('Bengaluru');
   });
 
   test('15. Header Round Logo & 11-Sector Industries Dropdown Functionality', async ({ page }) => {
-    // Full desktop nav renders from 1400px; narrower widths use the menu panel.
+    // Full desktop nav renders from 1280px; narrower widths use the menu panel.
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto(fileUrl);
 
     // Verify logo is inside a rounded-full circular badge
-    const logoContainer = page.locator('header a[aria-label="NForceOne Home"] div');
+    const logoContainer = page.locator('header a[aria-label="NForce One Home"] div');
     await expect(logoContainer).toHaveClass(/rounded-full/);
-    await expect(logoContainer.locator('img[alt="NForceOne Logo"]')).toBeVisible();
+    await expect(logoContainer.locator('img[alt="NForce One Logo"]')).toBeVisible();
 
     // Verify Industries dropdown trigger
     const indBtn = page.locator('#industriesDropdownBtn');
@@ -536,7 +546,7 @@ test.describe('NForceOne B2B Executive Website UI & Interactivity Tests', () => 
     await expect(summary).toContainText('5 Engineers');
   });
 
-  test('27. Cross-Border Culture Band Shows Live Dallas & Bengaluru Clocks', async ({ page }) => {
+  test('27. Cross-Border Culture Band Shows Live Dallas & Hyderabad Clocks', async ({ page }) => {
     await page.goto(fileUrl);
     const strip = page.locator('.culture-strip');
 
@@ -559,6 +569,68 @@ test.describe('NForceOne B2B Executive Website UI & Interactivity Tests', () => 
     await expect(blueprint).toContainText('Architecture Alignment Session');
     await expect(blueprint).toContainText('Granular technical scoping, stack feasibility & budget estimation');
     await expect(blueprint.locator('.blueprint-step')).toHaveCount(3);
+  });
+
+  test('29. Share Metadata & Favicon Present, No Internal Document Jargon in Page Copy', async ({ page }) => {
+    await page.goto(fileUrl);
+
+    await expect(page.locator('link[rel="icon"]')).toHaveAttribute('href', /nforce_logo/);
+    await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /AI, Quality Engineering/);
+    await expect(page.locator('meta[property="og:title"]')).toHaveAttribute('content', /NForce One/);
+    await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', /hero_visual/);
+    await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute('content', 'summary_large_image');
+
+    const pageText = await page.evaluate(() => document.body.textContent);
+    expect(pageText).not.toMatch(/PRD|Appendix A/);
+
+    await page.locator('#case-telecom .open-case-modal').click();
+    await expect(page.locator('#caseModalCategory')).toHaveText('Representative Engagement Blueprint');
+  });
+
+  test('30. Ask Navi Captures Lead Details Only With Explicit Consent', async ({ page }) => {
+    await page.goto(fileUrl);
+    const drawer = page.locator('#askNaviDrawer');
+
+    await page.locator('#askNaviTrigger').click();
+    await drawer.locator('.navi-chip[data-query="Talk to an Architect"]').click();
+
+    const form = drawer.locator('.navi-lead-form');
+    await expect(form).toBeVisible();
+    await form.locator('input[name="name"]').fill('Jordan Lee');
+    await form.locator('input[name="company"]').fill('Acme Telecom');
+    await form.locator('input[name="email"]').fill('jordan@acme.com');
+    await form.locator('select[name="interest"]').selectOption('Telecom Transformation');
+
+    await form.locator('button[type="submit"]').click();
+    await expect(form).toBeVisible();
+    await expect(drawer.locator('.navi-lead-done')).toHaveCount(0);
+
+    await form.locator('input[name="consent"]').check();
+    await form.locator('button[type="submit"]').click();
+
+    const confirmation = drawer.locator('.navi-lead-done');
+    await expect(confirmation).toContainText('Thanks, Jordan Lee!');
+    await expect(confirmation).toContainText('jordan@acme.com');
+    await expect(drawer.locator('.navi-lead-form')).toHaveCount(0);
+  });
+
+  test('31. Consolidated Layout, Two Hero CTAs & No Unverified Claims in Page Copy', async ({ page }) => {
+    await page.goto(fileUrl);
+
+    // Matrix now lives inside Capabilities; engagement, process and culture inside How We Deliver.
+    await expect(page.locator('#capabilities #matrix')).toHaveCount(1);
+    await expect(page.locator('#delivery #engagement')).toHaveCount(1);
+    await expect(page.locator('#delivery #process')).toHaveCount(1);
+    await expect(page.locator('#delivery .culture-strip')).toHaveCount(1);
+
+    // Hero carries exactly two calls to action
+    await expect(page.locator('#hero a, #hero button')).toHaveCount(2);
+
+    // Pulsing indicators are reserved for genuinely live elements (clocks, live blueprint output)
+    await expect(page.locator('main .animate-pulse, main .animate-ping')).toHaveCount(0);
+
+    const pageText = await page.evaluate(() => document.body.textContent);
+    expect(pageText).not.toMatch(/99\.9|\$4\.8M|50,000|3\.5x|Certified Partner|Security Certified|Audit Verified|HIPAA Compliant|NForceOne/);
   });
 
 });
