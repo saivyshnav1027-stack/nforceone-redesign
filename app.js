@@ -268,6 +268,15 @@ document.addEventListener('DOMContentLoaded', () => {
   if (estPillar) estPillar.addEventListener('change', updateEstimator);
   updateEstimator();
 
+  // Estimator Compliance Toggle Buttons
+  document.querySelectorAll('.estimator-toggle-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      document.querySelectorAll('.estimator-toggle-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+
   if (estReqProposalBtn) {
     estReqProposalBtn.addEventListener('click', () => {
       const pillar = estPillar ? estPillar.value : 'IT Modernization';
@@ -306,55 +315,103 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 6. Dynamic Counter Animations
+  // 6. Dynamic Counter Animations (Synchronized across all 4 metric boxes)
   const counterElements = document.querySelectorAll('.metric-count');
   if (counterElements.length > 0) {
-    const counterObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const el = entry.target;
+    const metricsContainer = document.querySelector('.hero-metrics-container') || counterElements[0].closest('section') || document.body;
+    let animated = false;
+
+    function startSynchronizedCounters() {
+      if (animated) return;
+      animated = true;
+
+      // Honor prefers-reduced-motion
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        counterElements.forEach(el => {
           const target = parseFloat(el.getAttribute('data-target'));
           const prefix = el.getAttribute('data-prefix') || '';
           const suffix = el.getAttribute('data-suffix') || '';
-          let count = 0;
-          const step = target / 40;
+          el.textContent = `${prefix}${Number.isInteger(target) ? target : target.toFixed(1)}${suffix}`;
+        });
+        return;
+      }
 
-          const timer = setInterval(() => {
-            count += step;
-            if (count >= target) {
-              count = target;
-              clearInterval(timer);
-            }
-            el.textContent = `${prefix}${Number.isInteger(target) ? Math.floor(count) : count.toFixed(1)}${suffix}`;
-          }, 30);
-          observer.unobserve(el);
+      const duration = 1500; // Exact same duration for all 4
+      const startTime = performance.now();
+
+      function tick(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        // Smooth easeOutCubic curve
+        const ease = 1 - Math.pow(1 - progress, 3);
+
+        counterElements.forEach(el => {
+          const target = parseFloat(el.getAttribute('data-target'));
+          const prefix = el.getAttribute('data-prefix') || '';
+          const suffix = el.getAttribute('data-suffix') || '';
+          const currentVal = target * ease;
+
+          el.textContent = `${prefix}${Number.isInteger(target) ? Math.floor(currentVal) : currentVal.toFixed(1)}${suffix}`;
+        });
+
+        if (progress < 1) {
+          requestAnimationFrame(tick);
+        } else {
+          // Final exact values
+          counterElements.forEach(el => {
+            const target = parseFloat(el.getAttribute('data-target'));
+            const prefix = el.getAttribute('data-prefix') || '';
+            const suffix = el.getAttribute('data-suffix') || '';
+            el.textContent = `${prefix}${Number.isInteger(target) ? target : target.toFixed(1)}${suffix}`;
+          });
         }
-      });
-    }, { threshold: 0.5 });
+      }
 
-    counterElements.forEach(el => counterObserver.observe(el));
+      requestAnimationFrame(tick);
+    }
+
+    if ('IntersectionObserver' in window) {
+      const counterObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            startSynchronizedCounters();
+            observer.disconnect();
+          }
+        });
+      }, { threshold: 0.15 });
+
+      counterObserver.observe(metricsContainer);
+    } else {
+      startSynchronizedCounters();
+    }
   }
 
   // 7. US-306: Bespoke 3D Perspective Card Tilt & Specular Sheen
   const tiltCards = document.querySelectorAll('.tilt-card');
   tiltCards.forEach(card => {
+    const isTelecom = card.classList.contains('telecom-card');
+
     card.addEventListener('mousemove', (e) => {
       const rect = card.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
       
-      const rotateX = ((y - centerY) / centerY) * -6; // subtle max 6deg
-      const rotateY = ((x - centerX) / centerX) * 6;
-      
-      card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.02, 1.02, 1.02)`;
       card.style.setProperty('--mouse-x', `${x}px`);
       card.style.setProperty('--mouse-y', `${y}px`);
+
+      if (!isTelecom) {
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -6; // subtle max 6deg
+        const rotateY = ((x - centerX) / centerX) * 6;
+        card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.02, 1.02, 1.02)`;
+      }
     });
 
     card.addEventListener('mouseleave', () => {
-      card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+      if (!isTelecom) {
+        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+      }
     });
   });
 
