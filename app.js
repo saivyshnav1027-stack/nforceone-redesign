@@ -19,6 +19,46 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Header scroll-progress telemetry bar
+  const headerProgress = document.getElementById('headerProgress');
+  if (headerProgress) {
+    let progressTicking = false;
+    const updateProgress = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const ratio = max > 0 ? Math.min(window.scrollY / max, 1) : 0;
+      headerProgress.style.transform = `scaleX(${ratio})`;
+      progressTicking = false;
+    };
+    window.addEventListener('scroll', () => {
+      if (!progressTicking) {
+        progressTicking = true;
+        requestAnimationFrame(updateProgress);
+      }
+    }, { passive: true });
+    updateProgress();
+  }
+
+  // Active section scroll-spy for desktop + mobile nav links
+  const navLinks = document.querySelectorAll('#main-nav nav a[href^="#"], #mobileMenu a[href^="#"]');
+  if ('IntersectionObserver' in window && navLinks.length > 0) {
+    // Non-nav sections are observed too so the highlight clears when the reader leaves nav sections.
+    const spyIds = new Set(['hero', 'trust', 'contact']);
+    navLinks.forEach(link => spyIds.add(link.getAttribute('href').slice(1)));
+
+    const navObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const activeHref = `#${entry.target.id}`;
+        navLinks.forEach(link => link.classList.toggle('nav-active', link.getAttribute('href') === activeHref));
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+
+    spyIds.forEach(id => {
+      const section = document.getElementById(id);
+      if (section) navObserver.observe(section);
+    });
+  }
+
   // Smooth scroll for all hash links
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
@@ -368,6 +408,29 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Mobile Navigation Panel
+  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const mobileMenuIcon = document.getElementById('mobileMenuIcon');
+
+  function setMobileMenuOpen(isOpen) {
+    if (!mobileMenu || !mobileMenuBtn) return;
+    mobileMenu.classList.toggle('open', isOpen);
+    mobileMenuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    mobileMenuBtn.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+    if (mobileMenuIcon) mobileMenuIcon.textContent = isOpen ? 'close' : 'menu';
+  }
+
+  if (mobileMenuBtn && mobileMenu) {
+    mobileMenuBtn.addEventListener('click', () => setMobileMenuOpen(!mobileMenu.classList.contains('open')));
+    mobileMenu.addEventListener('click', (e) => {
+      if (e.target.closest('a, button')) setMobileMenuOpen(false);
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileMenu.classList.contains('open')) setMobileMenuOpen(false);
+    });
+  }
+
   // Industry Dropdown Items: Pre-populate Proposal Modal Context
   document.querySelectorAll('.industry-dropdown-item').forEach(item => {
     item.addEventListener('click', function(e) {
@@ -481,6 +544,34 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  // Magnetic primary CTAs & cursor spotlight on pillar, product and engagement cards
+  const finePointer = window.matchMedia('(pointer: fine)').matches;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (finePointer && !reducedMotion) {
+    document.querySelectorAll('.magnetic-btn').forEach(btn => {
+      btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const offsetX = e.clientX - rect.left - rect.width / 2;
+        const offsetY = e.clientY - rect.top - rect.height / 2;
+        btn.style.setProperty('--mag-x', `${(offsetX * 0.18).toFixed(1)}px`);
+        btn.style.setProperty('--mag-y', `${(offsetY * 0.3).toFixed(1)}px`);
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.style.setProperty('--mag-x', '0px');
+        btn.style.setProperty('--mag-y', '0px');
+      });
+    });
+
+    document.querySelectorAll('.ambient-card, .product-card-enhanced, .engagement-card-hover').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+        card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+      });
+    });
+  }
 
   // 8. US-405: Product Demo Triggers
   document.querySelectorAll('.prod-demo-btn').forEach(btn => {
@@ -607,19 +698,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  function respondTo(query) {
+    if (!naviChatBody) return;
+    appendMessage(query, true);
+
+    const typing = document.createElement('div');
+    typing.className = 'navi-msg navi-msg-bot navi-typing';
+    typing.setAttribute('role', 'status');
+    typing.setAttribute('aria-label', 'Navi is typing');
+    typing.innerHTML = '<span></span><span></span><span></span>';
+    naviChatBody.appendChild(typing);
+    naviChatBody.scrollTop = naviChatBody.scrollHeight;
+
+    setTimeout(() => {
+      typing.remove();
+      appendMessage(generateNaviResponse(query), false);
+    }, 700);
+  }
+
   if (naviChatForm && naviInput) {
     naviChatForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const query = naviInput.value.trim();
       if (!query) return;
-
-      appendMessage(query, true);
       naviInput.value = '';
-
-      setTimeout(() => {
-        const response = generateNaviResponse(query);
-        appendMessage(response, false);
-      }, 400);
+      respondTo(query);
     });
   }
 
@@ -723,14 +826,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Handle Quick Discovery Chips
   document.querySelectorAll('.navi-chip').forEach(chip => {
-    chip.addEventListener('click', function() {
-      const q = this.getAttribute('data-query');
-      appendMessage(q, true);
-      setTimeout(() => {
-        const response = generateNaviResponse(q);
-        appendMessage(response, false);
-      }, 350);
-    });
+    chip.addEventListener('click', () => respondTo(chip.getAttribute('data-query')));
   });
 
   // ==========================================================================

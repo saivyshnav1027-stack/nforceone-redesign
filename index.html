@@ -56,7 +56,7 @@
       </a>
 
       <!-- Header Navigation Menu with PRD v1.3 Primary Links -->
-      <nav class="hidden md:flex items-center gap-6 lg:gap-8">
+      <nav class="hidden min-[1400px]:flex items-center gap-6">
         <a class="font-label-md text-sm font-semibold text-on-background hover:text-primary transition-colors duration-200" href="#capabilities">Capabilities</a>
         
         <!-- Industries Simple Dropdown -->
@@ -144,8 +144,48 @@
         Talk to an Expert
         <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
       </button>
+      <button id="mobileMenuBtn" type="button" class="min-[1400px]:hidden flex items-center justify-center w-11 h-11 border border-border-light text-on-background hover:border-primary hover:text-primary transition-colors" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open navigation menu">
+        <span class="material-symbols-outlined text-[26px]" id="mobileMenuIcon" aria-hidden="true">menu</span>
+      </button>
     </div>
+    <div class="header-progress" id="headerProgress" aria-hidden="true"></div>
   </header>
+
+  <!-- Mobile Navigation Panel (outside header so header CTA selectors stay unique) -->
+  <div id="mobileMenu" class="mobile-menu min-[1400px]:hidden">
+    <nav class="mobile-menu-inner" aria-label="Mobile navigation">
+      <a href="#capabilities" class="mobile-menu-link">Capabilities</a>
+      <details class="mobile-menu-group">
+        <summary class="mobile-menu-link">
+          <span>Industries</span>
+          <span class="material-symbols-outlined text-[22px]" aria-hidden="true">expand_more</span>
+        </summary>
+        <div class="mobile-menu-sub">
+          <a href="#telecom">Telecommunications</a>
+          <a href="javascript:void(0)" class="industry-dropdown-item" data-domain="Banking & Financial">Banking & Financial</a>
+          <a href="javascript:void(0)" class="industry-dropdown-item" data-domain="Finance & FinTech">Finance & FinTech</a>
+          <a href="javascript:void(0)" class="industry-dropdown-item" data-domain="Healthcare & Life Sciences">Healthcare & Life Sciences</a>
+          <a href="javascript:void(0)" class="industry-dropdown-item" data-domain="Automotive & Mobility">Automotive & Mobility</a>
+          <a href="javascript:void(0)" class="industry-dropdown-item" data-domain="Retail & eCommerce">Retail & eCommerce</a>
+          <a href="javascript:void(0)" class="industry-dropdown-item" data-domain="Insurance (InsurTech)">Insurance (InsurTech)</a>
+          <a href="javascript:void(0)" class="industry-dropdown-item" data-domain="Digital Media & AdTech">Digital Media & AdTech</a>
+          <a href="javascript:void(0)" class="industry-dropdown-item" data-domain="Energy & Utilities">Energy & Utilities</a>
+          <a href="javascript:void(0)" class="industry-dropdown-item" data-domain="Smart Manufacturing">Smart Manufacturing</a>
+          <a href="javascript:void(0)" class="industry-dropdown-item" data-domain="ISV & Enterprise SaaS">ISV & Enterprise SaaS</a>
+        </div>
+      </details>
+      <a href="#telecom" class="mobile-menu-link">Telecom</a>
+      <a href="#products" class="mobile-menu-link">Products</a>
+      <a href="#case-studies" class="mobile-menu-link">Case Studies</a>
+      <a href="#engagement" class="mobile-menu-link">Engagement Models</a>
+      <a href="#matrix" class="mobile-menu-link">Tech Matrix</a>
+      <a href="#process" class="mobile-menu-link">Process</a>
+      <a href="#estimator" class="mobile-menu-link">Scope Estimator</a>
+      <button type="button" class="open-proposal-modal mobile-menu-cta">
+        Talk to an Expert <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span>
+      </button>
+    </nav>
+  </div>
 
   <main>
     <!-- Hero Section (US-101: 10-Second Test & US-102: Credibility Strip) -->
@@ -161,8 +201,13 @@
         </div>
         
         <!-- PRD v1.3 Exact Core Positioning Headline -->
-        <h1 class="font-display-lg text-4xl md:text-5xl lg:text-6xl text-white font-bold tracking-tight leading-tight hero-entrance hero-entrance-2">
-          AI. Quality Engineering. Digital Transformation. <span class="text-primary">Built to Scale at Speed.</span>
+        <h1 class="font-display-lg text-4xl md:text-5xl lg:text-6xl text-white font-bold tracking-tight leading-tight hero-headline">
+          <span class="hero-word">AI.</span>
+          <span class="hero-word">Quality</span>
+          <span class="hero-word">Engineering.</span>
+          <span class="hero-word">Digital</span>
+          <span class="hero-word">Transformation.</span>
+          <span class="hero-sweep text-primary">Built to Scale at Speed.</span>
         </h1>
         
         <p class="font-body-lg text-lg text-surface-container max-w-3xl mt-2 hero-entrance hero-entrance-3">
@@ -171,7 +216,7 @@
 
         <!-- Dual Primary CTAs (US-101) & Interactive Shortcuts -->
         <div class="mt-6 flex flex-wrap gap-4 hero-entrance hero-entrance-4">
-          <button id="heroTalkExpertBtn" class="open-proposal-modal cta-glow bg-primary text-white font-label-md text-sm font-semibold px-8 py-4 rounded-none hover:bg-white hover:text-black transition-colors duration-200 flex items-center gap-2">
+          <button id="heroTalkExpertBtn" class="open-proposal-modal cta-glow magnetic-btn bg-primary text-white font-label-md text-sm font-semibold px-8 py-4 rounded-none hover:bg-white hover:text-black transition-colors duration-200 flex items-center gap-2">
             Talk to an Expert <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
           </button>
           <a id="heroExploreCapBtn" href="#capabilities" class="hero-shortcut-btn font-label-md text-sm font-semibold px-8 py-4 rounded-none flex items-center gap-2">
@@ -1666,7 +1711,7 @@
             </div>
 
             <div class="pt-6 mt-6 border-t border-slate-700/80">
-              <button id="estReqProposalBtn" class="w-full bg-primary text-white font-bold py-4 px-6 hover:bg-primary-hover transition-all duration-200 uppercase tracking-wider text-sm flex items-center justify-center gap-2 shadow-[0_4px_20px_rgba(196,0,0,0.4)] hover:shadow-[0_6px_28px_rgba(196,0,0,0.6)] hover:-translate-y-0.5">
+              <button id="estReqProposalBtn" class="magnetic-btn w-full bg-primary text-white font-bold py-4 px-6 hover:bg-primary-hover transition-all duration-200 uppercase tracking-wider text-sm flex items-center justify-center gap-2 shadow-[0_4px_20px_rgba(196,0,0,0.4)] hover:shadow-[0_6px_28px_rgba(196,0,0,0.6)]">
                 Request Proposal Blueprint <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
               </button>
             </div>
@@ -1724,7 +1769,7 @@
 
             <!-- Action Button -->
             <div class="pt-2 flex flex-wrap items-center gap-4">
-              <button class="open-proposal-modal inline-flex items-center gap-3 bg-primary hover:bg-primary-hover text-white font-label-md text-base font-bold px-8 py-4 uppercase tracking-wider transition-all duration-200 shadow-[0_4px_20px_rgba(196,0,0,0.4)] hover:shadow-[0_6px_28px_rgba(196,0,0,0.6)] hover:-translate-y-0.5">
+              <button class="open-proposal-modal magnetic-btn inline-flex items-center gap-3 bg-primary hover:bg-primary-hover text-white font-label-md text-base font-bold px-8 py-4 uppercase tracking-wider transition-all duration-200 shadow-[0_4px_20px_rgba(196,0,0,0.4)] hover:shadow-[0_6px_28px_rgba(196,0,0,0.6)]">
                 Plan Your Next IT Project <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
               </button>
               <div class="text-xs text-slate-400 flex items-center gap-1.5 font-mono">

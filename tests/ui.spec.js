@@ -315,6 +315,8 @@ test.describe('NForceOne B2B Executive Website UI & Interactivity Tests', () => 
   });
 
   test('15. Header Round Logo & 11-Sector Industries Dropdown Functionality', async ({ page }) => {
+    // Full desktop nav renders from 1400px; narrower widths use the menu panel.
+    await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto(fileUrl);
 
     // Verify logo is inside a rounded-full circular badge
@@ -455,6 +457,60 @@ test.describe('NForceOne B2B Executive Website UI & Interactivity Tests', () => 
     await page.keyboard.press('Escape');
     await expect(drawer).not.toHaveClass(/active/);
     await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+  });
+
+  test('22. Mobile Navigation Menu Opens, Lists Sections & Industries, and Closes on Link Tap', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto(fileUrl);
+
+    const menuBtn = page.locator('#mobileMenuBtn');
+    const menu = page.locator('#mobileMenu');
+    await expect(page.locator('#main-nav nav')).toBeHidden();
+    await expect(menuBtn).toBeVisible();
+    await expect(menu).toBeHidden();
+
+    await menuBtn.click();
+    await expect(menu).toHaveClass(/open/);
+    await expect(menuBtn).toHaveAttribute('aria-expanded', 'true');
+    await expect(menu.getByRole('link', { name: 'Products' })).toBeVisible();
+
+    await menu.locator('summary').click();
+    await expect(menu.locator('.industry-dropdown-item[data-domain="Energy & Utilities"]')).toBeVisible();
+
+    await menu.getByRole('link', { name: 'Products' }).click();
+    await expect(menu).not.toHaveClass(/open/);
+    await expect(menuBtn).toHaveAttribute('aria-expanded', 'false');
+  });
+
+  test('23. Header Scroll Progress Bar Fills and Active Nav Link Tracks Current Section', async ({ page }) => {
+    await page.goto(fileUrl);
+    const progress = page.locator('#headerProgress');
+    await expect(progress).toBeAttached();
+
+    await page.evaluate(() => document.getElementById('products').scrollIntoView({ block: 'start' }));
+
+    await expect.poll(() => progress.evaluate(el => new DOMMatrix(getComputedStyle(el).transform).a)).toBeGreaterThan(0);
+    await expect(page.locator('#main-nav nav a[href="#products"]')).toHaveClass(/nav-active/);
+  });
+
+  test('24. Ask Navi Shows Typing Indicator Before Responding', async ({ page }) => {
+    await page.goto(fileUrl);
+    const chatBody = page.locator('#naviChatBody');
+
+    await page.locator('#askNaviTrigger').click();
+    await page.locator('.navi-chip[data-query="QForce AI Demo"]').click();
+
+    await expect(chatBody.locator('.navi-typing')).toBeVisible();
+    await expect(chatBody).toContainText('Self-healing test automation engine');
+    await expect(chatBody.locator('.navi-typing')).toHaveCount(0);
+  });
+
+  test('25. Hero Headline Word Reveal Preserves Exact PRD Positioning Copy', async ({ page }) => {
+    await page.goto(fileUrl);
+    const headline = page.locator('#hero h1');
+
+    await expect(headline).toHaveText('AI. Quality Engineering. Digital Transformation. Built to Scale at Speed.');
+    await expect(headline.locator('.hero-sweep')).toHaveText('Built to Scale at Speed.');
   });
 
 });

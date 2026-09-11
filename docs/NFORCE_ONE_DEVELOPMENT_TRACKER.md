@@ -17,7 +17,7 @@
 | **Epic 4: Innovation & Proprietary Products** | QForce AI, AIKTRA, OneHR, Pulse, FlightOps, AuraFace | P0/P1 | US-401 to US-406 | Complete | 100% |
 | **Epic 5: Ask Navi AI Website Assistant** | Persistent widget, Q&A, Lead Capture, Radar Ring | P0/P1 | US-501 to US-507 | Complete | 100% |
 | **Epic 6: Engagement Models & Proof** | US+India Models, Case Studies, Testimonials | P1/P2 | US-601 to US-605 | Complete | 100% |
-| **Epic 7: Optimization & Quality Pack** | Responsive, A11y, SEO, Bug Fixes, 21 Playwright Tests | P0/P1 | US-701 to US-705 | Complete | 100% |
+| **Epic 7: Optimization & Quality Pack** | Responsive, A11y, SEO, Bug Fixes, Mobile Nav & Micro-Interactions, 25 Playwright Tests | P0/P1 | US-701 to US-706 | Complete | 100% |
 
 ---
 
@@ -53,6 +53,9 @@
 
 ### Sprint 4: Bug Fix Pass (Completed)
 - [x] **US-705 (P0)**: Interaction & Accessibility Bug Fixes — footer Solution Match Wizard link wired, wizard resets to Step 1 on reopen, generic CTAs no longer show a stale proposal scope summary, Ask Navi renders user input as plain text (XSS fix), Escape closes all modals, Ask Navi trigger keyboard-operable with `aria-expanded`, footer logo served from local assets. 21/21 Playwright tests.
+
+### Sprint 5: Responsive Navigation & Signature Micro-Interactions (Completed)
+- [x] **US-706 (P0/P1)**: Menu panel for phones, tablets & laptops under 1400px (all sections + 11 industries + CTA, Esc/tap-to-close, `aria-expanded`); single-line desktop nav from 1400px; hero headline word-rise with one-time crimson light sweep; header scroll-progress telemetry bar; active-section nav highlight; tactile button press + magnetic primary CTAs; cursor spotlight on pillar, product & engagement cards; Ask Navi typing indicator & message slide-in. All motion GPU-only (`transform`/`opacity`) with `prefers-reduced-motion` fallbacks. 25/25 Playwright tests.
 
 
 ---

@@ -1439,3 +1439,309 @@ img {
     animation: none !important;
   }
 }
+
+/* ==========================================================================
+   Signature Micro-Interactions: Headline Reveal, Scroll Telemetry,
+   Tactile CTAs, Card Spotlight, Ask Navi Typing & Mobile Navigation
+   ========================================================================== */
+
+/* --- Hero Headline Word Rise & Crimson Light Sweep --- */
+.hero-word {
+  display: inline-block;
+  animation: heroWordRise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.hero-headline .hero-word:nth-child(1) { animation-delay: 0.10s; }
+.hero-headline .hero-word:nth-child(2) { animation-delay: 0.18s; }
+.hero-headline .hero-word:nth-child(3) { animation-delay: 0.26s; }
+.hero-headline .hero-word:nth-child(4) { animation-delay: 0.34s; }
+.hero-headline .hero-word:nth-child(5) { animation-delay: 0.42s; }
+
+@keyframes heroWordRise {
+  from { opacity: 0; transform: translateY(0.45em); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-sweep {
+  background-image: linear-gradient(100deg, var(--color-primary) 0%, var(--color-primary) 40%, #FF8A8A 50%, var(--color-primary) 60%, var(--color-primary) 100%);
+  background-size: 300% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: heroSweepFade 0.6s ease-out 0.5s both, heroSweep 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.9s both;
+}
+
+@keyframes heroSweepFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes heroSweep {
+  from { background-position: 100% 0; }
+  to { background-position: 0 0; }
+}
+
+/* --- Header Scroll-Progress Telemetry Bar --- */
+.header-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-primary-hover), var(--color-primary) 70%, #FF4D4D);
+  box-shadow: 0 0 10px rgba(196, 0, 0, 0.55);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* --- Active Section Nav Link --- */
+#main-nav nav > a {
+  position: relative;
+  white-space: nowrap;
+}
+
+#industriesDropdownBtn {
+  white-space: nowrap;
+}
+
+#main-nav nav > a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 2px;
+  background: var(--color-primary);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#main-nav nav > a.nav-active {
+  color: var(--color-primary);
+}
+
+#main-nav nav > a:hover::after,
+#main-nav nav > a.nav-active::after {
+  transform: scaleX(1);
+}
+
+/* --- Tactile Press & Magnetic Primary CTAs --- */
+button:not(.magnetic-btn):active,
+.hero-shortcut-btn:active {
+  transform: scale(0.97);
+}
+
+button.magnetic-btn {
+  transform: translate3d(var(--mag-x, 0px), var(--mag-y, 0px), 0) scale(var(--press, 1));
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+button.magnetic-btn:active {
+  --press: 0.97;
+}
+
+/* --- Cursor Spotlight on Pillar, Product & Engagement Cards --- */
+@property --spot-alpha {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}
+
+div.ambient-card,
+div.product-card-enhanced,
+div.engagement-card-hover {
+  background-image: radial-gradient(circle 280px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(196, 0, 0, calc(0.07 * var(--spot-alpha))), transparent 70%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.3s ease, --spot-alpha 0.35s ease;
+}
+
+div.ambient-card:hover,
+div.product-card-enhanced:hover,
+div.engagement-card-hover:hover {
+  --spot-alpha: 1;
+}
+
+/* --- Ask Navi Message Slide-In & Typing Indicator --- */
+.navi-msg {
+  animation: naviMsgIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes naviMsgIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.navi-typing {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 14px 16px;
+}
+
+.navi-typing span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  opacity: 0.35;
+  animation: naviTypingDot 1s ease-in-out infinite;
+}
+
+.navi-typing span:nth-child(2) { animation-delay: 0.15s; }
+.navi-typing span:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes naviTypingDot {
+  0%, 80%, 100% { transform: translateY(0); opacity: 0.35; }
+  40% { transform: translateY(-4px); opacity: 1; }
+}
+
+/* --- Mobile Navigation Panel --- */
+.mobile-menu {
+  position: fixed;
+  top: 80px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 49;
+  background: #0B0D11;
+  border-top: 1px solid rgba(196, 0, 0, 0.45);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s linear 0.25s;
+}
+
+.mobile-menu.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s linear 0s;
+}
+
+.mobile-menu-inner {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 24px 40px;
+}
+
+.mobile-menu-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  color: #F8FAFC;
+  font-family: var(--font-heading);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  list-style: none;
+  transition: color 0.2s ease;
+}
+
+.mobile-menu-link::-webkit-details-marker {
+  display: none;
+}
+
+.mobile-menu-link:hover,
+.mobile-menu-link.nav-active {
+  color: #FF4D4D;
+}
+
+.mobile-menu-group > summary .material-symbols-outlined {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mobile-menu-group[open] > summary .material-symbols-outlined {
+  transform: rotate(180deg);
+  color: #FF4D4D;
+}
+
+.mobile-menu-sub {
+  display: flex;
+  flex-direction: column;
+  padding: 6px 0 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mobile-menu-sub a {
+  padding: 10px 0 10px 14px;
+  font-size: 14px;
+  color: #CBD5E1;
+  border-left: 2px solid rgba(196, 0, 0, 0.35);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.mobile-menu-sub a:hover,
+.mobile-menu-sub a.nav-active {
+  color: #FFFFFF;
+  border-left-color: var(--color-primary);
+}
+
+.mobile-menu-cta {
+  margin-top: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 16px;
+  background: var(--color-primary);
+  color: #FFFFFF;
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  box-shadow: 0 4px 20px rgba(196, 0, 0, 0.4);
+}
+
+.mobile-menu.open .mobile-menu-inner > * {
+  animation: mobileMenuItemIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+
+.mobile-menu.open .mobile-menu-inner > *:nth-child(2) { animation-delay: 0.03s; }
+.mobile-menu.open .mobile-menu-inner > *:nth-child(3) { animation-delay: 0.06s; }
+.mobile-menu.open .mobile-menu-inner > *:nth-child(4) { animation-delay: 0.09s; }
+.mobile-menu.open .mobile-menu-inner > *:nth-child(5) { animation-delay: 0.12s; }
+.mobile-menu.open .mobile-menu-inner > *:nth-child(6) { animation-delay: 0.15s; }
+.mobile-menu.open .mobile-menu-inner > *:nth-child(7) { animation-delay: 0.18s; }
+.mobile-menu.open .mobile-menu-inner > *:nth-child(8) { animation-delay: 0.21s; }
+.mobile-menu.open .mobile-menu-inner > *:nth-child(9) { animation-delay: 0.24s; }
+.mobile-menu.open .mobile-menu-inner > *:nth-child(10) { animation-delay: 0.27s; }
+
+@keyframes mobileMenuItemIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-word,
+  .hero-sweep,
+  .navi-msg,
+  .navi-typing span,
+  .mobile-menu.open .mobile-menu-inner > * {
+    animation: none !important;
+  }
+
+  .mobile-menu,
+  .mobile-menu.open {
+    transition: none !important;
+    transform: none !important;
+  }
+
+  #main-nav nav > a::after {
+    transition: none;
+  }
+
+  button:not(.magnetic-btn):active,
+  .hero-shortcut-btn:active {
+    transform: none;
+  }
+}
