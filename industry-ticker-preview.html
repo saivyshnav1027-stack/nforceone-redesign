@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NForceOne - Option 1 vs Redesigned Option 2 Comparison</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#C40000',
+            'primary-hover': '#9E0000',
+            'on-background': '#020101',
+            surface: '#FFFFFF',
+            'background-alt': '#F5F5F1',
+            'muted-charcoal': '#3F444B',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #060911;
+      color: #F8FAFC;
+      overflow-x: hidden;
+    }
+
+    /* Infinite Marquee Animation for Option 2 */
+    .ticker-track {
+      display: flex;
+      width: max-content;
+      animation: tickerScroll 32s linear infinite;
+    }
+
+    .ticker-track:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes tickerScroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* Redesigned Option 2 Capsule Card */
+    .redesign-card {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 18px;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 41, 59, 0.5) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 6px;
+      white-space: nowrap;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .redesign-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: transparent;
+      transition: background 0.25s ease;
+    }
+
+    .redesign-card:hover {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(196, 0, 0, 0.2) 100%);
+      border-color: rgba(196, 0, 0, 0.7);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(196, 0, 0, 0.3);
+    }
+
+    .redesign-card:hover::before,
+    .redesign-card.active::before {
+      background: #C40000;
+    }
+
+    .redesign-card.active {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(196, 0, 0, 0.28) 100%);
+      border-color: #C40000;
+      box-shadow: 0 0 20px rgba(196, 0, 0, 0.45);
+    }
+
+    .redesign-card .icon-wrap {
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      background: rgba(196, 0, 0, 0.12);
+      border: 1px solid rgba(196, 0, 0, 0.3);
+      color: #FF4D4D;
+      transition: all 0.2s ease;
+    }
+
+    .redesign-card:hover .icon-wrap,
+    .redesign-card.active .icon-wrap {
+      background: #C40000;
+      color: #FFFFFF;
+      transform: scale(1.08);
+      box-shadow: 0 0 12px rgba(196, 0, 0, 0.6);
+    }
+
+    /* Option 1 Dropdown Styles */
+    .mega-menu-panel {
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(8px);
+      transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s;
+    }
+
+    .dropdown-container:hover .mega-menu-panel,
+    .dropdown-container.open .mega-menu-panel {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #060911;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #C40000;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-primary selection:text-white pb-16">
+
+  <!-- Top Showcase Navigation Bar -->
+  <header class="sticky top-0 z-50 bg-[#0A0E1A]/95 backdrop-blur-md border-b border-slate-800 px-4 sm:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 bg-primary flex items-center justify-center font-black text-white text-sm tracking-wider">N1</div>
+      <div>
+        <div class="text-sm font-extrabold tracking-tight text-white flex items-center gap-2">
+          NFORCEONE <span class="text-[10px] uppercase font-mono px-1.5 py-0.5 bg-slate-800 text-slate-300 border border-slate-700">Architecture Lab</span>
+        </div>
+        <div class="text-[11px] text-slate-400">Comparing Industry Presentation Patterns</div>
+      </div>
+    </div>
+
+    <!-- Quick Jump Controls -->
+    <div class="flex items-center gap-2 text-xs">
+      <a href="#option1" class="px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold border border-slate-700 transition flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-blue-400"></span> Jump to Option 1 (Top Nav Dropdown)
+      </a>
+      <a href="#option2" class="px-3 py-1.5 rounded bg-primary/20 hover:bg-primary/30 text-white font-semibold border border-primary/40 transition flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Jump to Option 2 (Redesigned Horizon Ticker)
+      </a>
+    </div>
+  </header>
+
+  <!-- Intro Hero -->
+  <div class="max-w-6xl mx-auto w-full px-4 pt-10 pb-6 text-center">
+    <div class="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/30 text-red-400 text-xs font-mono uppercase tracking-widest rounded-full mb-3">
+      <span class="w-2 h-2 rounded-full bg-primary animate-ping"></span> Live Interactive Comparison
+    </div>
+    <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight">Enterprise Industries: Option 1 vs Redesigned Option 2</h1>
+    <p class="text-slate-300 text-sm sm:text-base mt-3 max-w-3xl mx-auto">
+      Both options preserve vertical space and prevent page bloat. Explore each interactive prototype below and decide which fits your vision best.
+    </p>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- OPTION 1 DEMONSTRATION: TOP NAVIGATION DROPDOWN MEGA-MENU                 -->
+  <!-- ========================================================================= -->
+  <section id="option1" class="max-w-6xl mx-auto w-full px-4 mb-20">
+    <div class="border border-blue-500/40 bg-gradient-to-b from-[#0F172A] to-[#0A0E1A] p-6 sm:p-8 rounded-none shadow-2xl relative">
+      <!-- Section Tag -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-5 border-b border-slate-700/80 mb-6">
+        <div>
+          <span class="text-xs font-mono font-bold uppercase tracking-widest text-blue-400 bg-blue-950/70 border border-blue-500/30 px-2.5 py-1">
+            Option 1: Top Navigation Dropdown (Mega-Menu)
+          </span>
+          <h2 class="text-xl sm:text-2xl font-bold text-white mt-2">Zero-Height Navigation Dropdown</h2>
+          <p class="text-xs sm:text-sm text-slate-300 mt-1">
+            Takes <strong>0 pixels</strong> of landing page body height. Hover or click <strong>"Industries"</strong> in the simulated navbar below to see the categorized mega-menu.
+          </p>
+        </div>
+        <div class="shrink-0 text-xs font-mono text-emerald-400 bg-emerald-950/50 border border-emerald-500/30 px-3 py-1.5 rounded">
+          ✓ Cleanest Landing Page Flow · Enterprise Standard
+        </div>
+      </div>
+
+      <!-- Simulated Executive Navbar Container -->
+      <div class="relative bg-[#02050C] border border-slate-700/80 rounded-md p-3 shadow-inner">
+        <div class="flex items-center justify-between px-4 py-2 border-b border-slate-800">
+          <div class="flex items-center gap-3">
+            <span class="w-3 h-3 rounded-full bg-red-500"></span>
+            <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+            <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+            <span class="text-xs font-mono text-slate-400 ml-2">Simulated Sticky Header Bar: nforceone.com</span>
+          </div>
+          <span class="text-[11px] font-mono text-slate-400">Desktop Viewport (1280px)</span>
+        </div>
+
+        <!-- The Simulated Navbar -->
+        <nav class="flex items-center justify-between px-6 py-4 bg-[#090D1A] relative mt-2">
+          <!-- Logo -->
+          <div class="flex items-center gap-3">
+            <div class="h-8 w-8 bg-primary flex items-center justify-center text-white font-bold text-base">N1</div>
+            <span class="font-extrabold tracking-tight text-white text-lg">NFORCE<span class="text-primary">ONE</span></span>
+          </div>
+
+          <!-- Nav Items -->
+          <div class="flex items-center gap-6 text-sm font-medium">
+            <a href="javascript:void(0)" class="text-slate-300 hover:text-white transition">Solutions</a>
+            <a href="javascript:void(0)" class="text-slate-300 hover:text-white transition">Framework</a>
+            <a href="javascript:void(0)" class="text-slate-300 hover:text-white transition">Estimator</a>
+
+            <!-- INDUSTRIES DROPDOWN TRIGGER (Interactive) -->
+            <div class="dropdown-container relative group" id="industryDropdownTrigger">
+              <button class="flex items-center gap-1.5 text-white font-semibold px-3 py-1.5 rounded-sm bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 transition" id="dropdownBtn">
+                <span class="material-symbols-outlined text-primary text-base">domain</span>
+                <span>Industries</span>
+                <span class="text-[10px] font-mono font-bold bg-primary text-white px-1.5 py-0.2 rounded ml-1">11</span>
+                <span class="material-symbols-outlined text-sm text-slate-400 group-hover:rotate-180 transition-transform duration-200">expand_more</span>
+              </button>
+
+              <!-- MEGA MENU POPUP PANEL (3 COLUMNS + PROMPT) -->
+              <div class="mega-menu-panel absolute top-full left-1/2 -translate-x-1/2 pt-3 w-[780px] z-50">
+                <div class="bg-[#0A0F1E] border-2 border-slate-700 shadow-2xl p-6 rounded-none backdrop-blur-xl">
+                  
+                  <!-- Mega Menu Header -->
+                  <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-800">
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-primary text-sm">hub</span>
+                      <span class="text-xs font-bold uppercase tracking-widest text-slate-200">Cross-Industry Engineering Practices</span>
+                    </div>
+                    <span class="text-[11px] font-mono text-slate-400">All 11 Regulated & High-Throughput Sectors</span>
+                  </div>
+
+                  <!-- 3 Column Grid -->
+                  <div class="grid grid-cols-3 gap-6">
+                    
+                    <!-- Col 1: Mission-Critical & Regulated -->
+                    <div>
+                      <div class="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-3 flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Core Regulated
+                      </div>
+                      <div class="space-y-2.5">
+                        <a href="javascript:void(0)" onclick="selectIndustry('Telecommunications')" class="group/item block p-2 rounded hover:bg-slate-800/80 border border-transparent hover:border-slate-700 transition">
+                          <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-white group-hover/item:text-red-400 flex items-center gap-1.5">
+                              <span class="material-symbols-outlined text-sm text-red-500">cell_tower</span> Telecommunications
+                            </span>
+                            <span class="text-[9px] font-mono bg-red-950 text-red-300 border border-red-800 px-1">Crown Jewel</span>
+                          </div>
+                          <p class="text-[11px] text-slate-400 mt-0.5">OSS/BSS, 5G Slicing, CX Voice AI</p>
+                        </a>
+
+                        <a href="javascript:void(0)" onclick="selectIndustry('Banking & Financial')" class="group/item block p-2 rounded hover:bg-slate-800/80 border border-transparent hover:border-slate-700 transition">
+                          <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-white group-hover/item:text-red-400 flex items-center gap-1.5">
+                              <span class="material-symbols-outlined text-sm text-red-500">account_balance</span> Banking & Financial
+                            </span>
+                          </div>
+                          <p class="text-[11px] text-slate-400 mt-0.5">Core Banking & AML Fraud Engines</p>
+                        </a>
+
+                        <a href="javascript:void(0)" onclick="selectIndustry('Finance & FinTech')" class="group/item block p-2 rounded hover:bg-slate-800/80 border border-transparent hover:border-slate-700 transition">
+                          <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-white group-hover/item:text-red-400 flex items-center gap-1.5">
+                              <span class="material-symbols-outlined text-sm text-red-500">payments</span> Finance & FinTech
+                            </span>
+                          </div>
+                          <p class="text-[11px] text-slate-400 mt-0.5">50k+ TPS Gateways & ISO 20022</p>
+                        </a>
+
+                        <a href="javascript:void(0)" onclick="selectIndustry('Healthcare & Life Sciences')" class="group/item block p-2 rounded hover:bg-slate-800/80 border border-transparent hover:border-slate-700 transition">
+                          <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-white group-hover/item:text-red-400 flex items-center gap-1.5">
+                              <span class="material-symbols-outlined text-sm text-red-500">medical_services</span> Healthcare & Life Sciences
+                            </span>
+                          </div>
+                          <p class="text-[11px] text-slate-400 mt-0.5">HL7/FHIR & HIPAA PHI Pipelines</p>
+                        </a>
+                      </div>
+                    </div>
+
+                    <!-- Col 2: Applied Engineering & Scale -->
+                    <div>
+                      <div class="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-3 flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span> Scale & Mobility
+                      </div>
+                      <div class="space-y-2.5">
+                        <a href="javascript:void(0)" onclick="selectIndustry('Automotive & Mobility')" class="group/item block p-2 rounded hover:bg-slate-800/80 border border-transparent hover:border-slate-700 transition">
+                          <span class="text-xs font-bold text-white group-hover/item:text-blue-400 flex items-center gap-1.5">
+                            <span class="material-symbols-outlined text-sm text-blue-400">directions_car</span> Automotive & Mobility
+                          </span>
+                          <p class="text-[11px] text-slate-400 mt-0.5">AUTOSAR ECU & Android IVI QA</p>
+                        </a>
+
+                        <a href="javascript:void(0)" onclick="selectIndustry('Retail & eCommerce')" class="group/item block p-2 rounded hover:bg-slate-800/80 border border-transparent hover:border-slate-700 transition">
+                          <span class="text-xs font-bold text-white group-hover/item:text-blue-400 flex items-center gap-1.5">
+                            <span class="material-symbols-outlined text-sm text-blue-400">shopping_cart</span> Retail & eCommerce
+                          </span>
+                          <p class="text-[11px] text-slate-400 mt-0.5">Headless Commerce & Cyber-Peak</p>
+                        </a>
+
+                        <a href="javascript:void(0)" onclick="selectIndustry('Insurance (InsurTech)')" class="group/item block p-2 rounded hover:bg-slate-800/80 border border-transparent hover:border-slate-700 transition">
+                          <span class="text-xs font-bold text-white group-hover/item:text-blue-400 flex items-center gap-1.5">
+                            <span class="material-symbols-outlined text-sm text-blue-400">policy</span> Insurance (InsurTech)
+                          </span>
+                          <p class="text-[11px] text-slate-400 mt-0.5">Guidewire QA & Claims AI</p>
+                        </a>
+
+                        <a href="javascript:void(0)" onclick="selectIndustry('Digital Media & AdTech')" class="group/item block p-2 rounded hover:bg-slate-800/80 border border-transparent hover:border-slate-700 transition">
+                          <span class="text-xs font-bold text-white group-hover/item:text-blue-400 flex items-center gap-1.5">
+                            <span class="material-symbols-outlined text-sm text-blue-400">smart_display</span> Digital Media & AdTech
+                          </span>
+                          <p class="text-[11px] text-slate-400 mt-0.5">Sub-10ms RTB Bidding Engines</p>
+                        </a>
+                      </div>
+                    </div>
+
+                    <!-- Col 3: Infrastructure & Featured Practice -->
+                    <div class="flex flex-col justify-between">
+                      <div>
+                        <div class="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-3 flex items-center gap-1.5">
+                          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Infrastructure
+                        </div>
+                        <div class="space-y-2.5">
+                          <a href="javascript:void(0)" onclick="selectIndustry('Energy & Utilities')" class="group/item block p-2 rounded hover:bg-slate-800/80 border border-transparent hover:border-slate-700 transition">
+                            <span class="text-xs font-bold text-white group-hover/item:text-emerald-400 flex items-center gap-1.5">
+                              <span class="material-symbols-outlined text-sm text-emerald-400">bolt</span> Energy & Utilities
+                            </span>
+                            <p class="text-[11px] text-slate-400 mt-0.5">Smart Grid AMI & SCADA Telemetry</p>
+                          </a>
+
+                          <a href="javascript:void(0)" onclick="selectIndustry('Smart Manufacturing')" class="group/item block p-2 rounded hover:bg-slate-800/80 border border-transparent hover:border-slate-700 transition">
+                            <span class="text-xs font-bold text-white group-hover/item:text-emerald-400 flex items-center gap-1.5">
+                              <span class="material-symbols-outlined text-sm text-emerald-400">precision_manufacturing</span> Smart Manufacturing
+                            </span>
+                            <p class="text-[11px] text-slate-400 mt-0.5">Industry 4.0 MES & Optical QA</p>
+                          </a>
+
+                          <a href="javascript:void(0)" onclick="selectIndustry('ISV & Enterprise SaaS')" class="group/item block p-2 rounded hover:bg-slate-800/80 border border-transparent hover:border-slate-700 transition">
+                            <span class="text-xs font-bold text-white group-hover/item:text-emerald-400 flex items-center gap-1.5">
+                              <span class="material-symbols-outlined text-sm text-emerald-400">cloud_circle</span> ISV & Enterprise SaaS
+                            </span>
+                            <p class="text-[11px] text-slate-400 mt-0.5">Multi-Tenant Scale & Microservices</p>
+                          </a>
+                        </div>
+                      </div>
+
+                      <!-- Executive Callout Box inside Mega Menu -->
+                      <div class="mt-4 p-3 bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/40 rounded-sm">
+                        <div class="text-[10px] font-mono text-red-300 font-bold uppercase tracking-wider mb-1">Architecture Advisory</div>
+                        <p class="text-[11px] text-slate-200 leading-snug">Need industry-specific architecture validation?</p>
+                        <a href="javascript:void(0)" class="mt-2 inline-flex items-center gap-1 text-[11px] font-bold text-white bg-primary hover:bg-primary-hover px-2.5 py-1 rounded-sm uppercase tracking-wide">
+                          Book Sector Architect <span class="material-symbols-outlined text-xs">arrow_forward</span>
+                        </a>
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <a href="javascript:void(0)" class="text-slate-300 hover:text-white transition">Company</a>
+          </div>
+
+          <!-- CTA -->
+          <div>
+            <button class="bg-primary hover:bg-primary-hover text-white text-xs font-bold px-4 py-2 uppercase tracking-wider transition-colors">
+              Talk to Engineering
+            </button>
+          </div>
+        </nav>
+
+        <!-- Dynamic Dropdown Selected Output Feedback -->
+        <div id="option1SelectionBanner" class="mt-3 p-3 bg-slate-900 border border-slate-700/80 text-xs flex items-center justify-between text-slate-300">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary text-sm">info</span>
+            <span>Hover or click <strong>Industries</strong> in the navbar above to test interaction.</span>
+          </div>
+          <div id="option1LastClicked" class="text-emerald-400 font-mono text-[11px]">Ready</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- OPTION 2 REDESIGNED: EXECUTIVE INDUSTRY HORIZON & LIVE TELEMETRY RADAR    -->
+  <!-- ========================================================================= -->
+  <section id="option2" class="max-w-6xl mx-auto w-full px-4 mb-16">
+    <div class="border-2 border-primary/50 bg-gradient-to-b from-[#0B101D] via-[#080C16] to-[#04060A] p-6 sm:p-8 rounded-none shadow-2xl relative">
+      
+      <!-- Option 2 Header -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-5 border-b border-slate-700/80 mb-6">
+        <div>
+          <span class="text-xs font-mono font-bold uppercase tracking-widest text-primary bg-primary/10 border border-primary/30 px-2.5 py-1">
+            Option 2 (Redesigned): Compact Industry Horizon & Live Telemetry Strip
+          </span>
+          <h2 class="text-xl sm:text-2xl font-black text-white mt-2">Executive Horizon Ticker + Radar Console</h2>
+          <p class="text-xs sm:text-sm text-slate-300 mt-1">
+            Completely redesigned: Sleek glass cards with live compliance metrics, illuminated icon docks, and an instant command drawer. Only <strong>~85px</strong> default height!
+          </p>
+        </div>
+        <div class="shrink-0 text-xs font-mono text-red-400 bg-red-950/50 border border-primary/40 px-3 py-1.5 rounded">
+          ★ High Visual Impact · Immediate Social Proof
+        </div>
+      </div>
+
+      <!-- Controls & Header Bar -->
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-4">
+        <div class="flex items-center gap-3">
+          <div class="flex items-center gap-2 px-2.5 py-1 bg-slate-900 border border-slate-700 rounded text-xs font-mono text-slate-300">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>DOMAINS: 11 PRODUCTION PRACTICES</span>
+          </div>
+          <span class="text-xs text-slate-400 hidden md:inline">· Continuous Delivery Telemetry</span>
+        </div>
+
+        <div class="flex items-center gap-2 text-xs font-mono text-slate-400">
+          <span class="material-symbols-outlined text-sm text-primary">mouse</span>
+          <span>Hover ticker to pause · Click any card to dock radar</span>
+        </div>
+      </div>
+
+      <!-- REDESIGNED HORIZON TICKER STRIP -->
+      <div class="relative overflow-hidden py-4 bg-[#050811] border-y border-slate-800">
+        <!-- Gradient Edge Blurs -->
+        <div class="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[#050811] via-[#050811]/90 to-transparent z-10 pointer-events-none"></div>
+        <div class="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[#050811] via-[#050811]/90 to-transparent z-10 pointer-events-none"></div>
+
+        <!-- Scrolling Marquee Track -->
+        <div class="ticker-track flex items-center gap-4 px-4" id="redesignTickerTrack">
+          
+          <!-- Card 1: Telecom -->
+          <div class="redesign-card active" data-sector="Telecommunications" data-badge="Crown Jewel" data-metric="Carrier Grade · 99.999% SLA" data-desc="OSS/BSS Architecture Modernization, 5G Standalone Core Slicing, Field Telemetry & AI Automated Dispatch" data-tags="5G Network Slicing, OSS/BSS, CX Voice AI">
+            <div class="icon-wrap"><span class="material-symbols-outlined text-xl">cell_tower</span></div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-bold text-white">Telecommunications</span>
+                <span class="text-[9px] font-mono bg-red-950 text-red-300 border border-red-700 px-1.5 py-0.2 rounded font-bold">Crown Jewel</span>
+              </div>
+              <div class="text-[11px] font-mono text-slate-400">99.999% SLA · Carrier Grade</div>
+            </div>
+          </div>
+
+          <!-- Card 2: Banking -->
+          <div class="redesign-card" data-sector="Banking & Financial" data-badge="Tier-1 Core" data-metric="GLBA · SOC2 Type II · FedRAMP" data-desc="Next-Gen Core Banking Migrations, Distributed Ledger Settlement & Autonomous AML/KYC Transaction Screening" data-tags="Core Banking, AML Screening, SOC2 Type II">
+            <div class="icon-wrap"><span class="material-symbols-outlined text-xl">account_balance</span></div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-bold text-white">Banking & Financial</span>
+              </div>
+              <div class="text-[11px] font-mono text-slate-400">Core Banking · FedRAMP</div>
+            </div>
+          </div>
+
+          <!-- Card 3: FinTech -->
+          <div class="redesign-card" data-sector="Finance & FinTech" data-badge="High Frequency" data-metric="PCI-DSS Level 1 · 50,000+ TPS" data-desc="Sub-millisecond Trading Pipelines, Tokenized Digital Wallets & Real-Time ISO 20022 Cross-Border Settlement" data-tags="50k+ TPS Gateways, Digital Wallets, ISO 20022">
+            <div class="icon-wrap"><span class="material-symbols-outlined text-xl">payments</span></div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-bold text-white">Finance & FinTech</span>
+                <span class="text-[9px] font-mono bg-blue-950 text-blue-300 border border-blue-700 px-1.5 py-0.2 rounded font-bold">50k+ TPS</span>
+              </div>
+              <div class="text-[11px] font-mono text-slate-400">PCI-DSS L1 · ISO 20022</div>
+            </div>
+          </div>
+
+          <!-- Card 4: Healthcare -->
+          <div class="redesign-card" data-sector="Healthcare & Life Sciences" data-badge="Regulated Health" data-metric="HIPAA PHI · FDA 21 CFR Part 11" data-desc="HL7/FHIR Enterprise Interoperability, Clinical Diagnostics Telemetry & Secure Multi-Tenant Patient Portals" data-tags="HL7/FHIR, HIPAA Compliance, Telehealth">
+            <div class="icon-wrap"><span class="material-symbols-outlined text-xl">medical_services</span></div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-bold text-white">Healthcare & Life Sciences</span>
+              </div>
+              <div class="text-[11px] font-mono text-slate-400">HL7 / FHIR · HIPAA PHI</div>
+            </div>
+          </div>
+
+          <!-- Card 5: Automotive -->
+          <div class="redesign-card" data-sector="Automotive & Mobility" data-badge="Safety Critical" data-metric="ISO 26262 ASIL-D · ASPICE" data-desc="In-Cabin Android Automotive OS (AAOS) Validation, AUTOSAR ECU Hardware-in-Loop & Fleet Telematics" data-tags="AUTOSAR ECU, AAOS IVI, ISO 26262">
+            <div class="icon-wrap"><span class="material-symbols-outlined text-xl">directions_car</span></div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-bold text-white">Automotive & Mobility</span>
+              </div>
+              <div class="text-[11px] font-mono text-slate-400">AUTOSAR · Android IVI</div>
+            </div>
+          </div>
+
+          <!-- Card 6: Retail -->
+          <div class="redesign-card" data-sector="Retail & eCommerce" data-badge="Peak Scale" data-metric="Cyber-Week Zero Downtime" data-desc="Headless MACH Architecture, Distributed Omnichannel POS & Automated Load Surges across 100k+ Concurrent Shoppers" data-tags="commercetools, Omnichannel POS, Peak Scale">
+            <div class="icon-wrap"><span class="material-symbols-outlined text-xl">shopping_cart</span></div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-bold text-white">Retail & eCommerce</span>
+              </div>
+              <div class="text-[11px] font-mono text-slate-400">Headless MACH · Cyber Peak</div>
+            </div>
+          </div>
+
+          <!-- Card 7: Insurance -->
+          <div class="redesign-card" data-sector="Insurance (InsurTech)" data-badge="Core Engine" data-metric="NAIC · ISO 27001 · ACORD" data-desc="Guidewire PolicyCenter & ClaimCenter Automation, Actuarial Risk Models & Machine-Assisted Claims Adjudication" data-tags="Guidewire, Auto-Adjudication, ACORD">
+            <div class="icon-wrap"><span class="material-symbols-outlined text-xl">policy</span></div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-bold text-white">Insurance (InsurTech)</span>
+              </div>
+              <div class="text-[11px] font-mono text-slate-400">Guidewire QA · Claims AI</div>
+            </div>
+          </div>
+
+          <!-- Card 8: Media -->
+          <div class="redesign-card" data-sector="Digital Media & AdTech" data-badge="Ultra Low Latency" data-metric="Sub-10ms RTB · OpenRTB 3.0" data-desc="Real-Time Bidding (RTB) Pipelines, Low-Latency HLS/DASH Video Delivery & Multi-DRM Content Protection" data-tags="Sub-10ms RTB, HLS/DASH Streaming, DRM">
+            <div class="icon-wrap"><span class="material-symbols-outlined text-xl">smart_display</span></div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-bold text-white">Digital Media & AdTech</span>
+              </div>
+              <div class="text-[11px] font-mono text-slate-400">RTB Bidding · Video QoS</div>
+            </div>
+          </div>
+
+          <!-- Card 9: Energy -->
+          <div class="redesign-card" data-sector="Energy & Utilities" data-badge="Critical Infra" data-metric="NERC CIP · MQTT · ISO 55000" data-desc="Smart Grid AMI Meter Telemetry, Cloud SCADA Modernization & Predictive Substation Asset Maintenance" data-tags="Smart Grid AMI, SCADA Cloud, NERC CIP">
+            <div class="icon-wrap"><span class="material-symbols-outlined text-xl">bolt</span></div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-bold text-white">Energy & Utilities</span>
+              </div>
+              <div class="text-[11px] font-mono text-slate-400">Smart Grid · NERC CIP</div>
+            </div>
+          </div>
+
+          <!-- Card 10: Manufacturing -->
+          <div class="redesign-card" data-sector="Smart Manufacturing" data-badge="Industry 4.0" data-metric="ISA-95 · OPC-UA · ISO 9001" data-desc="Shop-Floor MES Integration, High-Speed Automated Optical Inspection (AOI) & Digital Twin Equipment Sync" data-tags="Industry 4.0 MES, OPC-UA, Digital Twin">
+            <div class="icon-wrap"><span class="material-symbols-outlined text-xl">precision_manufacturing</span></div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-bold text-white">Smart Manufacturing</span>
+              </div>
+              <div class="text-[11px] font-mono text-slate-400">Industry 4.0 · OPC-UA</div>
+            </div>
+          </div>
+
+          <!-- Card 11: ISV SaaS -->
+          <div class="redesign-card" data-sector="ISV & Enterprise SaaS" data-badge="Cloud Native" data-metric="Multi-Tenant · Kubernetes" data-desc="Petabyte-Scale Multi-Tenant SaaS Backbones, Microservices Mesh Governance & Zero-Downtime Blue-Green Deployments" data-tags="Kubernetes, SOC2 Type II, Multi-Tenant">
+            <div class="icon-wrap"><span class="material-symbols-outlined text-xl">cloud_circle</span></div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-bold text-white">ISV & Enterprise SaaS</span>
+              </div>
+              <div class="text-[11px] font-mono text-slate-400">Multi-Tenant · Blue-Green</div>
+            </div>
+          </div>
+
+          <!-- DUPLICATE SET 1-11 FOR 100% SEAMLESS LOOP -->
+          <div class="redesign-card" data-sector="Telecommunications" data-badge="Crown Jewel" data-metric="Carrier Grade · 99.999% SLA" data-desc="OSS/BSS Architecture Modernization, 5G Standalone Core Slicing, Field Telemetry & AI Automated Dispatch" data-tags="5G Network Slicing, OSS/BSS, CX Voice AI">
+            <div class="icon-wrap"><span class="material-symbols-outlined text-xl">cell_tower</span></div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-bold text-white">Telecommunications</span>
+                <span class="text-[9px] font-mono bg-red-950 text-red-300 border border-red-700 px-1.5 py-0.2 rounded font-bold">Crown Jewel</span>
+              </div>
+              <div class="text-[11px] font-mono text-slate-400">99.999% SLA · Carrier Grade</div>
+            </div>
+          </div>
+
+          <div class="redesign-card" data-sector="Banking & Financial" data-badge="Tier-1 Core" data-metric="GLBA · SOC2 Type II · FedRAMP" data-desc="Next-Gen Core Banking Migrations, Distributed Ledger Settlement & Autonomous AML/KYC Transaction Screening" data-tags="Core Banking, AML Screening, SOC2 Type II">
+            <div class="icon-wrap"><span class="material-symbols-outlined text-xl">account_balance</span></div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-bold text-white">Banking & Financial</span>
+              </div>
+              <div class="text-[11px] font-mono text-slate-400">Core Banking · FedRAMP</div>
+            </div>
+          </div>
+
+          <div class="redesign-card" data-sector="Finance & FinTech" data-badge="High Frequency" data-metric="PCI-DSS Level 1 · 50,000+ TPS" data-desc="Sub-millisecond Trading Pipelines, Tokenized Digital Wallets & Real-Time ISO 20022 Cross-Border Settlement" data-tags="50k+ TPS Gateways, Digital Wallets, ISO 20022">
+            <div class="icon-wrap"><span class="material-symbols-outlined text-xl">payments</span></div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-bold text-white">Finance & FinTech</span>
+                <span class="text-[9px] font-mono bg-blue-950 text-blue-300 border border-blue-700 px-1.5 py-0.2 rounded font-bold">50k+ TPS</span>
+              </div>
+              <div class="text-[11px] font-mono text-slate-400">PCI-DSS L1 · ISO 20022</div>
+            </div>
+          </div>
+
+          <div class="redesign-card" data-sector="Healthcare & Life Sciences" data-badge="Regulated Health" data-metric="HIPAA PHI · FDA 21 CFR Part 11" data-desc="HL7/FHIR Enterprise Interoperability, Clinical Diagnostics Telemetry & Secure Multi-Tenant Patient Portals" data-tags="HL7/FHIR, HIPAA Compliance, Telehealth">
+            <div class="icon-wrap"><span class="material-symbols-outlined text-xl">medical_services</span></div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-bold text-white">Healthcare & Life Sciences</span>
+              </div>
+              <div class="text-[11px] font-mono text-slate-400">HL7 / FHIR · HIPAA PHI</div>
+            </div>
+          </div>
+
+          <div class="redesign-card" data-sector="Automotive & Mobility" data-badge="Safety Critical" data-metric="ISO 26262 ASIL-D · ASPICE" data-desc="In-Cabin Android Automotive OS (AAOS) Validation, AUTOSAR ECU Hardware-in-Loop & Fleet Telematics" data-tags="AUTOSAR ECU, AAOS IVI, ISO 26262">
+            <div class="icon-wrap"><span class="material-symbols-outlined text-xl">directions_car</span></div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-bold text-white">Automotive & Mobility</span>
+              </div>
+              <div class="text-[11px] font-mono text-slate-400">AUTOSAR · Android IVI</div>
+            </div>
+          </div>
+
+          <div class="redesign-card" data-sector="Retail & eCommerce" data-badge="Peak Scale" data-metric="Cyber-Week Zero Downtime" data-desc="Headless MACH Architecture, Distributed Omnichannel POS & Automated Load Surges across 100k+ Concurrent Shoppers" data-tags="commercetools, Omnichannel POS, Peak Scale">
+            <div class="icon-wrap"><span class="material-symbols-outlined text-xl">shopping_cart</span></div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-bold text-white">Retail & eCommerce</span>
+              </div>
+              <div class="text-[11px] font-mono text-slate-400">Headless MACH · Cyber Peak</div>
+            </div>
+          </div>
+
+          <div class="redesign-card" data-sector="Insurance (InsurTech)" data-badge="Core Engine" data-metric="NAIC · ISO 27001 · ACORD" data-desc="Guidewire PolicyCenter & ClaimCenter Automation, Actuarial Risk Models & Machine-Assisted Claims Adjudication" data-tags="Guidewire, Auto-Adjudication, ACORD">
+            <div class="icon-wrap"><span class="material-symbols-outlined text-xl">policy</span></div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-bold text-white">Insurance (InsurTech)</span>
+              </div>
+              <div class="text-[11px] font-mono text-slate-400">Guidewire QA · Claims AI</div>
+            </div>
+          </div>
+
+          <div class="redesign-card" data-sector="Digital Media & AdTech" data-badge="Ultra Low Latency" data-metric="Sub-10ms RTB · OpenRTB 3.0" data-desc="Real-Time Bidding (RTB) Pipelines, Low-Latency HLS/DASH Video Delivery & Multi-DRM Content Protection" data-tags="Sub-10ms RTB, HLS/DASH Streaming, DRM">
+            <div class="icon-wrap"><span class="material-symbols-outlined text-xl">smart_display</span></div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-bold text-white">Digital Media & AdTech</span>
+              </div>
+              <div class="text-[11px] font-mono text-slate-400">RTB Bidding · Video QoS</div>
+            </div>
+          </div>
+
+          <div class="redesign-card" data-sector="Energy & Utilities" data-badge="Critical Infra" data-metric="NERC CIP · MQTT · ISO 55000" data-desc="Smart Grid AMI Meter Telemetry, Cloud SCADA Modernization & Predictive Substation Asset Maintenance" data-tags="Smart Grid AMI, SCADA Cloud, NERC CIP">
+            <div class="icon-wrap"><span class="material-symbols-outlined text-xl">bolt</span></div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-bold text-white">Energy & Utilities</span>
+              </div>
+              <div class="text-[11px] font-mono text-slate-400">Smart Grid · NERC CIP</div>
+            </div>
+          </div>
+
+          <div class="redesign-card" data-sector="Smart Manufacturing" data-badge="Industry 4.0" data-metric="ISA-95 · OPC-UA · ISO 9001" data-desc="Shop-Floor MES Integration, High-Speed Automated Optical Inspection (AOI) & Digital Twin Equipment Sync" data-tags="Industry 4.0 MES, OPC-UA, Digital Twin">
+            <div class="icon-wrap"><span class="material-symbols-outlined text-xl">precision_manufacturing</span></div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-bold text-white">Smart Manufacturing</span>
+              </div>
+              <div class="text-[11px] font-mono text-slate-400">Industry 4.0 · OPC-UA</div>
+            </div>
+          </div>
+
+          <div class="redesign-card" data-sector="ISV & Enterprise SaaS" data-badge="Cloud Native" data-metric="Multi-Tenant · Kubernetes" data-desc="Petabyte-Scale Multi-Tenant SaaS Backbones, Microservices Mesh Governance & Zero-Downtime Blue-Green Deployments" data-tags="Kubernetes, SOC2 Type II, Multi-Tenant">
+            <div class="icon-wrap"><span class="material-symbols-outlined text-xl">cloud_circle</span></div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-bold text-white">ISV & Enterprise SaaS</span>
+              </div>
+              <div class="text-[11px] font-mono text-slate-400">Multi-Tenant · Blue-Green</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- REDESIGNED RADAR DETAIL CONSOLE (Instant Interactive Feedback Deck) -->
+      <div id="radarConsole" class="mt-4 p-5 bg-[#0D1426] border border-primary/40 rounded-sm shadow-xl flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 transition-all duration-300">
+        
+        <!-- Left: Active Sector Title & Description -->
+        <div class="space-y-1.5 max-w-2xl">
+          <div class="flex items-center gap-3">
+            <span class="text-[10px] font-mono uppercase tracking-widest text-primary font-bold px-2 py-0.5 bg-primary/10 border border-primary/30">Active Domain Practice</span>
+            <h3 id="radarSectorName" class="text-base sm:text-lg font-extrabold text-white tracking-tight">Telecommunications</h3>
+            <span id="radarBadge" class="text-[10px] font-mono bg-red-950 text-red-300 border border-red-700 px-2 py-0.2 rounded font-bold">Crown Jewel</span>
+          </div>
+          <p id="radarDesc" class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            OSS/BSS Architecture Modernization, 5G Standalone Core Slicing, Field Telemetry & AI Automated Dispatch.
+          </p>
+          <!-- Tags -->
+          <div id="radarTags" class="flex flex-wrap items-center gap-2 pt-1">
+            <span class="text-[11px] font-mono bg-slate-800 text-slate-300 px-2 py-0.5 border border-slate-700">5G Network Slicing</span>
+            <span class="text-[11px] font-mono bg-slate-800 text-slate-300 px-2 py-0.5 border border-slate-700">OSS/BSS</span>
+            <span class="text-[11px] font-mono bg-slate-800 text-slate-300 px-2 py-0.5 border border-slate-700">CX Voice AI</span>
+          </div>
+        </div>
+
+        <!-- Right: Verification Benchmark + Action CTA -->
+        <div class="shrink-0 flex flex-col sm:flex-row items-start sm:items-center gap-3 w-full lg:w-auto pt-3 lg:pt-0 border-t lg:border-t-0 border-slate-800">
+          <div class="text-left sm:text-right">
+            <div class="text-[10px] font-mono text-slate-400 uppercase tracking-wider">Benchmark & Compliance</div>
+            <div id="radarMetric" class="text-xs font-mono font-bold text-emerald-400 bg-emerald-950/60 px-2.5 py-1 border border-emerald-500/30 mt-0.5">
+              Carrier Grade · 99.999% SLA
+            </div>
+          </div>
+          <button class="w-full sm:w-auto bg-primary hover:bg-primary-hover text-white text-xs font-bold px-4 py-2.5 uppercase tracking-wider transition-colors flex items-center justify-center gap-1.5 shadow-lg shadow-primary/20">
+            Request Case Study <span class="material-symbols-outlined text-xs">arrow_forward</span>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- DECISION MATRIX & COMPARISON SUMMARY                                      -->
+  <!-- ========================================================================= -->
+  <section class="max-w-6xl mx-auto w-full px-4 mb-8">
+    <div class="bg-[#090D18] border border-slate-800 p-6 sm:p-8">
+      <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+        <span class="material-symbols-outlined text-primary text-base">balance</span> Architecture Comparison & Recommendation
+      </h3>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Option 1 Card -->
+        <div class="p-5 bg-slate-900/90 border border-blue-500/30 rounded-sm">
+          <div class="flex items-center justify-between mb-2">
+            <div class="font-extrabold text-white text-base flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-blue-400"></span> Option 1: Top Nav Dropdown
+            </div>
+            <span class="text-[10px] font-mono bg-blue-950 text-blue-300 border border-blue-700 px-2 py-0.5 font-bold">0px Body Height</span>
+          </div>
+          <p class="text-xs text-slate-300 mb-3">
+            Best if your priority is absolute minimal homepage scroll length. Enterprise buyers navigating like AWS/Stripe look at the header when exploring industry capabilities.
+          </p>
+          <ul class="text-xs text-slate-400 space-y-1.5 font-mono">
+            <li class="text-emerald-400">✓ Zero vertical clutter on landing page</li>
+            <li class="text-emerald-400">✓ Categorized into 3 logical columns with quick practice leads</li>
+            <li class="text-amber-400">⚠ Requires visitor to hover or click the header menu to discover</li>
+          </ul>
+        </div>
+
+        <!-- Option 2 Card -->
+        <div class="p-5 bg-slate-900/90 border border-primary/40 rounded-sm">
+          <div class="flex items-center justify-between mb-2">
+            <div class="font-extrabold text-white text-base flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-primary"></span> Option 2 (Redesigned): Horizon Ticker
+            </div>
+            <span class="text-[10px] font-mono bg-red-950 text-red-300 border border-red-700 px-2 py-0.5 font-bold">~85px Height</span>
+          </div>
+          <p class="text-xs text-slate-300 mb-3">
+            Best if you want immediate visual proof that NForceOne delivers in Telecom, Banking, Healthcare, and Automotive without requiring visitors to hunt in dropdowns.
+          </p>
+          <ul class="text-xs text-slate-400 space-y-1.5 font-mono">
+            <li class="text-emerald-400">✓ Visually captivating continuous marquee with live compliance tags</li>
+            <li class="text-emerald-400">✓ Takes only ~85px height (preserves page rhythm completely)</li>
+            <li class="text-emerald-400">✓ Interactive click/hover docks radar details instantly</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Action Prompt for User -->
+      <div class="mt-6 pt-5 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="text-xs text-slate-300">
+          <strong>Next Step:</strong> Test both options above in your browser. Tell me if you'd like to integrate <strong>Option 1</strong> into the header or <strong>Option 2</strong> onto the page!
+        </div>
+        <div class="text-xs font-mono text-primary font-bold">
+          Local File: industry-ticker-preview.html
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SCRIPTS -->
+  <script>
+    // --- OPTION 1 INTERACTIONS ---
+    const dropdownTrigger = document.getElementById('industryDropdownTrigger');
+    const dropdownBtn = document.getElementById('dropdownBtn');
+    
+    // Toggle on click for mobile / tablet or explicit click
+    dropdownBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dropdownTrigger.classList.toggle('open');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!dropdownTrigger.contains(e.target)) {
+        dropdownTrigger.classList.remove('open');
+      }
+    });
+
+    function selectIndustry(name) {
+      document.getElementById('option1LastClicked').textContent = 'Selected: ' + name;
+      document.getElementById('option1SelectionBanner').classList.add('bg-slate-800');
+    }
+
+    // --- OPTION 2 INTERACTIONS ---
+    const cards = document.querySelectorAll('.redesign-card');
+    const radarSectorName = document.getElementById('radarSectorName');
+    const radarBadge = document.getElementById('radarBadge');
+    const radarDesc = document.getElementById('radarDesc');
+    const radarMetric = document.getElementById('radarMetric');
+    const radarTags = document.getElementById('radarTags');
+
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        cards.forEach(c => c.classList.remove('active'));
+        card.classList.add('active');
+
+        const sector = card.getAttribute('data-sector');
+        const badge = card.getAttribute('data-badge');
+        const metric = card.getAttribute('data-metric');
+        const desc = card.getAttribute('data-desc');
+        const tags = card.getAttribute('data-tags').split(', ');
+
+        radarSectorName.textContent = sector;
+        radarBadge.textContent = badge;
+        radarMetric.textContent = metric;
+        radarDesc.textContent = desc;
+
+        // Render tags
+        radarTags.innerHTML = tags.map(t => `<span class="text-[11px] font-mono bg-slate-800 text-slate-300 px-2 py-0.5 border border-slate-700">${t}</span>`).join('');
+      });
+    });
+  </script>
+
+</body>
+</html>

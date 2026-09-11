@@ -861,12 +861,29 @@ img {
   padding: 8px 14px;
   font-size: 12px;
   font-weight: 600;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
   white-space: nowrap;
   pointer-events: none;
+  opacity: 0;
+  transform: translateX(12px);
+  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#askNaviWidget:hover .ask-navi-tooltip,
+.ask-navi-trigger:hover ~ .ask-navi-tooltip,
+#askNaviTrigger:focus-visible ~ .ask-navi-tooltip,
+#askNaviWidget.show-tooltip .ask-navi-tooltip {
   opacity: 1;
-  transition: opacity 0.2s ease;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+/* Industries Navigation Dropdown */
+#industriesDropdownMenu.open {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateY(0) !important;
 }
 
 /* Ask Navi Concierge Drawer Window */

@@ -315,6 +315,48 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Industries Header Dropdown Interactivity
+  const indDropdownBtn = document.getElementById('industriesDropdownBtn');
+  const indDropdownMenu = document.getElementById('industriesDropdownMenu');
+  const indDropdownContainer = document.getElementById('industriesDropdownContainer');
+
+  if (indDropdownBtn && indDropdownMenu) {
+    indDropdownBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      indDropdownMenu.classList.toggle('open');
+      const isOpen = indDropdownMenu.classList.contains('open');
+      indDropdownBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (indDropdownContainer && !indDropdownContainer.contains(e.target)) {
+        indDropdownMenu.classList.remove('open');
+        indDropdownBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && indDropdownMenu.classList.contains('open')) {
+        indDropdownMenu.classList.remove('open');
+        indDropdownBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  // Industry Dropdown Items: Pre-populate Proposal Modal Context
+  document.querySelectorAll('.industry-dropdown-item').forEach(item => {
+    item.addEventListener('click', function(e) {
+      const domain = this.getAttribute('data-domain');
+      if (indDropdownMenu) {
+        indDropdownMenu.classList.remove('open');
+      }
+      if (domain) {
+        e.preventDefault();
+        openProposalWithSummary(`Industry Architecture Assessment: ${domain} (Enterprise Domain Practice)`);
+      }
+    });
+  });
+
   // 6. Dynamic Counter Animations (Synchronized across all 4 metric boxes)
   const counterElements = document.querySelectorAll('.metric-count');
   if (counterElements.length > 0) {

@@ -314,5 +314,65 @@ test.describe('NForceOne B2B Executive Website UI & Interactivity Tests', () => 
     await expect(page.locator('#case-studies')).toContainText('Bengaluru, India');
   });
 
+  test('15. Header Round Logo & 11-Sector Industries Dropdown Functionality', async ({ page }) => {
+    await page.goto(fileUrl);
+
+    // Verify logo is inside a rounded-full circular badge
+    const logoContainer = page.locator('header a[aria-label="NForceOne Home"] div');
+    await expect(logoContainer).toHaveClass(/rounded-full/);
+    await expect(logoContainer.locator('img[alt="NForceOne Logo"]')).toBeVisible();
+
+    // Verify Industries dropdown trigger
+    const indBtn = page.locator('#industriesDropdownBtn');
+    await expect(indBtn).toBeVisible();
+    await expect(indBtn).toContainText('Industries');
+
+    const indMenu = page.locator('#industriesDropdownMenu');
+    await expect(indMenu).not.toHaveClass(/open/);
+
+    // Click dropdown button to open
+    await indBtn.click();
+    await expect(indMenu).toHaveClass(/open/);
+
+    // Verify presence of all 11 sectors
+    await expect(indMenu.getByText('Telecommunications')).toBeVisible();
+    await expect(indMenu.getByText('Banking & Financial')).toBeVisible();
+    await expect(indMenu.getByText('Finance & FinTech')).toBeVisible();
+    await expect(indMenu.getByText('Healthcare & Life Sciences')).toBeVisible();
+    await expect(indMenu.getByText('Automotive & Mobility')).toBeVisible();
+    await expect(indMenu.getByText('Retail & eCommerce')).toBeVisible();
+    await expect(indMenu.getByText('Insurance (InsurTech)')).toBeVisible();
+    await expect(indMenu.getByText('Digital Media & AdTech')).toBeVisible();
+    await expect(indMenu.getByText('Energy & Utilities')).toBeVisible();
+    await expect(indMenu.getByText('Smart Manufacturing')).toBeVisible();
+    await expect(indMenu.getByText('ISV & Enterprise SaaS')).toBeVisible();
+
+    // Click Banking & Financial to verify proposal modal opens with context
+    const bankingItem = indMenu.locator('.industry-dropdown-item[data-domain="Banking & Financial"]');
+    await bankingItem.click();
+
+    const proposalModal = page.locator('#proposalModal');
+    await expect(proposalModal).toHaveClass(/active/);
+    await expect(page.locator('#proposalScopeSummary')).toContainText('Banking & Financial');
+
+    // Close proposal modal
+    await page.locator('#modalCloseBtn').click();
+    await expect(proposalModal).not.toHaveClass(/active/);
+  });
+
+  test('16. Ask Navi Assistant Tooltip Is Hidden by Default and Reveals on Hover', async ({ page }) => {
+    await page.goto(fileUrl);
+
+    const tooltip = page.locator('.ask-navi-tooltip');
+    await expect(tooltip).toBeAttached();
+
+    // Verify default opacity is 0
+    await expect(tooltip).toHaveCSS('opacity', '0');
+
+    // Hover over the widget trigger
+    await page.locator('#askNaviWidget').hover();
+    await expect(tooltip).toHaveCSS('opacity', '1');
+  });
+
 });
 

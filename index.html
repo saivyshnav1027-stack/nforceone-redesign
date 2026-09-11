@@ -49,13 +49,85 @@
   <header class="sticky top-0 z-50 flex justify-between items-center w-full px-6 md:px-16 bg-surface border-b border-border-light h-20 transition-all duration-300" id="main-nav">
     <div class="flex items-center gap-10">
       <!-- Brand Logo -->
-      <a href="#" class="flex items-center gap-3">
-        <img src="https://nforceone.com/wp-content/uploads/2023/03/NFroce-logo-scaled.jpg" alt="NForceOne Logo" class="h-10 w-auto object-contain">
+      <a href="#" class="flex items-center gap-3 group" aria-label="NForceOne Home">
+        <div class="w-14 h-14 md:w-16 md:h-16 rounded-full overflow-hidden border-2 border-slate-200 shadow-md bg-white flex items-center justify-center p-1.5 group-hover:border-primary transition-all duration-200 shrink-0">
+          <img src="assets/nforce_logo.jpg" alt="NForceOne Logo" class="w-full h-full object-contain rounded-full">
+        </div>
       </a>
 
       <!-- Header Navigation Menu with PRD v1.3 Primary Links -->
       <nav class="hidden md:flex items-center gap-6 lg:gap-8">
         <a class="font-label-md text-sm font-semibold text-on-background hover:text-primary transition-colors duration-200" href="#capabilities">Capabilities</a>
+        
+        <!-- Industries Simple Dropdown -->
+        <div class="relative group/ind" id="industriesDropdownContainer">
+          <button id="industriesDropdownBtn" class="font-label-md text-sm font-semibold text-on-background hover:text-primary transition-colors duration-200 flex items-center gap-1 py-2 focus:outline-none cursor-pointer" aria-expanded="false" aria-haspopup="true">
+            <span>Industries</span>
+            <span class="material-symbols-outlined text-[16px] text-muted-charcoal group-hover/ind:text-primary group-hover/ind:rotate-180 transition-transform duration-200">expand_more</span>
+          </button>
+          
+          <!-- Simple Clean Dropdown Menu -->
+          <div id="industriesDropdownMenu" class="absolute top-full left-0 mt-1 w-64 bg-white border border-border-light shadow-xl rounded-sm py-2 opacity-0 invisible translate-y-1 group-hover/ind:opacity-100 group-hover/ind:visible group-hover/ind:translate-y-0 transition-all duration-200 z-50">
+            <div class="px-3 py-1.5 border-b border-border-light flex items-center justify-between text-[11px] font-mono font-bold uppercase tracking-wider text-muted-charcoal">
+              <span>11 Industry Domains</span>
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            </div>
+            <div class="py-1 max-h-[360px] overflow-y-auto divide-y divide-slate-100">
+              <a href="#telecom" class="flex items-center justify-between px-3 py-2 text-xs font-semibold text-on-background hover:bg-slate-50 hover:text-primary transition-colors">
+                <span class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-sm text-primary">cell_tower</span>
+                  <span>Telecommunications</span>
+                </span>
+                <span class="text-[9px] font-mono bg-red-100 text-primary px-1 py-0.2 rounded font-bold">Crown Jewel</span>
+              </a>
+              <a href="javascript:void(0)" class="open-proposal-modal industry-dropdown-item flex items-center gap-2 px-3 py-2 text-xs font-medium text-on-background hover:bg-slate-50 hover:text-primary transition-colors" data-domain="Banking & Financial">
+                <span class="material-symbols-outlined text-sm text-slate-500">account_balance</span>
+                <span>Banking & Financial</span>
+              </a>
+              <a href="javascript:void(0)" class="open-proposal-modal industry-dropdown-item flex items-center gap-2 px-3 py-2 text-xs font-medium text-on-background hover:bg-slate-50 hover:text-primary transition-colors" data-domain="Finance & FinTech">
+                <span class="material-symbols-outlined text-sm text-slate-500">payments</span>
+                <span>Finance & FinTech</span>
+              </a>
+              <a href="javascript:void(0)" class="open-proposal-modal industry-dropdown-item flex items-center gap-2 px-3 py-2 text-xs font-medium text-on-background hover:bg-slate-50 hover:text-primary transition-colors" data-domain="Healthcare & Life Sciences">
+                <span class="material-symbols-outlined text-sm text-slate-500">medical_services</span>
+                <span>Healthcare & Life Sciences</span>
+              </a>
+              <a href="javascript:void(0)" class="open-proposal-modal industry-dropdown-item flex items-center gap-2 px-3 py-2 text-xs font-medium text-on-background hover:bg-slate-50 hover:text-primary transition-colors" data-domain="Automotive & Mobility">
+                <span class="material-symbols-outlined text-sm text-slate-500">directions_car</span>
+                <span>Automotive & Mobility</span>
+              </a>
+              <a href="javascript:void(0)" class="open-proposal-modal industry-dropdown-item flex items-center gap-2 px-3 py-2 text-xs font-medium text-on-background hover:bg-slate-50 hover:text-primary transition-colors" data-domain="Retail & eCommerce">
+                <span class="material-symbols-outlined text-sm text-slate-500">shopping_cart</span>
+                <span>Retail & eCommerce</span>
+              </a>
+              <a href="javascript:void(0)" class="open-proposal-modal industry-dropdown-item flex items-center gap-2 px-3 py-2 text-xs font-medium text-on-background hover:bg-slate-50 hover:text-primary transition-colors" data-domain="Insurance (InsurTech)">
+                <span class="material-symbols-outlined text-sm text-slate-500">policy</span>
+                <span>Insurance (InsurTech)</span>
+              </a>
+              <a href="javascript:void(0)" class="open-proposal-modal industry-dropdown-item flex items-center gap-2 px-3 py-2 text-xs font-medium text-on-background hover:bg-slate-50 hover:text-primary transition-colors" data-domain="Digital Media & AdTech">
+                <span class="material-symbols-outlined text-sm text-slate-500">smart_display</span>
+                <span>Digital Media & AdTech</span>
+              </a>
+              <a href="javascript:void(0)" class="open-proposal-modal industry-dropdown-item flex items-center gap-2 px-3 py-2 text-xs font-medium text-on-background hover:bg-slate-50 hover:text-primary transition-colors" data-domain="Energy & Utilities">
+                <span class="material-symbols-outlined text-sm text-slate-500">bolt</span>
+                <span>Energy & Utilities</span>
+              </a>
+              <a href="javascript:void(0)" class="open-proposal-modal industry-dropdown-item flex items-center gap-2 px-3 py-2 text-xs font-medium text-on-background hover:bg-slate-50 hover:text-primary transition-colors" data-domain="Smart Manufacturing">
+                <span class="material-symbols-outlined text-sm text-slate-500">precision_manufacturing</span>
+                <span>Smart Manufacturing</span>
+              </a>
+              <a href="javascript:void(0)" class="open-proposal-modal industry-dropdown-item flex items-center gap-2 px-3 py-2 text-xs font-medium text-on-background hover:bg-slate-50 hover:text-primary transition-colors" data-domain="ISV & Enterprise SaaS">
+                <span class="material-symbols-outlined text-sm text-slate-500">cloud_circle</span>
+                <span>ISV & Enterprise SaaS</span>
+              </a>
+            </div>
+            <div class="p-2 border-t border-border-light bg-slate-50">
+              <a href="javascript:void(0)" class="open-proposal-modal industry-dropdown-item w-full bg-primary hover:bg-primary-hover text-white text-[11px] font-bold py-1.5 px-2 rounded-none transition-colors flex items-center justify-center gap-1 cursor-pointer text-center" data-domain="Enterprise Multi-Sector Architecture">
+                Request Industry Blueprint <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+              </a>
+            </div>
+          </div>
+        </div>
         <a class="font-label-md text-sm font-semibold text-on-background hover:text-primary transition-colors duration-200" href="#telecom">Telecom</a>
         <a class="font-label-md text-sm font-semibold text-on-background hover:text-primary transition-colors duration-200" href="#products">Products</a>
         <a class="font-label-md text-sm font-semibold text-on-background hover:text-primary transition-colors duration-200" href="#case-studies">Case Studies</a>
