@@ -374,5 +374,88 @@ test.describe('NForceOne B2B Executive Website UI & Interactivity Tests', () => 
     await expect(tooltip).toHaveCSS('opacity', '1');
   });
 
+  test('17. Footer Wizard Link Opens Wizard and Reopening Resets to Step 1', async ({ page }) => {
+    await page.goto(fileUrl);
+    const wizardModal = page.locator('#solutionWizardModal');
+
+    await page.locator('#footWizardBtn').click();
+    await expect(wizardModal).toHaveClass(/active/);
+    await expect(page.locator('.wizard-step[data-step="1"]')).toHaveClass(/active/);
+
+    for (const step of ['1', '2', '3']) {
+      await page.locator(`.wizard-step[data-step="${step}"] .wizard-opt`).first().click();
+    }
+    await expect(page.locator('.wizard-step[data-step="result"]')).toHaveClass(/active/);
+
+    await page.locator('#wizardCloseBtn').click();
+    await expect(wizardModal).not.toHaveClass(/active/);
+
+    await page.locator('#openWizardBtn').click();
+    await expect(wizardModal).toHaveClass(/active/);
+    await expect(page.locator('.wizard-step[data-step="1"]')).toHaveClass(/active/);
+    await expect(page.locator('.wizard-step[data-step="result"]')).not.toHaveClass(/active/);
+    await expect(page.locator('.wizard-opt.selected')).toHaveCount(0);
+  });
+
+  test('18. Generic CTA Opens Proposal Modal Without Stale Scope Summary', async ({ page }) => {
+    await page.goto(fileUrl);
+    const proposalModal = page.locator('#proposalModal');
+    const summaryBox = page.locator('#proposalScopeSummary');
+
+    await page.locator('#estReqProposalBtn').click();
+    await expect(summaryBox).toBeVisible();
+    await page.locator('#modalCloseBtn').click();
+    await expect(proposalModal).not.toHaveClass(/active/);
+
+    await page.locator('#heroTalkExpertBtn').click();
+    await expect(proposalModal).toHaveClass(/active/);
+    await expect(summaryBox).toHaveClass(/hidden/);
+  });
+
+  test('19. Ask Navi Renders User Input as Plain Text', async ({ page }) => {
+    await page.goto(fileUrl);
+    const payload = '<img src=x onerror="window.__xss=1">';
+
+    await page.locator('#askNaviTrigger').click();
+    await page.locator('#naviInput').fill(payload);
+    await page.locator('#naviInput').press('Enter');
+
+    const userMsg = page.locator('.navi-msg-user').last();
+    await expect(userMsg).toHaveText(payload);
+    await expect(userMsg.locator('img')).toHaveCount(0);
+    expect(await page.evaluate(() => window.__xss)).toBeUndefined();
+  });
+
+  test('20. Escape Key Closes Open Modals', async ({ page }) => {
+    await page.goto(fileUrl);
+
+    const complianceModal = page.locator('#complianceModal');
+    await page.locator('.trust-badge-item').first().click();
+    await expect(complianceModal).toHaveClass(/active/);
+    await page.keyboard.press('Escape');
+    await expect(complianceModal).not.toHaveClass(/active/);
+
+    const proposalModal = page.locator('#proposalModal');
+    await page.locator('#heroTalkExpertBtn').click();
+    await expect(proposalModal).toHaveClass(/active/);
+    await page.keyboard.press('Escape');
+    await expect(proposalModal).not.toHaveClass(/active/);
+  });
+
+  test('21. Ask Navi Trigger Is Keyboard Accessible', async ({ page }) => {
+    await page.goto(fileUrl);
+    const trigger = page.locator('#askNaviTrigger');
+    const drawer = page.locator('#askNaviDrawer');
+
+    await trigger.focus();
+    await page.keyboard.press('Enter');
+    await expect(drawer).toHaveClass(/active/);
+    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+
+    await page.keyboard.press('Escape');
+    await expect(drawer).not.toHaveClass(/active/);
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+  });
+
 });
 

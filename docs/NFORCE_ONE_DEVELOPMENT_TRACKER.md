@@ -17,7 +17,7 @@
 | **Epic 4: Innovation & Proprietary Products** | QForce AI, AIKTRA, OneHR, Pulse, FlightOps, AuraFace | P0/P1 | US-401 to US-406 | Complete | 100% |
 | **Epic 5: Ask Navi AI Website Assistant** | Persistent widget, Q&A, Lead Capture, Radar Ring | P0/P1 | US-501 to US-507 | Complete | 100% |
 | **Epic 6: Engagement Models & Proof** | US+India Models, Case Studies, Testimonials | P1/P2 | US-601 to US-605 | Complete | 100% |
-| **Epic 7: Optimization & Quality Pack** | Responsive, A11y, SEO, 14 Playwright Tests | P0/P1 | US-701 to US-704 | Complete | 100% |
+| **Epic 7: Optimization & Quality Pack** | Responsive, A11y, SEO, Bug Fixes, 21 Playwright Tests | P0/P1 | US-701 to US-705 | Complete | 100% |
 
 ---
 
@@ -50,6 +50,9 @@
 - [x] **US-603 (P0)**: Verified Executive Client Testimonials (Senior Director of Network Systems, VP of Cloud Engineering, Chief Information Officer)
 - [x] **US-604 (P1)**: Authentic Cross-Border Employee Experience & Delivery Culture Strip (US Architects in Dallas + India QA Leads in Bengaluru)
 - [x] **US-704 (P0)**: 14/14 Automated Playwright End-to-End Regression Suite Passing (100% Green)
+
+### Sprint 4: Bug Fix Pass (Completed)
+- [x] **US-705 (P0)**: Interaction & Accessibility Bug Fixes — footer Solution Match Wizard link wired, wizard resets to Step 1 on reopen, generic CTAs no longer show a stale proposal scope summary, Ask Navi renders user input as plain text (XSS fix), Escape closes all modals, Ask Navi trigger keyboard-operable with `aria-expanded`, footer logo served from local assets. 21/21 Playwright tests.
 
 
 ---

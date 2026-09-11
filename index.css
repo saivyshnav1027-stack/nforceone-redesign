@@ -872,7 +872,7 @@ img {
 
 #askNaviWidget:hover .ask-navi-tooltip,
 .ask-navi-trigger:hover ~ .ask-navi-tooltip,
-#askNaviTrigger:focus-visible ~ .ask-navi-tooltip,
+#askNaviWidget:has(#askNaviTrigger:focus-visible) .ask-navi-tooltip,
 #askNaviWidget.show-tooltip .ask-navi-tooltip {
   opacity: 1;
   transform: translateX(0);

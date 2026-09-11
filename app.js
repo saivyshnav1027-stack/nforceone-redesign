@@ -44,9 +44,23 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentStep = 1;
   const wizardData = { goal: '', scale: '', challenge: '' };
 
-  if (openWizardBtn && solutionWizardModal) {
-    openWizardBtn.addEventListener('click', () => {
-      solutionWizardModal.classList.add('active');
+  const footWizardBtn = document.getElementById('footWizardBtn');
+
+  function openWizard() {
+    if (!solutionWizardModal) return;
+    wizardData.goal = '';
+    wizardData.scale = '';
+    wizardData.challenge = '';
+    solutionWizardModal.querySelectorAll('.wizard-opt.selected').forEach(o => o.classList.remove('selected'));
+    goToWizardStep(1);
+    solutionWizardModal.classList.add('active');
+  }
+
+  if (openWizardBtn) openWizardBtn.addEventListener('click', openWizard);
+  if (footWizardBtn) {
+    footWizardBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      openWizard();
     });
   }
   if (wizardCloseBtn && solutionWizardModal) {
@@ -299,12 +313,17 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // General Proposal Modal Triggers
+  function openProposal() {
+    if (!proposalModal) return;
+    const summaryBox = document.getElementById('proposalScopeSummary');
+    if (summaryBox) summaryBox.classList.add('hidden');
+    proposalModal.classList.add('active');
+  }
+
   document.querySelectorAll('.open-proposal-modal').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
-      if (proposalModal) {
-        proposalModal.classList.add('active');
-      }
+      openProposal();
     });
   });
 
@@ -314,6 +333,12 @@ document.addEventListener('DOMContentLoaded', () => {
       if (e.target === proposalModal) proposalModal.classList.remove('active');
     });
   }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));
+    }
+  });
 
   // Industries Header Dropdown Interactivity
   const indDropdownBtn = document.getElementById('industriesDropdownBtn');
@@ -473,25 +498,33 @@ document.addEventListener('DOMContentLoaded', () => {
   const naviChatForm = document.getElementById('naviChatForm');
   const naviInput = document.getElementById('naviInput');
 
+  function setNaviOpen(isOpen) {
+    if (!askNaviDrawer) return;
+    askNaviDrawer.classList.toggle('active', isOpen);
+    if (askNaviTrigger) askNaviTrigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    if (isOpen && naviInput) naviInput.focus();
+  }
+
+  function closeNavi() {
+    setNaviOpen(false);
+  }
+
   if (askNaviTrigger && askNaviDrawer) {
-    askNaviTrigger.addEventListener('click', () => {
-      askNaviDrawer.classList.toggle('active');
-      if (askNaviDrawer.classList.contains('active') && naviInput) {
-        naviInput.focus();
+    const toggleNavi = () => setNaviOpen(!askNaviDrawer.classList.contains('active'));
+    askNaviTrigger.addEventListener('click', toggleNavi);
+    askNaviTrigger.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleNavi();
       }
     });
   }
 
-  if (closeNaviDrawer && askNaviDrawer) {
-    closeNaviDrawer.addEventListener('click', () => {
-      askNaviDrawer.classList.remove('active');
-    });
-  }
+  if (closeNaviDrawer) closeNaviDrawer.addEventListener('click', closeNavi);
 
-  // Keyboard shortcut Esc closes Ask Navi
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && askNaviDrawer && askNaviDrawer.classList.contains('active')) {
-      askNaviDrawer.classList.remove('active');
+      closeNavi();
     }
   });
 
@@ -556,7 +589,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!naviChatBody) return;
     const msgDiv = document.createElement('div');
     msgDiv.className = `navi-msg ${isUser ? 'navi-msg-user' : 'navi-msg-bot'}`;
-    msgDiv.innerHTML = text;
+    if (isUser) {
+      msgDiv.textContent = text;
+    } else {
+      msgDiv.innerHTML = text;
+    }
     naviChatBody.appendChild(msgDiv);
     naviChatBody.scrollTop = naviChatBody.scrollHeight;
 
@@ -564,8 +601,8 @@ document.addEventListener('DOMContentLoaded', () => {
     msgDiv.querySelectorAll('.open-proposal-modal').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.preventDefault();
-        if (askNaviDrawer) askNaviDrawer.classList.remove('active');
-        if (proposalModal) proposalModal.classList.add('active');
+        closeNavi();
+        openProposal();
       });
     });
   }
