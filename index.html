@@ -2118,48 +2118,99 @@
     </div>
   </div>
 
-  <!-- Proposal Blueprint Modal (`#proposalModal`) -->
+  <!-- Proposal & Demo Dynamic Modal (`#proposalModal`) -->
   <div id="proposalModal" class="modal-overlay fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4">
-    <div class="modal-card bg-surface w-full max-w-lg border border-border-light p-8 shadow-2xl relative">
-      <button id="modalCloseBtn" class="absolute top-4 right-4 text-muted-charcoal hover:text-primary">
+    <div class="modal-card bg-surface w-full max-w-lg border border-border-light p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+      <button id="modalCloseBtn" class="absolute top-4 right-4 text-muted-charcoal hover:text-primary transition-colors cursor-pointer" aria-label="Close modal">
         <span class="material-symbols-outlined text-2xl">close</span>
       </button>
 
       <div class="mb-6">
-        <span class="text-xs font-bold uppercase tracking-wider text-primary">Direct Consultation</span>
-        <h3 class="font-headline-md text-2xl font-bold text-on-background mt-1">Plan Your IT Project</h3>
-        <p class="text-sm text-muted-charcoal mt-1">Submit your project details and a senior solutions architect will contact you within 24 hours.</p>
+        <span class="text-xs font-bold uppercase tracking-wider text-primary" id="modalBadge">Direct Consultation</span>
+        <h3 class="font-headline-md text-2xl font-bold text-on-background mt-1" id="modalHeading">Plan Your IT Project</h3>
+        <p class="text-sm text-muted-charcoal mt-1" id="modalSubheading">Submit your project details and a senior solutions architect will contact you within 24 hours.</p>
       </div>
 
-      <!-- Dynamic Scope Summary Box (Populated by Wizard / Estimator) -->
-      <div id="proposalScopeSummary" class="hidden bg-primary/5 border border-primary/20 p-4 mb-6 text-xs text-on-background font-semibold">
+      <!-- Dynamic Scope Summary Box (Populated by Wizard / Estimator / Demo triggers) -->
+      <div id="proposalScopeSummary" class="hidden bg-primary/5 border border-primary/20 p-4 mb-6 text-xs text-on-background font-semibold rounded-sm">
         Selected Project Scope Summary will appear here.
       </div>
 
-      <form class="space-y-4" onsubmit="event.preventDefault(); alert('Thank you! Your project blueprint request has been received. Our team will reach out shortly.'); document.getElementById('proposalModal').classList.remove('active');">
-        <div>
-          <label class="block text-xs font-bold uppercase tracking-wider text-muted-charcoal mb-1">Full Name *</label>
-          <input type="text" required class="w-full border border-border-light p-3 text-sm focus:border-primary focus:outline-none" placeholder="e.g. Sarah Jenkins">
+      <form id="universalModalForm" class="space-y-4">
+        <!-- Common Contact Fields -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-muted-charcoal mb-1">Full Name *</label>
+            <input type="text" id="modalFullName" required class="w-full border border-border-light bg-background p-3 text-sm focus:border-primary focus:outline-none" placeholder="e.g. Sarah Jenkins">
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-muted-charcoal mb-1">Corporate Email *</label>
+            <input type="email" id="modalEmail" required class="w-full border border-border-light bg-background p-3 text-sm focus:border-primary focus:outline-none" placeholder="sarah@company.com">
+          </div>
         </div>
-        <div>
-          <label class="block text-xs font-bold uppercase tracking-wider text-muted-charcoal mb-1">Corporate Email *</label>
-          <input type="email" required class="w-full border border-border-light p-3 text-sm focus:border-primary focus:outline-none" placeholder="sarah@company.com">
+
+        <!-- 1. Mode: Direct Consultation Fields -->
+        <div id="modalFieldsConsultation" class="space-y-3">
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-muted-charcoal mb-1">Primary Practice Area</label>
+            <select class="w-full border border-border-light bg-background p-3 text-sm focus:border-primary focus:outline-none">
+              <option>Cloud Infrastructure & Cybersecurity</option>
+              <option>Software Engineering & QA Automation</option>
+              <option>Pega Enterprise Development</option>
+              <option>AI Automation & Data Analytics</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-muted-charcoal mb-1">Project Details / Requirements</label>
+            <textarea rows="3" class="w-full border border-border-light bg-background p-3 text-sm focus:border-primary focus:outline-none" placeholder="Describe your timeline, team requirements, or compliance needs..."></textarea>
+          </div>
         </div>
-        <div>
-          <label class="block text-xs font-bold uppercase tracking-wider text-muted-charcoal mb-1">Primary Interest</label>
-          <select class="w-full border border-border-light p-3 text-sm focus:border-primary focus:outline-none">
-            <option>Cloud Infrastructure & Cybersecurity</option>
-            <option>Software Engineering & QA Automation</option>
-            <option>Pega Enterprise Development</option>
-            <option>AI Automation & Data Analytics</option>
-          </select>
+
+        <!-- 2. Mode: Request Demo (Company Applications) Fields -->
+        <div id="modalFieldsDemo" class="space-y-3 hidden">
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-muted-charcoal mb-1">Select Application / Accelerator *</label>
+            <select id="modalProductSelect" class="w-full border border-border-light bg-background p-3 text-sm focus:border-primary focus:outline-none font-medium">
+              <option value="QForce AI">QForce AI — Autonomous Self-Healing QA Engine</option>
+              <option value="AIKTRA">AIKTRA — Enterprise Agentic AI & RAG Orchestrator</option>
+              <option value="OneHR">OneHR — Workforce Intelligence & Talent Lifecycle AI</option>
+              <option value="Pulse">Pulse — System Observability & Real-Time Latency Telemetry</option>
+              <option value="FlightOps">FlightOps — GitOps Delivery & Release Governance</option>
+              <option value="AuraFace">AuraFace — Edge Biometric Zero-Trust Identity</option>
+              <option value="Enterprise Suite">Enterprise Accelerator Suite (Full Platform POC)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-muted-charcoal mb-1">Demo Evaluation Focus / Use Case</label>
+            <textarea rows="3" id="modalDemoNotes" class="w-full border border-border-light bg-background p-3 text-sm focus:border-primary focus:outline-none" placeholder="Tell us about your test suite scale, tech stack, or specific scenarios you'd like demonstrated (e.g. self-healing locators, multi-agent RAG, canary gating)..."></textarea>
+          </div>
         </div>
-        <div>
-          <label class="block text-xs font-bold uppercase tracking-wider text-muted-charcoal mb-1">Project Details / Requirements</label>
-          <textarea rows="3" class="w-full border border-border-light p-3 text-sm focus:border-primary focus:outline-none" placeholder="Describe your timeline, team requirements, or compliance needs..."></textarea>
+
+        <!-- 3. Mode: Request Proposal Blueprint Fields -->
+        <div id="modalFieldsBlueprint" class="space-y-3 hidden">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-muted-charcoal mb-1">Company / Organization *</label>
+              <input type="text" class="w-full border border-border-light bg-background p-3 text-sm focus:border-primary focus:outline-none" placeholder="e.g. Acme Telecom Corp">
+            </div>
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-muted-charcoal mb-1">Target Start Timeline</label>
+              <select class="w-full border border-border-light bg-background p-3 text-sm focus:border-primary focus:outline-none">
+                <option>Immediate (Within 30 Days)</option>
+                <option>Next Quarter (30-90 Days)</option>
+                <option>Exploratory / Planning Phase</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-muted-charcoal mb-1">Specific Architecture / Delivery Constraints</label>
+            <textarea rows="3" class="w-full border border-border-light bg-background p-3 text-sm focus:border-primary focus:outline-none" placeholder="Specify compliance requirements (SOC2, HIPAA), target cloud providers, or dedicated squad preferences..."></textarea>
+          </div>
         </div>
-        <button type="submit" class="w-full bg-primary text-white font-bold py-4 hover:bg-primary-hover transition-colors flex items-center justify-center gap-2">
-          Submit Project Blueprint Request <span class="material-symbols-outlined text-[18px]">send</span>
+
+        <button type="submit" id="modalSubmitBtn" class="w-full bg-primary text-white font-bold py-4 hover:bg-primary-hover transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-md">
+          <span id="modalSubmitBtnText">Submit Project Blueprint Request</span>
+          <span class="material-symbols-outlined text-[18px]" id="modalSubmitBtnIcon">send</span>
         </button>
       </form>
     </div>

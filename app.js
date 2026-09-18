@@ -451,8 +451,57 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  let currentModalMode = 'consultation';
+
+  // Helper to switch modal mode: 'consultation' | 'demo' | 'blueprint'
+  function setModalMode(mode, options = {}) {
+    currentModalMode = mode;
+    const modalBadge = document.getElementById('modalBadge');
+    const modalHeading = document.getElementById('modalHeading');
+    const modalSubheading = document.getElementById('modalSubheading');
+    const fieldsConsultation = document.getElementById('modalFieldsConsultation');
+    const fieldsDemo = document.getElementById('modalFieldsDemo');
+    const fieldsBlueprint = document.getElementById('modalFieldsBlueprint');
+    const submitBtnText = document.getElementById('modalSubmitBtnText');
+    const submitBtnIcon = document.getElementById('modalSubmitBtnIcon');
+    const productSelect = document.getElementById('modalProductSelect');
+
+    if (mode === 'demo') {
+      if (modalBadge) modalBadge.textContent = 'Live Platform Walkthrough';
+      if (modalHeading) modalHeading.textContent = options.productName ? `Request Demo: ${options.productName}` : 'Request Product Demonstration';
+      if (modalSubheading) modalSubheading.textContent = 'Experience our enterprise accelerators in an interactive live technical walkthrough with our engineering leads.';
+      if (fieldsConsultation) fieldsConsultation.classList.add('hidden');
+      if (fieldsBlueprint) fieldsBlueprint.classList.add('hidden');
+      if (fieldsDemo) fieldsDemo.classList.remove('hidden');
+      if (submitBtnText) submitBtnText.textContent = 'Schedule Live Demonstration';
+      if (submitBtnIcon) submitBtnIcon.textContent = 'play_circle';
+      if (productSelect && options.productName) {
+        productSelect.value = options.productName;
+      }
+    } else if (mode === 'blueprint') {
+      if (modalBadge) modalBadge.textContent = 'Custom Scope & Architecture Blueprint';
+      if (modalHeading) modalHeading.textContent = 'Request Tailored Proposal Blueprint';
+      if (modalSubheading) modalSubheading.textContent = 'Receive a formal squad composition, delivery sprint roadmap, governance standards, and commercial estimate.';
+      if (fieldsConsultation) fieldsConsultation.classList.add('hidden');
+      if (fieldsDemo) fieldsDemo.classList.add('hidden');
+      if (fieldsBlueprint) fieldsBlueprint.classList.remove('hidden');
+      if (submitBtnText) submitBtnText.textContent = 'Generate Tailored Proposal Blueprint';
+      if (submitBtnIcon) submitBtnIcon.textContent = 'assignment_turned_in';
+    } else {
+      // mode === 'consultation'
+      if (modalBadge) modalBadge.textContent = 'Direct Consultation';
+      if (modalHeading) modalHeading.textContent = 'Plan Your IT Project';
+      if (modalSubheading) modalSubheading.textContent = 'Submit your project details and a senior solutions architect will contact you within 24 hours.';
+      if (fieldsDemo) fieldsDemo.classList.add('hidden');
+      if (fieldsBlueprint) fieldsBlueprint.classList.add('hidden');
+      if (fieldsConsultation) fieldsConsultation.classList.remove('hidden');
+      if (submitBtnText) submitBtnText.textContent = 'Submit Project Blueprint Request';
+      if (submitBtnIcon) submitBtnIcon.textContent = 'send';
+    }
+  }
+
   // Helper to open Proposal Modal with custom summary context
-  function openProposalWithSummary(summaryText) {
+  function openProposalWithSummary(summaryText, forceMode = null, forceProductName = null) {
     if (proposalModal) {
       proposalModal.classList.add('active');
       const summaryBox = document.getElementById('proposalScopeSummary');
@@ -460,6 +509,30 @@ document.addEventListener('DOMContentLoaded', () => {
         summaryBox.textContent = summaryText;
         summaryBox.classList.remove('hidden');
       }
+
+      let mode = forceMode;
+      if (!mode) {
+        if (summaryText.includes('Requested Platform Demo:')) {
+          mode = 'demo';
+        } else if (summaryText.includes('Estimated Scope:') || summaryText.includes('Recommended Solution Blueprint:') || summaryText.includes('Industry Architecture Assessment:')) {
+          mode = 'blueprint';
+        } else {
+          mode = 'consultation';
+        }
+      }
+
+      let productName = forceProductName || '';
+      if (!productName && mode === 'demo') {
+        const match = summaryText.match(/Requested Platform Demo:\s*(.*?)\s+Architecture/);
+        if (match && match[1]) {
+          productName = match[1].trim();
+        } else {
+          const simpleMatch = summaryText.match(/Requested Platform Demo:\s*(.+)/);
+          if (simpleMatch && simpleMatch[1]) productName = simpleMatch[1].trim();
+        }
+      }
+
+      setModalMode(mode, { productName });
     }
   }
 
@@ -468,6 +541,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!proposalModal) return;
     const summaryBox = document.getElementById('proposalScopeSummary');
     if (summaryBox) summaryBox.classList.add('hidden');
+    setModalMode('consultation');
     proposalModal.classList.add('active');
   }
 
@@ -482,6 +556,25 @@ document.addEventListener('DOMContentLoaded', () => {
     modalCloseBtn.addEventListener('click', () => proposalModal.classList.remove('active'));
     proposalModal.addEventListener('click', (e) => {
       if (e.target === proposalModal) proposalModal.classList.remove('active');
+    });
+  }
+
+  const universalModalForm = document.getElementById('universalModalForm');
+  if (universalModalForm) {
+    universalModalForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      let alertMsg = 'Thank you! Your request has been received. Our team will reach out shortly.';
+      if (currentModalMode === 'demo') {
+        const prod = document.getElementById('modalProductSelect')?.value || 'the selected application';
+        alertMsg = `Thank you! Your live demo request for ${prod} has been scheduled. Our product engineering lead will send a calendar invitation shortly.`;
+      } else if (currentModalMode === 'blueprint') {
+        alertMsg = 'Thank you! Your tailored proposal blueprint request has been received. Our solutions architects are generating your squad & delivery roadmap.';
+      } else {
+        alertMsg = 'Thank you! Your project blueprint request has been received. Our team will reach out shortly.';
+      }
+      alert(alertMsg);
+      proposalModal.classList.remove('active');
+      universalModalForm.reset();
     });
   }
 
@@ -688,7 +781,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.prod-demo-btn').forEach(btn => {
     btn.addEventListener('click', function() {
       const prodName = this.getAttribute('data-product') || 'Enterprise Accelerator';
-      openProposalWithSummary(`Requested Platform Demo: ${prodName} Architecture & Live Evaluation`);
+      openProposalWithSummary(`Requested Platform Demo: ${prodName} Architecture & Live Evaluation`, 'demo', prodName);
     });
   });
 
